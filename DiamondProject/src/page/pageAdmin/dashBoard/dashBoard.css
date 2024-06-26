@@ -1,0 +1,16 @@
+.home { 
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(180px, auto);
+}
+.box {
+    padding:  20px;
+    border-radius: 10px ;
+    border: 1px solid ;
+}
+.box1 {
+    grid-column: span 2;
+    grid-row: span 1;
+ 
+}

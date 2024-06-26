@@ -1,0 +1,16 @@
+.table-row {
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+.mr-2{
+    margin-left:30% ;
+}
+.staff-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+}
+.closeButton{
+ margin-right: 100px;
+}

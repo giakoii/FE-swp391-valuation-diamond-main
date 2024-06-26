@@ -1,0 +1,14 @@
+.admin {
+    color: white;
+}
+
+.admin:hover {
+    color: #ccc;
+}
+
+.mr-2{
+    margin: "10px"
+}
+.menu .admin.active {
+    background-color: #f0f0f0;
+  }

@@ -1,0 +1,30 @@
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add some margin for spacing */
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination .page-item {
+    margin: 0 5px; /* Adjust spacing between page items */
+}
+
+.pagination .page-link {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    color: #9BF0DC;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #9BF0DC;
+    color: white;
+    border: 1px solid #9BF0DC;
+}

@@ -1,0 +1,38 @@
+.button-group{
+    
+}
+
+.button-group Button.selected {
+    background-color:#67FFE4;
+    color: #333;
+    border: 1px solid #333;
+    font-weight: bold;
+}
+
+.button-group Button {
+    background-color:white;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.button-group Button:hover {
+    background-color: rgb(194, 194, 194);
+    color: #333;
+    border: 1px solid #333;
+}
+
+.button-submit Button{
+    background-color: #67FFE4;
+    color: #333;
+    border: 1px solid #333;
+    font-weight: bold;
+}
+.button-submit Button:hover {
+    background-color: rgb(194, 194, 194);
+    color: #333;
+    border: 1px solid #333;
+}
+.quality-diamond{
+    font-size: 12px;
+    margin-bottom: 10px;
+}

@@ -50,7 +50,7 @@ export const ManageService = () => {
     const handleOnServiceTypeChange = (serviceId) => {
         const fetchUpdateData = async() => {
             try {
-                await fetch(`/api/service/${serviceId}`, {
+                await fetch(`http://localhost:8080/service/update/${serviceId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json', 
@@ -179,6 +179,7 @@ export const ManageService = () => {
             }
         });
     };
+
     // Fetch service price list by service ID
     const handleViewServicePriceList = async(serviceId) => {
         setSelectedServiceId(serviceId);
@@ -191,7 +192,6 @@ export const ManageService = () => {
             console.error("Error fetching service price list: " + error);
         }
     };
-
     const [showFormAddNewPriceList, setShowFormAddNewPriceList] = useState(false);
     const showModalFormAddNewPriceList = () => setShowFormAddNewPriceList(true);
     const closeFormAddNewPriceList = () =>setShowFormAddNewPriceList(false);
@@ -215,40 +215,53 @@ export const ManageService = () => {
     // Handle submit for saving new price list
     const handleSubmitSaveNewPriceList = async (e) => {
         e.preventDefault();
-
-        try {
-            const response = await fetch('http://localhost:8080/service_price_list/addPriceList', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formAddNewServicePriceList,
-                    serviceId: selectedServiceId,
-                }),
-            });
-            if (response.ok) {
-                const newPriceList = await response.json();
-                setServicePriceList([...servicePriceList, newPriceList]);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Add new Price List successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                });
-                setformAddNewServicePriceList({
-                    sizeFrom: '',
-                    sizeTo: '',
-                    initPrice: '',
-                    priceUnit: '',
-                    serviceId: selectedServiceId,
-                });
-                setShowFormAddNewPriceList(false); // Close modal after successful submission
-            }
-        } catch (error) {
-            console.error("Error Save New Price List: " + error);
+      
+        const { sizeFrom, sizeTo } = formAddNewServicePriceList;
+      
+        // Validate sizeTo > sizeFrom
+        if (parseInt(sizeTo) <= parseInt(sizeFrom)) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Size To must be greater than Size From.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+          return;
         }
-    };
+      
+        try {
+          const response = await fetch('http://localhost:8080/service_price_list/addPriceList', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ...formAddNewServicePriceList,
+              serviceId: selectedServiceId,
+            }),
+          });
+          if (response.ok) {
+            const newPriceList = await response.json();
+            setServicePriceList([...servicePriceList, newPriceList]);
+            Swal.fire({
+              title: 'Success!',
+              text: 'Add new Price List successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            });
+            setformAddNewServicePriceList({
+              sizeFrom: '',
+              sizeTo: '',
+              initPrice: '',
+              priceUnit: '',
+              serviceId: selectedServiceId,
+            });
+            setShowFormAddNewPriceList(false); // Close modal after successful submission
+          }
+        } catch (error) {
+          console.error('Error Save New Price List: ' + error);
+        }
+      };
 
     // Handle edit price list
     const handleEditPriceList = (priceList, field, value) => {
@@ -273,7 +286,15 @@ export const ManageService = () => {
     const handleSaveEditPriceList = async (priceListId) => {
         const editedPriceList = editPriceList[priceListId];
         if (!editedPriceList) return;
-    
+        if (parseFloat(editedPriceList.sizeFrom) >= parseFloat(editedPriceList.sizeTo)) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Size From must be less than Size To.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
         try {
             const response = await fetch(`http://localhost:8080/service_price_list/updateServicePriceListById/${priceListId}`, {
                 method: 'PUT',
@@ -282,20 +303,13 @@ export const ManageService = () => {
                 },
                 body: JSON.stringify(editedPriceList),
             });
-    
+            console.log(editedPriceList);   
+
             if (response.ok) {
-                const updatedPriceList = await response.json();
-                setServicePriceList(prevState => 
-                    prevState.map(priceList =>
-                        priceList.priceList === priceListId ? updatedPriceList : priceList
-                    )
-                );
+                setServicePriceList(prevState => prevState.map(priceList =>
+                    priceList.servicePriceId === priceListId ? { ...priceList, ...editedPriceList } : priceList
+                ));
                 setEditPriceRowId(null);
-                setEditPriceList(prevState => {
-                    const newState = { ...prevState };
-                    delete newState[priceListId];
-                    return newState;
-                });
                 Swal.fire({
                     title: 'Success!',
                     text: 'Price List updated successfully.',
@@ -307,7 +321,6 @@ export const ManageService = () => {
             console.error("Error updating price list: " + error);
         }
     };
-    
     // Delete price list item
     const handleDeletePriceList = (priceList) => {
         Swal.fire({

@@ -107,8 +107,8 @@ function EvaluationServicePage() {
               required
             >
               <option value="">Select Service</option>
-              <option value="EvaluationDiamond">Evaluation Diamond</option>
-              <option value="RemakeEvaluationDiamond">Remake Evaluation Diamond</option>
+              <option value="Evaluation Diamond">Evaluation Diamond</option>
+              <option value="Remake Evaluation Diamond">Remake Evaluation Diamond</option>
             </select>
           </div>
 

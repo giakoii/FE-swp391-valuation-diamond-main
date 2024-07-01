@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ManageStaff.css';
 import { Modal, Button, Form, Pagination, Row, Col } from 'react-bootstrap';
-import Swal from 'sweetalert2';
-import formattedDate from '../../../utils/formattedDate/formattedDate';
-
+import { validateForm, showAlert,validateEditForm,formattedDate2} from '../../../utils/validation/valAdd';
+import  formattedDate  from '../../../utils/formattedDate/formattedDate.js'
+import {Swal} from 'sweetalert2'
 export const ManageStaff = () => {
   const [dataStaff, setDataStaff] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -50,26 +50,10 @@ export const ManageStaff = () => {
     const usernameHavedTrim = formAddStaff.userId.trim();
     const passwordHavedTrim = formAddStaff.password.trim();
     
-    if (formAddStaff.password !== formAddStaff.confirmPassword) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Confirm Password failed.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+    if (!validateForm(usernameHavedTrim, passwordHavedTrim, formAddStaff.confirmPassword, formAddStaff.firstName, formAddStaff.lastName)) {
       return;
     }
-    
-    if (usernameHavedTrim.length < 8 || passwordHavedTrim.length < 8) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Username or password must be greater than 8 characters.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
-  
+
     const formSendAddNewStaff = {
       userId: usernameHavedTrim,
       password: passwordHavedTrim,
@@ -77,7 +61,7 @@ export const ManageStaff = () => {
       lastName: formAddStaff.lastName,
       role: formAddStaff.role,
     };
-      console.log(formSendAddNewStaff);
+    console.log(formSendAddNewStaff);
     try {
       const response = await fetch('http://localhost:8080/user_request/create', {
         method: 'POST',
@@ -85,28 +69,15 @@ export const ManageStaff = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formSendAddNewStaff),
-    
       });
       if (response.ok) {
         const newStaff = await response.json();
         setDataStaff([...dataStaff, newStaff]);
         setFilteredSelection([...dataStaff, newStaff]);
-        Swal.fire({
-          title: 'Success!',
-          text: 'Add new staff successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
-
-       
+        showAlert('Success!', 'Add new staff successfully.', 'success');
         handleClose();
       } else if (response.status === 400) { 
-        Swal.fire({
-          title: 'Error!',
-          text: 'Username is already existed.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
+        showAlert('Error!', 'Username is already existed.', 'error');
       } else {
         console.log('Save failed');
       }
@@ -171,16 +142,8 @@ export const ManageStaff = () => {
   const handleEditOnSubmit = async (e) => {
     e.preventDefault();
     if (!formEditStaff) return;
-  
     const passwordHavedTrim = formEditStaff.password.trim();
-  
-    if (passwordHavedTrim.length < 8) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Password must be greater than 8 characters.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+    if(!validateEditForm(passwordHavedTrim,formEditStaff.firstName,formEditStaff.lastName,formEditStaff.phoneNumber,formEditStaff.address)){
       return;
     }
   
@@ -201,12 +164,7 @@ export const ManageStaff = () => {
         setFilteredSelection((prevData) =>
           prevData.map((staff) => (staff.userId === updatedStaff.userId ? updatedStaff : staff))
         );
-        Swal.fire({
-          title: 'Success!',
-          text: 'Staff updated successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
+        showAlert('Success!', 'Staff updated successfully.', 'success');
         handleCloseEditStaff();
       } else {
         console.log('Update failed');
@@ -215,7 +173,8 @@ export const ManageStaff = () => {
       console.log('Error:', error);
     }
   };
-  //delete staff
+
+  // Delete staff
   const handleDeleteStaff = async (userId) => {
     const confirmResult = await Swal.fire({
       title: 'Are you sure?',
@@ -236,11 +195,7 @@ export const ManageStaff = () => {
         if (response.ok) {
           setDataStaff(dataStaff.filter(staff => staff.userId !== userId));
           setFilteredSelection(filteredSelection.filter(staff => staff.userId !== userId));
-          Swal.fire(
-            'Deleted!',
-            'Staff has been deleted.',
-            'success'
-          );
+          showAlert('Deleted!', 'Staff has been deleted.', 'success');
         } else {
           console.log('Delete failed');
         }
@@ -276,6 +231,7 @@ export const ManageStaff = () => {
     const filteredData = dataStaff.filter((item) => item.userId.toString().includes(searchTerm));
     setFilteredSelection(filteredData);
   };
+
     return (
       <div className='container'>
         <div className='justify-content-first d-flex my-2 p-4'>
@@ -338,8 +294,8 @@ export const ManageStaff = () => {
               <div className="row">
                 <p className='col-md-2'> {dataStaff.userId}</p>
                 <p className='col-md-3'>{dataStaff.firstName +' '+ dataStaff.lastName}</p>
-                <p className='col-md-3'> {dataStaff.email}</p>
-                <p className='col-md-2'>{dataStaff.phoneNumber}</p>
+                <p className='col-md-3'> {dataStaff.phoneNumber}</p>
+                <p className='col-md-2'>{dataStaff.email}</p>
                 <div className='col-md-2 d-flex justify-content-around'>
                   <Button onClick={() => handleShowStaffInfor(dataStaff.userId)} className='nav-link'>
                     <img
@@ -535,133 +491,121 @@ export const ManageStaff = () => {
       </Modal>
         )}
                   {/* Modal Edit Staff */}
-        {formEditStaff && (
-          <Modal show={showEditForm} onHide={handleCloseStaffInfor} className='p-5' size='lg'>
-            <Modal.Header closeButton>
-              <img
-                src='/src/assets/assetsAdmin/logo.png'
-                width='80'
-                height='80'
-                alt='Logo'
-                className=''
-              />
-              <Modal.Title className='w-100 d-flex justify-content-center'>EDIT Staff</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form
-                className='form-row my-5 p-3 mx-5'
-                style={{ width: "650px", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }}
-                onSubmit={handleEditOnSubmit}
-              >
-                <div className='justify-content-center d-flex my-2 p-4'>
-                  <h3>Form Edit Staff</h3>
-                </div>
-                <div className='form-row d-flex my-5'>
-                  <div className='form-group col-md-6'>
-                    <label htmlFor='firstName'>FirstName:</label>
+          {formEditStaff && (
+            <Modal show={showEditForm} onHide={handleCloseEditStaff} className='p-5' size='lg'>
+              <Modal.Header closeButton>
+                <img
+                  src='/src/assets/assetsAdmin/logo.png'
+                  width='80'
+                  height='80'
+                  alt='Logo'
+                  className=''
+                />
+                <Modal.Title className='w-100 d-flex justify-content-center'>EDIT Staff</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form
+                  className='form-row my-5 p-3 mx-5'
+                  style={{ width: "650px", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }}
+                  onSubmit={handleEditOnSubmit}
+                >
+                  <div className='justify-content-center d-flex my-2 p-4'>
+                    <h3>Form Edit Staff</h3>
+                  </div>
+                  <div className='form-row d-flex my-5'>
+                    <div className='form-group col-md-6'>
+                      <label htmlFor='firstName'>FirstName:</label>
+                      <input
+                        id='firstName'
+                        type='text'
+                        name='firstName'
+                        value={formEditStaff.firstName}
+                        className='mx-2'
+                        onChange={handleEditOnChange}
+                        style={{ width: "70%", borderRadius: "5px" }}
+                        required
+                      />
+                    </div>
+                    <div className='form-group col-md-6'>
+                      <label htmlFor='lastName'>LastName:</label>
+                      <input
+                        id='lastName'
+                        type='text'
+                        name='lastName'
+                        value={formEditStaff.lastName}
+                        className='mx-2'
+                        onChange={handleEditOnChange}
+                        style={{ width: "70%", borderRadius: "5px" }}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className='form-group d-flex col-md-7 '>
+                      <Form.Label className=''>Role:</Form.Label>
+                      <Form.Select 
+                        name='role'
+                        value={formEditStaff.role}
+                        onChange={handleEditOnChange}
+                        className='mx-5'
+                        required
+                      >
+                        <option value='evaluation_staff'>Evaluation Staff</option>
+                        <option value='consultant_staff'>Consultant Staff</option>
+                      </Form.Select>
+                    </div>
+                  <div className='form-group col-md-6 my-5'>
+                    <label htmlFor='password'>Password:</label>
                     <input
-                      id='firstName'
-                      type='text'
-                      name='firstName'
-                      value={formEditStaff.firstName}
+                      id='password'
+                      type='password'
+                      name='password'
+                      value={formEditStaff.password}
                       className='mx-2'
                       onChange={handleEditOnChange}
                       style={{ width: "70%", borderRadius: "5px" }}
                       required
                     />
                   </div>
-                  <div className='form-group col-md-6'>
-                    <label htmlFor='lastName'>LastName:</label>
+                  <div className='form-group col-md-6 my-5'>
+                    <label htmlFor='email'>Email:</label>
                     <input
-                      id='lastName'
-                      type='text'
-                      name='lastName'
-                      value={formEditStaff.lastName}
+                      id='email'
+                      type='email'
+                      name='email'
+                      value={formEditStaff.email}
                       className='mx-2'
                       onChange={handleEditOnChange}
                       style={{ width: "70%", borderRadius: "5px" }}
                       required
                     />
                   </div>
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='role'>Role:</label>
-                  <input
-                    id='role'
-                    type='text'
-                    name='role'
-                    value={formEditStaff.role}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='password'>Password:</label>
-                  <input
-                    id='password'
-                    type='password'
-                    name='password'
-                    value={formEditStaff.password}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='email'>Email:</label>
-                  <input
-                    id='email'
-                    type='email'
-                    name='email'
-                    value={formEditStaff.email}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='phoneNumber'>Phone:</label>
-                  <input
-                    id='phoneNumber'
-                    type='text'
-                    name='phoneNumber'
-                    value={formEditStaff.phoneNumber}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='address'>Address:</label>
-                  <input
-                    id='address'
-                    type='text'
-                    name='address'
-                    value={formEditStaff.address}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='birthday'>Birthday:</label>
-                  <input
-                    id='birthday'
-                    type='text'
-                    name='birthday'
-                    value={formEditStaff.birthday}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
+                  <div className='form-group col-md-6 my-5'>
+                    <label htmlFor='phoneNumber'>Phone:</label>
+                    <input
+                      id='phoneNumber'
+                      type='number'
+                      name='phoneNumber'
+                      value={formEditStaff.phoneNumber}
+                      className='mx-2'
+                      onChange={handleEditOnChange}
+                      style={{ width: "70%", borderRadius: "5px" }}
+                      required
+                    />
+                  </div>
+                  <div className='form-group col-md-6 my-5'>
+                    <label htmlFor='address'>Address:</label>
+                    <input
+                      id='address'
+                      type='text'
+                      name='address'
+                      value={formEditStaff.address}
+                      className='mx-2'
+                      onChange={handleEditOnChange}
+                      style={{ width: "70%", borderRadius: "5px" }}
+                      required
+                    />
+                  </div>
+                   
               
                 <div className='form-button text-center d-flex justify-content-end'>
                   <button type="submit" className='p-2 mx-2' style={{ width: "70px", backgroundColor: "#CCFBF0" }}>Save</button>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './ManageCustomer.css';
 import { Modal, Button, Form, Pagination, Row, Col } from 'react-bootstrap';
-import Swal from 'sweetalert2';
-import formattedDate from '../../../utils/formattedDate/formattedDate';
-
+import { validateForm, showAlert,validateEditForm} from '../../../utils/validation/valAdd';
+import  formattedDate  from '../../../utils/formattedDate/formattedDate.js'
+import {Swal} from 'sweetalert2'
 export const ManageCustomer = () => {
-  const [dataCustomer, setDataCustomer] = useState([]);
+  const [dataCust, setDataCust] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formContainCustById, setFormContainCustById] = useState(null);
   const [showFormInfor, setShowFormInfor] = useState(false);
@@ -44,69 +44,40 @@ export const ManageCustomer = () => {
     });
   };
 
-  // Save new customer
+  // Save new cust
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const usernameHavedTrim = formAddCust.userId.trim();
     const passwordHavedTrim = formAddCust.password.trim();
-
-    if (formAddCust.password !== formAddCust.confirmPassword) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Confirm Password failed.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+    
+    if (!validateForm(usernameHavedTrim, passwordHavedTrim, formAddCust.confirmPassword, formAddCust.firstName, formAddCust.lastName)) {
       return;
     }
 
-    if (usernameHavedTrim.length < 8 || passwordHavedTrim.length < 8) {  
-      Swal.fire({
-        title: 'Error!',
-        text: 'Username or password must be greater than 8 characters.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
-
-    const formSendAddNewCust = {
+    const formSendAddNewCustomer = {
       userId: usernameHavedTrim,
       password: passwordHavedTrim,
       firstName: formAddCust.firstName,
       lastName: formAddCust.lastName,
       role: formAddCust.role,
     };
-
+    console.log(formSendAddNewCustomer);
     try {
       const response = await fetch('http://localhost:8080/user_request/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formSendAddNewCust),
-
+        body: JSON.stringify(formSendAddNewCustomer),
       });
-      console.log(formSendAddNewCust);
       if (response.ok) {
-        const newDataCustAdd = await response.json();
-        setDataCustomer([...dataCustomer, newDataCustAdd]);
-        setFilteredSelection([...dataCustomer, newDataCustAdd]);
-        Swal.fire({
-          title: 'Success!',
-          text: 'Add new customer successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
-
+        const newStaff = await response.json();
+        setDataCust([...dataCust, newStaff]);
+        setFilteredSelection([...dataCust, newStaff]);
+        showAlert('Success!', 'Add new Customer successfully.', 'success');
         handleClose();
-      } else if (response.status === 400) {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Username is already existed.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
+      } else if (response.status === 400) { 
+        showAlert('Error!', 'Username is already existed.', 'error');
       } else {
         console.log('Save failed');
       }
@@ -115,43 +86,43 @@ export const ManageCustomer = () => {
     }
   };
 
-  // Fetch customer data
+  // Fetch cutomer data
   useEffect(() => {
-    const fetchDataCustomer = async () => {
+    const fetchDataStaff = async () => {
       try {
         const response = await fetch('http://localhost:8080/user_request/getCustomer');
         const data = await response.json();
-        setDataCustomer(data);
+        setDataCust(data);
         setFilteredSelection(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchDataCustomer();
+    fetchDataStaff();
   }, []);
 
-  // Show customer information
-  const handleShowCustomerInfor = async (userId) => {
+  // Show sutomer information
+  const handleShowCustInfor = async (userId) => {
     try {
       const response = await fetch(`http://localhost:8080/user_request/getAUser/${userId}`);
-      const customer = await response.json();
-      setFormContainCustById(customer);
+      const cutomer = await response.json();
+      setFormContainCustById(cutomer);
       setShowFormInfor(true);
     } catch (error) {
       console.log('Error:', error);
     }
   };
 
-  const handleCloseCustomerInfor = () => {
+  const handleCloseCustInfor = () => {
     setShowFormInfor(false);
     setFormContainCustById(null);
   };
 
-  // Show edit customer form
-  const handleShowEditCustomer = async (customerId) => {
+  // Show edit Cust form
+  const handleShowEditCust = async (CustId) => {
     try {
-      const response = await fetch(`http://localhost:8080/user_request/getAUser/${customerId}`);
+      const response = await fetch(`http://localhost:8080/user_request/getAUser/${CustId}`);
       const customer = await response.json();
       setFormEditCust(customer);
       setOriginalData(customer); // Store the original data
@@ -161,29 +132,21 @@ export const ManageCustomer = () => {
     }
   };
 
-  const handleCloseEditCustomer = () => {
+  const handleCloseEditCust = () => {
     setShowEditForm(false);
     setFormEditCust(null);
     setOriginalData(null);
   };
 
-  // Handle edit customer form submit
+  // Handle edit Cust form submit
   const handleEditOnSubmit = async (e) => {
     e.preventDefault();
     if (!formEditCust) return;
-
     const passwordHavedTrim = formEditCust.password.trim();
-
-    if (passwordHavedTrim.length < 8) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Password must be greater than 8 characters.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+    if(!validateEditForm(passwordHavedTrim,formEditCust.firstName,formEditCust.lastName,formEditCust.phoneNumber,formEditCust.address)){
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:8080/user_request/updateUser/${formEditCust.userId}`, {
         method: 'PUT',
@@ -192,22 +155,17 @@ export const ManageCustomer = () => {
         },
         body: JSON.stringify(formEditCust),
       });
-
+  
       if (response.ok) {
-        const updatedCustomer = await response.json();
-        setDataCustomer((prevData) =>
-          prevData.map((cust) => (cust.userId === updatedCustomer.userId ? updatedCustomer : cust))
+        const updatedStaff = await response.json();
+        setDataCust((prevData) =>
+          prevData.map((cust) => (cust.userId === updatedStaff.userId ? updatedStaff : cust))
         );
         setFilteredSelection((prevData) =>
-          prevData.map((cust) => (cust.userId === updatedCustomer.userId ? updatedCustomer : cust))
+          prevData.map((cust) => (cust.userId === updatedStaff.userId ? updatedStaff : cust))
         );
-        Swal.fire({
-          title: 'Success!',
-          text: 'Customer updated successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
-        handleCloseEditCustomer();
+        showAlert('Success!', 'Staff updated successfully.', 'success');
+        handleCloseEditCust();
       } else {
         console.log('Update failed');
       }
@@ -215,8 +173,9 @@ export const ManageCustomer = () => {
       console.log('Error:', error);
     }
   };
-  //delete cust
-  const handleDeleteCustomer = async (userId) => {
+
+  // Delete Customer
+  const handleDeleteCust = async (userId) => {
     const confirmResult = await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -234,13 +193,9 @@ export const ManageCustomer = () => {
         });
   
         if (response.ok) {
-          setDataCustomer(dataCustomer.filter(customer => customer.userId !== userId));
-          setFilteredSelection(filteredSelection.filter(customer => customer.userId !== userId));
-          Swal.fire(
-            'Deleted!',
-            'Customer has been deleted.',
-            'success'
-          );
+          setDataCust(dataCust.filter(cust => cust.userId !== userId));
+          setFilteredSelection(filteredSelection.filter(cust => cust.userId !== userId));
+          showAlert('Deleted!', 'Staff has been deleted.', 'success');
         } else {
           console.log('Delete failed');
         }
@@ -249,7 +204,6 @@ export const ManageCustomer = () => {
       }
     }
   };
-
   //------------------------------------
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
@@ -273,7 +227,7 @@ export const ManageCustomer = () => {
 
   // Handle search
   const handleSearch = () => {
-    const filteredData = dataCustomer.filter((item) => item.userId.toString().includes(searchTerm));
+    const filteredData = dataCust.filter((item) => item.userId.toString().includes(searchTerm));
     setFilteredSelection(filteredData);
   };
 
@@ -342,7 +296,7 @@ export const ManageCustomer = () => {
                 <p className='col-md-3'> {dataCust.email}</p>
                 <p className='col-md-2'>{dataCust.phoneNumber}</p>
                 <div className='col-md-2 d-flex justify-content-around'>
-                  <Button onClick={() => handleShowCustomerInfor(dataCust.userId)} className='nav-link'>
+                  <Button onClick={() => handleShowCustInfor(dataCust.userId)} className='nav-link'>
                     <img
                       src='/src/assets/assetsAdmin/eye.svg'
                       width='20'
@@ -352,7 +306,7 @@ export const ManageCustomer = () => {
                     
                     />
                   </Button>
-                  <Button onClick={() => handleShowEditCustomer(dataCust.userId)} className="nav-link">
+                  <Button onClick={() => handleShowEditCust(dataCust.userId)} className="nav-link">
                     <img
                       src='/src/assets/assetsAdmin/pen.svg'
                       width='20'
@@ -361,7 +315,7 @@ export const ManageCustomer = () => {
                       alt='Edit'
                     />
                   </Button>
-                  <Button className="nav-link" onClick={() => handleDeleteCustomer(dataCust.userId)}>
+                  <Button className="nav-link" onClick={() => handleDeleteCust(dataCust.userId)}>
                     <img
                       src='/src/assets/assetsAdmin/trash.svg'
                       width='20'
@@ -475,7 +429,7 @@ export const ManageCustomer = () => {
         </Modal>
                   {/* Modal show Infor Customer */}
         {formContainCustById && (
-            <Modal show={showFormInfor} onHide={handleCloseCustomerInfor}  className='p-5' size='lg'>
+            <Modal show={showFormInfor} onHide={handleCloseCustInfor}  className='p-5' size='lg'>
                 <Modal.Header closeButton>
           <img
             src='/src/assets/assetsAdmin/logo.png'
@@ -525,7 +479,7 @@ export const ManageCustomer = () => {
         )}
                   {/* Modal Edit Customer */}
         {formEditCust && (
-          <Modal show={showEditForm} onHide={handleCloseEditCustomer} className='p-5' size='lg'>
+          <Modal show={showEditForm} onHide={handleCloseEditCust} className='p-5' size='lg'>
             <Modal.Header closeButton>
               <img
                 src='/src/assets/assetsAdmin/logo.png'
@@ -573,19 +527,7 @@ export const ManageCustomer = () => {
                     />
                   </div>
                 </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='role'>Role:</label>
-                  <input
-                    id='role'
-                    type='text'
-                    name='role'
-                    value={formEditCust.role}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
+                
                 <div className='form-group col-md-6 my-5'>
                   <label htmlFor='password'>Password:</label>
                   <input
@@ -638,19 +580,7 @@ export const ManageCustomer = () => {
                     required
                   />
                 </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='birthday'>Birthday:</label>
-                  <input
-                    id='birthday'
-                    type='text'
-                    name='birthday'
-                    value={formEditCust.birthday}
-                    className='mx-2'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
+               
               
                 <div className='form-button text-center d-flex justify-content-end'>
                   <button type="submit" className='p-2 mx-2' style={{ width: "70px", backgroundColor: "#CCFBF0" }}>Save</button>

@@ -66,7 +66,7 @@ const HomeCustomer = () => {
                         </p>
                     </div>
                     <div className="w-50 p-2">
-                 <img src="/public/assets/cc.png" alt="Diamond" style={{width: "70%", height: "60%", marginLeft: "10%" }} className="img-fluid" />
+                 <img src="./public/assets/cc.png" alt="Diamond" style={{width: "70%", height: "60%", marginLeft: "10%" }} className="img-fluid" />
                 </div>
 
                 </div>

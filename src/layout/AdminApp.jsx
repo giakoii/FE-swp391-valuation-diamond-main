@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '../component/componentAdmin/header/Header.jsx';
 import AdminSideBar from '../component/componentAdmin/Body/sidebar/SideBar.jsx';
-import { ScheduleProvider } from '../contexts/ScheduleContext.jsx';
+import { ScheduleProvider } from '../contexts/AuthContext/ScheduleContext.jsx';
 
 function AdminApp() {
   const location = useLocation();

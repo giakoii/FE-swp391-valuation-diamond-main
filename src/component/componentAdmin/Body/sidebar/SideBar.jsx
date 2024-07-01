@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
-import { useSchedule } from '../../../../contexts/ScheduleContext.jsx';
+import { useSchedule } from '../../../../contexts/AuthContext/ScheduleContext.jsx';
 import { ManageSchedule } from '../../../../page/pageAdmin/ManageSchedule/ManageScheldule.jsx';
 import { Badge } from 'react-bootstrap';
 

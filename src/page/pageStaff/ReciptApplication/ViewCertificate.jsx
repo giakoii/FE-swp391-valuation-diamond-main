@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { API_BASE_URL } from '../../../utils/constants/url';
 
 export const ViewCertificate = () => {
     const [isPrint, setIsPrint] = useState(false);
@@ -16,7 +17,7 @@ export const ViewCertificate = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/evaluation_results/getEvaluationResultsByOrderDetailId/${orderDetailId}`);
+                const response = await fetch(`${API_BASE_URL}/evaluation_results/getEvaluationResultsByOrderDetailId/${orderDetailId}`);
                 const data = await response.json();
                 console.log(data)
                 setCertificate(data);

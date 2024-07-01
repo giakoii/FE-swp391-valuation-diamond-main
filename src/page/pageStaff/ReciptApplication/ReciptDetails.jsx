@@ -8,16 +8,17 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Status } from "../../../component/Status";
-
-const API_BASE_URL = "http://localhost:8080";
+import getColorTime from "../../../utils/hook/getTimeColor";
+import { API_BASE_URL } from "../../../utils/constants/url";
+import checkExistId from "../../../utils/checkExistId";
 
 export const ReceiptDetails = () => {
   const [orderDetails, setOrderDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { orderId } = useParams();
   const navigate = useNavigate();
-  const [isFinishedOrder, setIsFinishedOrder] = useState(false);
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,6 +26,7 @@ export const ReceiptDetails = () => {
           `${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`
         );
         const data = await response.json();
+        console.log(data)
         setOrderDetails(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,6 +41,21 @@ export const ReceiptDetails = () => {
     navigate(`/staff/view-certificate/${orderDetailId}`)
   }
 
+  const createCommitment = async () => {
+    // try {
+    //   const isExist = await checkExistId(`${API_BASE_URL}/committed_Paper/getCommittedPaperByOrderId`, orderDetails[0]?.orderId.orderId);
+    //   console.log("Check existence result:", isExist); // Log the result of the check
+    //   if (isExist) {
+    //     toast.error("Your commitment paper for this order has already been created");
+    //   } else {
+        navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
+      // }
+    // } catch (error) {
+    //   console.error("Error checking commitment existence:", error);
+    //   toast.error("Error checking commitment existence");
+    // }
+  };
+
 
   const updateOrderStatus = async (status) => {
     try {
@@ -48,8 +65,7 @@ export const ReceiptDetails = () => {
         "status",
         status
       );
-      
-      setOrderDetails((prevDetails) => 
+      setOrderDetails((prevDetails) =>
         prevDetails.map((detail) => {
           if (detail.orderId.orderId === orderId) {
             return { ...detail, orderId: { ...detail.orderId, status: status } };
@@ -66,6 +82,10 @@ export const ReceiptDetails = () => {
   };
 
   const showConfirmDialog = (e, status) => {
+    if(orderDetails[0]?.orderId?.status === 'In-Progress'){
+      toast.error('Your order have not completed')
+      return ;
+    }
     e.preventDefault();
     confirmAlert({
       title: `Confirm to ${status}`,
@@ -77,7 +97,7 @@ export const ReceiptDetails = () => {
         },
         {
           label: "Cancel",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -147,10 +167,15 @@ export const ReceiptDetails = () => {
                   <img src={product.img} alt="" height="80" width="80" />
                 </td>
                 <td>{product.serviceId.serviceType}</td>
-                <td>{formattedDateTime(product.receivedDate)}</td>
+                <td style={{ backgroundColor: getColorTime(orderDetails[0]?.orderId?.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
                 <td>{product.evaluationStaffId}</td>
                 <td>{product.size}</td>
-                <td>{product.isDiamond ? "Yes" : "No"}</td>
+                <td>{product.isDiamond ? "Diamond" : "Not a diamond"}</td>
+                {/* <td>
+                <div style={{ alignItems: "center" }}>
+                  {product.isDiamond === null ? "Unknown" : (product.isDiamond ? "Diamond" : "Not a diamond")}
+                </div>
+                </td> */}
                 <td>
                   <Status status={product.status} />
                 </td>
@@ -171,20 +196,22 @@ export const ReceiptDetails = () => {
           <Button
             style={{ margin: "0px 13px" }}
             onClick={(e) => showConfirmDialog(e, "Finished")}
+             disabled={orderDetails[0]?.orderId?.status === 'Finished'}
           >
-            {!isFinishedOrder ? "Finished" : "Finish Order"}
+            {/* {!isFinishedOrder ? "Finished" : "Finish Order"} */}
+            Finish Order
           </Button>
           <Button
             style={{ margin: "0px 13px" }}
             onClick={(e) => showConfirmDialog(e, "Sealed")}
+            disabled={orderDetails[0]?.orderId?.status === 'Finished'}
           >
-            {!isFinishedOrder ? "Sealed" : "Seal Order"}
+            {/* {!isFinishedOrder ? "Sealed" : "Seal Order"} */}
+            Seal Order
           </Button>
           <Button
             style={{ margin: "0px 13px" }}
-            onClick={() => {
-              navigate("/staff/commitment", { state: { orderDetails } });
-            }}
+            onClick={createCommitment}
           >
             Create Commitment
           </Button>

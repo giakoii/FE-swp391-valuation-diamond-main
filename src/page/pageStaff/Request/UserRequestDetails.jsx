@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formattedDateTime from "../../../utils/formattedDate/formattedDateTime";
+import { API_BASE_URL } from "../../../utils/constants/url";
 import dayjs from "dayjs";
 
 export const UserRequestDetails1 = ({ userRequestDetail }) => {
@@ -14,18 +15,20 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
   const [isEditingDate, setIsEditingDate] = useState(false);
   const [errorMeetingDate, setErrorMeetingDate] = useState("");
 
+  // console.log de test
   console.log(dayjs().format());
   console.log(dayjs(appointmentDate).format());
   console.log(formattedDateTime(appointmentDate));
-  console.log(dayjs(appointmentDate).format("h:MM A") < dayjs().format("h:MM A"))
-  const API = "http://localhost:8080/evaluation-request/update";
+  console.log(dayjs(appointmentDate).format() < dayjs().format())
+
+  const API = `${API_BASE_URL}/evaluation-request/update`;
 
   const handleAddDate = async (value) => {
     if (!value) {
       return;
     }
     // Compare selected date with current date
-    if (dayjs(value).format("h:mm A") < dayjs().format("h:mm A")) {
+    if (dayjs(value).format() < dayjs().format()) {
       setErrorMeetingDate("Invalid time");
       return;
     }

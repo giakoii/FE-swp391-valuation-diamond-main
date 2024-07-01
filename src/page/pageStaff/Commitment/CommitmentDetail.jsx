@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CommitmentGenerate from "./CommitmentGenerate";
 import formattedDate from "../../../utils/formattedDate/formattedDate";
+import { API_BASE_URL } from "../../../utils/constants/url";
 
 
 const CommitmentDetail = () => {
@@ -19,7 +20,7 @@ const CommitmentDetail = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/committed_Paper/getCommittedPaper/${committedId}`
+          `${API_BASE_URL}/committed_Paper/getCommittedPaper/${committedId}`
         );
         const data = await response.json();
         setCommitmentDetails(data);

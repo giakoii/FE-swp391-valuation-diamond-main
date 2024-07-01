@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import formattedDate from '../../../utils/formattedDate/formattedDate';
 import { Pagination } from '../../../component/Pagination/Pagination';
+import { API_BASE_URL } from '../../../utils/constants/url';
 
 export const CommitmentList = () => {
   const [commitment, setCommitment] = useState([]);
@@ -20,7 +21,7 @@ export const CommitmentList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/committed_Paper/getCommittedPaper');
+        const response = await fetch(`${API_BASE_URL}/committed_Paper/getCommittedPaper`);
         const data = await response.json();
         setCommitment(data.reverse());
         setFilteredCommitment(data);

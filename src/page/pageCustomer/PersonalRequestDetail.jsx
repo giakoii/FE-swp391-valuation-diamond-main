@@ -8,17 +8,17 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
 import formattedDateTime from '../../utils/formattedDate/formattedDateTime';
 import { Status } from '../../component/Status';
+import { API_BASE_URL } from '../../utils/constants/url';
 
 export const PersonalRequestDetail = () => {
   const { requestId } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { state } = useLocation();
   const [requestDetail, setRequestDetail] = useState({});
   const [order, setOrder] = useState([]);
   const [isOrder, setIsOrder] = useState(false);
 
-  const API = `http://localhost:8080/evaluation-request`;
+  const API = `${API_BASE_URL}/evaluation-request`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,32 +41,32 @@ export const PersonalRequestDetail = () => {
   }, [requestId]);
 
   // get order by request id 
-  const APIOrderById = `http://localhost:8080/order_request/getOrderByRequestId`;
-  useEffect(() => {
-    const fetchOrderData = async () => {
-      try {
-        const response = await fetch(`${APIOrderById}/${requestId}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch order details');
-        }
-        const data = await response.json();
-        if (data != null) {
-          setOrder(data);
-          setIsOrder(true);
-        }
-      } catch (error) {
-        console.error('Error fetching order data:', error);
-      }
-    };
-    fetchOrderData();
-  }, [requestId]);
+  // const APIOrderById = `${API_BASE_URL}/getOrderByRequestId`;
+  // useEffect(() => {
+  //   const fetchOrderData = async () => {
+  //     try {
+  //       const response = await fetch(`${APIOrderById}/${requestId}`);
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch order details');
+  //       }
+  //       const data = await response.json();
+  //       if (data != null) {
+  //         setOrder(data);
+  //         setIsOrder(true);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching order data:', error);
+  //     }
+  //   };
+  //   fetchOrderData();
+  // }, [requestId]);
 
-  const APIUpdate = 'http://localhost:8080/evaluation-request/update';
+  const APIUpdate = `${API_BASE_URL}/evaluation-request/update`;
   const handleOnCancel = async (value) => {
-    if (order.length > 0 && order[0].orderId) {
-      toast.error("You have had an order, so you cannot cancel at this time");
-      return;
-    }
+    // if (order.length > 0 && order[0].orderId) {
+    //   toast.error("You have had an order, so you cannot cancel at this time");
+    //   return;
+    // }
 
     try {
       const response = await fetch(`${APIUpdate}/${requestId}`, {
@@ -138,27 +138,27 @@ export const PersonalRequestDetail = () => {
           </Col>
           <Col md={3}>
             <div className='fw-bold'>Request ID</div>
-            <div>{state.request.requestId}</div>
+            <div>{requestDetail.requestId}</div>
           </Col>
           <Col md={3}>
             <div className='fw-bold'>Order ID</div>
-            {isOrder && order.length > 0 && <div>{order[0].orderId}</div>}
+            {/* {isOrder && order.length > 0 && <div>{order[0].orderId}</div>} */}
           </Col>
         </Row>
         <Row className='mb-3'>
           <Col md={6}>
             <div className='fw-bold'>Customer</div>
-            <div>{state.request.guestName}</div>
+            <div>{requestDetail.guestName}</div>
           </Col>
           <Col md={6}>
             <div className='fw-bold'>Phone</div>
-            <div>{state.request.phoneNumber}</div>
+            <div>{requestDetail.phoneNumber}</div>
           </Col>
         </Row>
         <Row className='mb-3'>
           <Col>
             <div className='fw-bold'>Description</div>
-            <div>{state.request.requestDescription}</div>
+            <div>{requestDetail.requestDescription}</div>
           </Col>
         </Row>
         <Row className='mt-4'>

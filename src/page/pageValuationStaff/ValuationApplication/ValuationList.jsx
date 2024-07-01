@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Container, Row, Col, Form, Spinner } from 'react-bootstrap';
-import { GeneratePDF } from './GeneratePDF';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import formattedDate from '../../../utils/formattedDate/formattedDate';
 import { Pagination } from '../../../component/Pagination/Pagination';
 import { RemakeGenerate } from '../RemakeValution/RemakeGenerate';
+import { API_BASE_URL } from '../../../utils/constants/url';
 // ROLE: CONSULTANT_STAFF
 export const ValuationList = () => {
   const [valuationResult, setValuationRequest] = useState([]);
   const [isPrint, setIsPrint] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+  const [filteredSelection, setFilteredSelection] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   // pagination
   const [loading, setLoading] = useState(false);
@@ -18,16 +19,17 @@ export const ValuationList = () => {
   //
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentCertificate = valuationResult.slice(indexOfFirstPost, indexOfLastPost);
+  const currentCertificate = filteredSelection.slice(indexOfFirstPost, indexOfLastPost);
   // change paginate
   const paginate = (number) => setCurrentPage(number);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/evaluation_results/getEvaluationResults');
+        const response = await fetch(`${API_BASE_URL}/evaluation_results/getEvaluationResults`);
         const data = await response.json();
         setValuationRequest(data);
+        setFilteredSelection(data)
         setLoading(true)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -40,8 +42,10 @@ export const ValuationList = () => {
     return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
   }
 
-  const handleSearch = ()=>{
-    
+  const handleSearch = () => {
+    const filteredData = valuationResult.filter(item => item.evaluationResultId.toString().includes(searchTerm)
+    );
+    setFilteredSelection(filteredData);
   }
   const handleOnPrint = (result) => {
     setSelectedResult(result);
@@ -81,7 +85,7 @@ export const ValuationList = () => {
             <thead style={{ backgroundColor: '#E2FBF5' }}>
               <tr>
                 <th>Valuation ID</th>
-                <th>Product ID</th>
+                <th>Sample ID</th>
                 <th>Customer Name</th>
                 <th>Date</th>
                 <th>Valuation Staff</th>
@@ -114,6 +118,12 @@ export const ValuationList = () => {
               ))}
             </tbody>
           </Table>
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={filteredSelection.length}
+            paginate={paginate}
+
+          />
         </>
       ) : (
         <div>
@@ -136,12 +146,7 @@ export const ValuationList = () => {
           </Row>
         </div>
       )}
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={valuationResult.length}
-        paginate={paginate}
 
-      />
     </Container>
   );
 };

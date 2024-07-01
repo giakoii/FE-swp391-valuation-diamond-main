@@ -23,13 +23,14 @@ import { CertificateDetail } from "./page/pageValuationStaff/ValuationApplicatio
 // Customer Pages
 import HomeCustomer from "./page/pageCustomer/HomeCustomer.jsx";
 import Signup from "./page/pageCustomer/Signup";
-import Blog from "./page/pageCustomer/Blog";
 import Contact from "./page/pageCustomer/Contact";
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";
 import Calculate from "./page/pageCustomer/Calculate/Calculate.jsx";
 import Check from "./page/pageCustomer/Check";
 import { PersonalRequest } from "./page/pageCustomer/PersonalRequest";
 import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx";
+import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
+import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
 import { ManageCustomer } from "./page/pageAdmin/ManageCustomer/ManageCustomer.jsx";
@@ -62,7 +63,6 @@ function App() {
           }
         >
           <Route path="/" element={<HomeCustomer />} />
-          <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
         </Route>
 
@@ -81,6 +81,9 @@ function App() {
             path="my-request/:requestId"
             element={<PersonalRequestDetail />}
           />
+          <Route path="my-order" element={<PersonalOrder />} />
+          {/* sẽ sửa lại thành order detail sau*/}
+          <Route path="my-order/:orderId" element={<PersonalOrderDetail />} />
         </Route>
 
         {/* ROLE:GUEST*/}
@@ -123,7 +126,7 @@ function App() {
           <Route path="view-receipt/:orderId" element={<ReceiptDetails />} />
           <Route path="view-certificate/:orderDetailId" element={<ViewCertificate />} />
           <Route path="create-receipt" element={<CreateReceipt />} />
-          <Route path="commitment" element={<CreateCommitment />} />
+          <Route path="commitment/:orderId" element={<CreateCommitment />} />
           <Route path="commitment-list" element={<CommitmentList />} />
           <Route
             path="commitment-list/:committedId"
@@ -144,7 +147,7 @@ function App() {
           <Route index element={<ValuationOrderDetail />} />
           <Route path="valuation-order" element={<ValuationOrderDetail />} />
           <Route path="valuation-order/:orderDetailId" element={<ValuationOrderDetailUpdate />} />
-          <Route path="valuation" element={<ValuationApplication />} />
+          <Route path="valuation/:orderDetailId" element={<ValuationApplication />} />
           <Route path="certificate-list" element={<MyCertificateList />} />
           <Route
             path="certificate-list/:evaluationResultId"

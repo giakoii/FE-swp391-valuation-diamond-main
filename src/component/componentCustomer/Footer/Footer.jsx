@@ -83,12 +83,13 @@ function Footer() {
                                 />
                             </NavLink>
                             <NavLink href='' className='p-2'>
-                                <img
+                                {/* <img
                                     src='/src/assets/assetsCustomer/tiktok.svg'
                                     alt='TikTok'
                                     width='15'
                                     height='15'
-                                />
+                                /> */}
+                                <i class="bi-alarm"></i>
                             </NavLink>
                         </Nav>
                     </Col>

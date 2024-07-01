@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import formattedDateTime from '../../../utils/formattedDate/formattedDateTime';
 import './ManageSchedule.css';
 import { Pagination } from 'react-bootstrap';
-import { useSchedule } from '../../../contexts/ScheduleContext.jsx';
+import { useSchedule } from '../../../contexts/AuthContext/ScheduleContext.jsx';
 
 export const ManageSchedule = () => {
   const [dataManage, setDataManage] = useState([]);

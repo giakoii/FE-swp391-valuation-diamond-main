@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../../utils/hook/useAuth";
 import { login } from "../../contexts/AuthContext/reducer";
+import { API_BASE_URL } from "../../utils/constants/url";
 
 function Login() {
     const [userId, setUsername] = useState('');
@@ -36,7 +37,7 @@ function Login() {
         const loginRequest = { userId, password }
         if (validate()) {
             try {
-                const response = await axios.post('http://localhost:8080/user_request/login', loginRequest, {
+                const response = await axios.post(`${API_BASE_URL}/user_request/login`, loginRequest, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'

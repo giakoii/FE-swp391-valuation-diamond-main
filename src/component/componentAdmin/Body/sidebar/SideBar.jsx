@@ -3,9 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
-import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
-
 import { Badge } from 'react-bootstrap';
+import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
 
 const AdminSideBar = () => {
   const [manageAccountOpen, setManageAccountOpen] = useState(false);
@@ -22,9 +21,7 @@ const AdminSideBar = () => {
         throw new Error('Failed to fetch schedule count');
       }
       const data = await response.json();
-      if (data.length > 0) {
-        setManageScheduleCount(data.count); // Accessing count property from the first object in the array
-      }
+      setManageScheduleCount(data.count); // Accessing count property from the response
     } catch (error) {
       console.error('Error fetching schedule count:', error);
     }

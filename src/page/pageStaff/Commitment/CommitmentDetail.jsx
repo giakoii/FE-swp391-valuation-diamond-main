@@ -14,8 +14,8 @@ const CommitmentDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { committedId } = useParams();
-  
- 
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -172,15 +172,19 @@ const CommitmentDetail = () => {
         </>
       ) : (
         <div>
-          <img
+          {/* <img
             src="/src/assets/assetsStaff/back.svg"
             alt="Go Back"
             className="mt-3"
             height="20"
             width="20"
             onClick={() => setIsPrint(false)}
-          />
-           <CommitmentGenerate commitmentResult={commitmentDetail} />
+          /> */}
+          <i className="bi bi-arrow-90deg-left"
+            onClick={() => setIsPrint(false)}
+            style={{ cursor: "pointer", height:20, width:20 }}
+          ></i>
+          <CommitmentGenerate commitmentResult={commitmentDetail} />
         </div>
       )}
     </div>

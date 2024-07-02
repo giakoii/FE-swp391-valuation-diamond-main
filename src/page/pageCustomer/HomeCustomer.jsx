@@ -18,7 +18,8 @@ const HomeCustomer = () => {
         <div className="full-width-container">
             <div>
 
-                <img src="/src/assets/assetsCustomer/aa.png" alt="Diamond" style={{ width: "100%", height: "25%" }} className="img-fluid full-width-image" />
+                <img src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719877253/aa_c7zej4.jpg?_s=public-apps"
+                 alt="Diamond" style={{ width: "100%", height: "25%" }} className="img-fluid full-width-image" />
 
             </div>
 
@@ -66,7 +67,7 @@ const HomeCustomer = () => {
                         </p>
                     </div>
                     <div className="w-50 p-2">
-                        <img src="/src/assets/assetsCustomer/cc.png" alt="Diamond" style={{ width: "70%", height: "60%", marginLeft: "10%" }} className="img-fluid" />
+                        <img src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719877241/cc_evuvjz.jpg?_s=public-apps" alt="Diamond" style={{ width: "70%", height: "60%", marginLeft: "10%" }} className="img-fluid" />
                     </div>
 
                 </div>

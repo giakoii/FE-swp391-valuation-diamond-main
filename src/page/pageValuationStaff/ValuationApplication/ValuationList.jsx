@@ -107,7 +107,7 @@ export const ValuationList = () => {
                       onClick={() => handleOnPrint(result)}
                     >
                       <img
-                        src="/src/assets/assetsStaff/print.svg"
+                        src="/assets/assetsStaff/print.svg"
                         alt="Print"
                         width="20"
                         height="20"

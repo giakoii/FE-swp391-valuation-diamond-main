@@ -54,11 +54,9 @@ const CommitmentDetail = () => {
       {!isPrint ? (
         <>
           <div>
-            <img
-              src="/src/assets/assetsStaff/back.svg"
-              alt="Back"
+            <i className="bi bi-arrow-90deg-left"
               onClick={handleGoBack}
-            />
+            ></i>
           </div>
           <div className="d-flex justify-content-center mt-5">
             <div className="w-75">
@@ -182,7 +180,7 @@ const CommitmentDetail = () => {
           /> */}
           <i className="bi bi-arrow-90deg-left"
             onClick={() => setIsPrint(false)}
-            style={{ cursor: "pointer", height:20, width:20 }}
+            style={{ cursor: "pointer", height: 20, width: 20 }}
           ></i>
           <CommitmentGenerate commitmentResult={commitmentDetail} />
         </div>

@@ -129,16 +129,9 @@ const CreateCommitment = () => {
     <div>
       <ToastContainer />
       <div>
-        {/* <img
-          src="/src/assets/assetsStaff/back.svg"
-          alt="Back"
-          onClick={() => {
-            navigate(-1); // Navigate back to the previous page
-          }}
-        /> */}
         <i className="bi bi-arrow-90deg-left"
           onClick={() => {
-            navigate("/my-order");
+            navigate(-1);
           }}
           style={{ cursor: "pointer" }}
         ></i>

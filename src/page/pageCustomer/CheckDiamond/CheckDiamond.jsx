@@ -10,7 +10,7 @@ const CheckDiamond = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`https://valuation.techtheworld.id.vn/getDiamondAssessmentById/${diamondAssessmentId}`);
+      const response = await fetch(`https://valuation.techtheworld.id.vn/getDiamondAssessmentById/${assess_id}`);
       if (!response.ok) {
         throw new Error("Diamond not found");
       }

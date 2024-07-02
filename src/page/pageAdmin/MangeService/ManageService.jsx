@@ -184,7 +184,7 @@ export const ManageService = () => {
     const handleViewServicePriceList = async(serviceId) => {
         setSelectedServiceId(serviceId);
         try {
-            const response = await fetch(`hhttps://valuation.techtheworld.id.vn/service_price_list/getServicePrice/${serviceId}`);
+            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePrice/${serviceId}`);
             const data = await response.json();
             setServicePriceList(data);
             setShowPriceList(true);

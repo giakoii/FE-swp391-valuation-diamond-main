@@ -9,6 +9,7 @@ import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
 const AdminSideBar = () => {
   const [manageAccountOpen, setManageAccountOpen] = useState(false);
   const [manageScheduleCount, setManageScheduleCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchScheduleCount(); // Fetch schedule count on component mount
@@ -21,9 +22,12 @@ const AdminSideBar = () => {
         throw new Error('Failed to fetch schedule count');
       }
       const data = await response.json();
-      setManageScheduleCount(data.count); // Accessing count property from the response
+      setManageScheduleCount(data.count); 
+      console.log(data.count);
     } catch (error) {
       console.error('Error fetching schedule count:', error);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -13,7 +13,6 @@ export const PersonalOrder = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const { user } = useAuth();
-    const API = `${API_BASE_URL}/order_request/getOrders`;
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(6);
@@ -49,7 +48,7 @@ export const PersonalOrder = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API}`);
+                const response = await fetch(`${API_BASE_URL}/order_request/getOrderByUserId/${user.userId}`);
                 let data = await response.json();
                 // update order when all details finished
                 data = await updateOrderStatus(data)

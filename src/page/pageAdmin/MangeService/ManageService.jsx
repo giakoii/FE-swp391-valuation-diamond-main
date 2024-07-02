@@ -377,7 +377,7 @@ export const ManageService = () => {
         <Container>
             <div className='justify-content-first d-flex my-2 p-4'>
                 <img
-                    src='/src/assets/assetsAdmin/book.svg'
+                    src='/assets/assetsAdmin/book.svg'
                     width='40'
                     height='40'
                     className='my-3'
@@ -386,7 +386,7 @@ export const ManageService = () => {
                 <h4 className='p-4'>Manage Service</h4>
                 <Button onClick={handleShow} className="nav-link h-100 my-4">
                     <img
-                        src='/src/assets/assetsAdmin/plus.svg'
+                        src='/assets/assetsAdmin/plus.svg'
                         width='40'
                         height='40'
                         alt='Add'
@@ -420,7 +420,7 @@ export const ManageService = () => {
                                     <div className='d-flex justify-content-between'>
                                         <div>{dataService.serviceType}</div>
                                         <img
-                                            src="/src/assets/assetsStaff/editStatus.svg"
+                                            src="/assets/assetsStaff/editStatus.svg"
                                             alt="Edit"
                                             height="20"
                                             width="20"
@@ -445,7 +445,7 @@ export const ManageService = () => {
                                     <div className='d-flex justify-content-between'>
                                         <div>{dataService.serviceDescription}</div>
                                         <img
-                                            src="/src/assets/assetsStaff/editStatus.svg"
+                                            src="/assets/assetsStaff/editStatus.svg"
                                             alt="Edit"
                                             height="20"
                                             width="20"
@@ -463,7 +463,7 @@ export const ManageService = () => {
                             <div className="col-md-1">
                                 <Button className="nav-link" onClick={() => handleDeleteService(dataService.serviceId)}>
                                     <img
-                                        src='/src/assets/assetsAdmin/trash.svg'
+                                        src='/assets/assetsAdmin/trash.svg'
                                         width='20'
                                         height='20'
                                         className='my-3'
@@ -480,7 +480,7 @@ export const ManageService = () => {
             <Modal show={showAddService} onHide={handleClose} className="p-5" size='lg'>
                 <Modal.Header closeButton>
                 <img
-                    src='/src/assets/assetsAdmin/logo.png'
+                    src='/assets/assetsAdmin/logo.png'
                     width='80'
                     height='80'
                     alt='Logo'
@@ -525,7 +525,7 @@ export const ManageService = () => {
             <Modal show={showPriceList} onHide={handlePriceListClose} className="p-5" size="xl">
     <Modal.Header closeButton>
         <img
-            src="/src/assets/assetsAdmin/logo.png"
+            src="/assets/assetsAdmin/logo.png"
             width="80"
             height="80"
             alt="Logo"
@@ -612,7 +612,7 @@ export const ManageService = () => {
                                        
                                 <Button className="nav-link" onClick={() => handleDeletePriceList(price.priceList)}>
                                     <img
-                                        src='/src/assets/assetsAdmin/trash.svg'
+                                        src='/assets/assetsAdmin/trash.svg'
                                         width='20'
                                         height='20'
                                         className='my-3'
@@ -636,7 +636,7 @@ export const ManageService = () => {
         <Modal show={showFormAddNewPriceList} onHide={closeFormAddNewPriceList} size = 'lg'>
             <Modal.Header closeButton>
             <img
-                src='/src/assets/assetsAdmin/logo.png'
+                src='/assets/assetsAdmin/logo.png'
                 width='80'
                 height='80'
                 alt='Logo'

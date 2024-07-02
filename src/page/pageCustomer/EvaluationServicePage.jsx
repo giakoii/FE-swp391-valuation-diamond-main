@@ -115,7 +115,7 @@ function EvaluationServicePage() {
           <div className="form-row d-flex justify-content-between">
             <div className="form-group mt-4 col-md-6">
               <img
-                src='/src/assets/assetsCustomer/user.svg'
+                src='/assets/assetsCustomer/user.svg'
                 alt='User icon'
                 width='15'
                 height='15'
@@ -134,7 +134,7 @@ function EvaluationServicePage() {
             </div>
             <div className="form-group mt-4 col-md-6 ">
               <img
-                src='/src/assets/assetsCustomer/email.svg'
+                src='/assets/assetsCustomer/email.svg'
                 alt='email icon'
                 width='15'
                 height='15'
@@ -154,7 +154,7 @@ function EvaluationServicePage() {
           </div>
           <div className="form-group mt-4 col-md-6">
             <img
-              src='/src/assets/assetsCustomer/phone.svg'
+              src='/assets/assetsCustomer/phone.svg'
               alt='Phone icon'
               width='15'
               height='15'

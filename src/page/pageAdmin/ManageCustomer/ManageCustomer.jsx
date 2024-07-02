@@ -235,7 +235,7 @@ export const ManageCustomer = () => {
       <div className='container'>
         <div className='justify-content-first d-flex my-2 p-4'>
           <img
-            src='/src/assets/assetsAdmin/person.svg'
+            src='/assets/assetsAdmin/person.svg'
             width='40'
             height='40'
             className='my-3'
@@ -244,7 +244,7 @@ export const ManageCustomer = () => {
           <h4 className='p-4'>Manage Customer</h4>
           <Button onClick={handleShow} className="nav-link h-100 my-4" >
             <img
-              src='/src/assets/assetsAdmin/plus.svg'
+              src='/assets/assetsAdmin/plus.svg'
               width='40'
               height='40'
               alt='Add'
@@ -298,7 +298,7 @@ export const ManageCustomer = () => {
                 <div className='col-md-2 d-flex justify-content-around'>
                   <Button onClick={() => handleShowCustInfor(dataCust.userId)} className='nav-link'>
                     <img
-                      src='/src/assets/assetsAdmin/eye.svg'
+                      src='/assets/assetsAdmin/eye.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -308,7 +308,7 @@ export const ManageCustomer = () => {
                   </Button>
                   <Button onClick={() => handleShowEditCust(dataCust.userId)} className="nav-link">
                     <img
-                      src='/src/assets/assetsAdmin/pen.svg'
+                      src='/assets/assetsAdmin/pen.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -317,7 +317,7 @@ export const ManageCustomer = () => {
                   </Button>
                   <Button className="nav-link" onClick={() => handleDeleteCust(dataCust.userId)}>
                     <img
-                      src='/src/assets/assetsAdmin/trash.svg'
+                      src='/assets/assetsAdmin/trash.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -336,7 +336,7 @@ export const ManageCustomer = () => {
         <Modal show={showForm} onHide={handleClose} className='p-5' size='lg'>
           <Modal.Header closeButton className='mx-4'>
           <img
-                    src='/src/assets/assetsAdmin/logo.png'
+                    src='/assets/assetsAdmin/logo.png'
                     width='80'
                     height='80'
                     alt='Logo'
@@ -432,7 +432,7 @@ export const ManageCustomer = () => {
             <Modal show={showFormInfor} onHide={handleCloseCustInfor}  className='p-5' size='lg'>
                 <Modal.Header closeButton>
           <img
-            src='/src/assets/assetsAdmin/logo.png'
+            src='/assets/assetsAdmin/logo.png'
             width='80'
             height='80'
             alt='Logo'
@@ -455,7 +455,7 @@ export const ManageCustomer = () => {
                           <h4 className='p-4'> {formContainCustById.firstName+' '+ formContainCustById.lastName}</h4>
                           <p className='p-4 my-1'>
                           <img
-                              src='/src/assets/assetsAdmin/map.svg'
+                              src='/assets/assetsAdmin/map.svg'
                               width='20'
                               height='20'
                               alt='Logo'
@@ -482,7 +482,7 @@ export const ManageCustomer = () => {
           <Modal show={showEditForm} onHide={handleCloseEditCust} className='p-5' size='lg'>
             <Modal.Header closeButton>
               <img
-                src='/src/assets/assetsAdmin/logo.png'
+                src='/assets/assetsAdmin/logo.png'
                 width='80'
                 height='80'
                 alt='Logo'

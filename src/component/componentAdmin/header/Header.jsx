@@ -24,7 +24,7 @@ export const Header = () => {
           <div className='col-md-3  branddiamond '>
             <Navbar.Brand href='#home' className='p-5 fw-bold  brand-text'>
                 <img
-                  src='/src/assets/assetsAdmin/logo.png'
+                  src='/assets/assetsAdmin/logo.png'
                   width='60'
                   height='60'
                   alt='Logo'
@@ -37,7 +37,7 @@ export const Header = () => {
               <Nav variant='line-through'>
                 <NavLink to="/bell" className="nav-link mx-2" >
                   <img
-                    src="/src/assets/assetsAdmin/bell.svg"
+                    src="/assets/assetsAdmin/bell.svg"
                     alt="bell"
                     width='30'
                     height='30'
@@ -45,7 +45,7 @@ export const Header = () => {
                 </NavLink>
                 <NavLink to="/email" className="nav-link mx-2" >
                   <img
-                    src="/src/assets/assetsAdmin/email.svg"
+                    src="/assets/assetsAdmin/email.svg"
                     alt="bell"
                     width='30' 
                     height='30'

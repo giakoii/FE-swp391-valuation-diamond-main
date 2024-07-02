@@ -236,7 +236,7 @@ export const ManageStaff = () => {
       <div className='container'>
         <div className='justify-content-first d-flex my-2 p-4'>
           <img
-            src='/src/assets/assetsAdmin/person.svg'
+            src='/assets/assetsAdmin/person.svg'
             width='40'
             height='40'
             className='my-3'
@@ -245,7 +245,7 @@ export const ManageStaff = () => {
           <h4 className='p-4'>Manage Staff</h4>
           <Button onClick={handleShow} className="nav-link h-100 my-4" >
             <img
-              src='/src/assets/assetsAdmin/plus.svg'
+              src='/assets/assetsAdmin/plus.svg'
               width='40'
               height='40'
               alt='Add'
@@ -299,7 +299,7 @@ export const ManageStaff = () => {
                 <div className='col-md-2 d-flex justify-content-around'>
                   <Button onClick={() => handleShowStaffInfor(dataStaff.userId)} className='nav-link'>
                     <img
-                      src='/src/assets/assetsAdmin/eye.svg'
+                      src='/assets/assetsAdmin/eye.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -309,7 +309,7 @@ export const ManageStaff = () => {
                   </Button>
                   <Button onClick={() => handleShowEditStaff(dataStaff.userId)} className="nav-link">
                     <img
-                      src='/src/assets/assetsAdmin/pen.svg'
+                      src='/assets/assetsAdmin/pen.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -318,7 +318,7 @@ export const ManageStaff = () => {
                   </Button>
                   <Button className="nav-link" onClick={() => handleDeleteStaff(dataStaff.userId)}>
                     <img
-                      src='/src/assets/assetsAdmin/trash.svg'
+                      src='/assets/assetsAdmin/trash.svg'
                       width='20'
                       height='20'
                       className='my-3'
@@ -337,7 +337,7 @@ export const ManageStaff = () => {
         <Modal show={showForm} onHide={handleClose} className='p-5' size='lg'>
           <Modal.Header closeButton className='mx-4'>
           <img
-                    src='/src/assets/assetsAdmin/logo.png'
+                    src='/assets/assetsAdmin/logo.png'
                     width='80'
                     height='80'
                     alt='Logo'
@@ -445,7 +445,7 @@ export const ManageStaff = () => {
             <Modal show={showFormInfor} onHide={handleCloseStaffInfor}  className='p-5' size='lg'>
                 <Modal.Header closeButton>
           <img
-            src='/src/assets/assetsAdmin/logo.png'
+            src='/assets/assetsAdmin/logo.png'
             width='80'
             height='80'
             alt='Logo'
@@ -468,7 +468,7 @@ export const ManageStaff = () => {
                           <h4 className='p-4'> {formContainStaffById.firstName+' '+ formContainStaffById.lastName}</h4>
                           <p className='p-4 my-1'>
                           <img
-                              src='/src/assets/assetsAdmin/map.svg'
+                              src='/assets/assetsAdmin/map.svg'
                               width='20'
                               height='20'
                               alt='Logo'
@@ -495,7 +495,7 @@ export const ManageStaff = () => {
             <Modal show={showEditForm} onHide={handleCloseEditStaff} className='p-5' size='lg'>
               <Modal.Header closeButton>
                 <img
-                  src='/src/assets/assetsAdmin/logo.png'
+                  src='/assets/assetsAdmin/logo.png'
                   width='80'
                   height='80'
                   alt='Logo'

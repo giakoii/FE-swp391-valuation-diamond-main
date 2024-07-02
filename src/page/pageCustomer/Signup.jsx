@@ -218,7 +218,7 @@ function Signup() {
         </div>
         <div className="form-img text-center mt-4">
           <img
-            src="/src/assets/assetsCustomer/Google.png"
+            src="/assets/assetsCustomer/Google.png"
             alt="google"
             className="img rounded-circle border border-dark"
             height="40"

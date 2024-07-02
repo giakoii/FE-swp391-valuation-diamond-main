@@ -10,7 +10,7 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://valuation.techtheworld.id.vn/order-request/sumTotalPriceWithin6Months');
+        const response = await fetch('https://valuation.techtheworld.id.vn/order_request/sumTotalPriceWithin6Months');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

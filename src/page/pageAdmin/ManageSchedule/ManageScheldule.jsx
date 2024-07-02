@@ -14,14 +14,12 @@ export const ManageSchedule = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-
   // Fetch orderDetail data
   const fetchData = async () => {
     try {
       const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/getOrderDetailByEvaluationStaffIsNull');
       const data = await response.json();
       setDataManage(data);
-    
     } catch (error) {
       console.error('Error fetching data:', error);  
     }
@@ -119,48 +117,50 @@ export const ManageSchedule = () => {
   return (
     <>
       <h2 className="text-center p-4 my-4">Schedule Valuation Diamond</h2>
-      <Table striped bordered className="fs-5">
-        <thead>
-          <tr>
-            <th>OrderDetailId</th>
-            
-            <th>Order Date</th>
-            <th>Type Service</th>
-            <th>Status</th>
-            <th>Evaluation Staff</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentPosts.map((data) => (
-            <tr key={data.orderDetailId}>
-              <td>{data.orderDetailId}</td>
-              
-              <td>{formattedDateTime(data.orderId.orderDate)}</td>
-              <td>{data.serviceId.serviceType}</td>
-              <td>{data.status}</td>
-              <td>
-                <Form.Select
-                  onChange={(e) => handleOnChangeValuationStaff(data.orderDetailId, e.target.value)}
-                  value={selectedEvaluationStaff[data.orderDetailId] || ''}
-                >
-                  <option value="">Select Staff</option>
-                  {evaluationStaffIds.map((staff) => (
-                    <option key={staff.userId} value={staff.userId}>
-                      {staff.firstName + " " + staff.lastName}
-                    </option>
-                  ))}
-                </Form.Select>
-              </td>
-              <td>
-                <Button onClick={() => handleSendClick(data.orderDetailId)} className='btn text-light'>
-                  SEND
-                </Button>
-              </td>
+      {dataManage.length === 0 ? (
+        <p className="text-center">No data available</p>
+      ) : (
+        <Table striped bordered className="fs-5">
+          <thead>
+            <tr>
+              <th>OrderDetailId</th>
+              <th>Order Date</th>
+              <th>Type Service</th>
+              <th>Status</th>
+              <th>Evaluation Staff</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {currentPosts.map((data) => (
+              <tr key={data.orderDetailId}>
+                <td>{data.orderDetailId}</td>
+                <td>{formattedDateTime(data.orderId.orderDate)}</td>
+                <td>{data.serviceId.serviceType}</td>
+                <td>{data.status}</td>
+                <td>
+                  <Form.Select
+                    onChange={(e) => handleOnChangeValuationStaff(data.orderDetailId, e.target.value)}
+                    value={selectedEvaluationStaff[data.orderDetailId] || ''}
+                  >
+                    <option value="">Select Staff</option>
+                    {evaluationStaffIds.map((staff) => (
+                      <option key={staff.userId} value={staff.userId}>
+                        {staff.firstName + " " + staff.lastName}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </td>
+                <td>
+                  <Button onClick={() => handleSendClick(data.orderDetailId)} className='btn text-light'>
+                    SEND
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
       <Pagination className='d-flex justify-content-center'>{items}</Pagination>
     </>
   );

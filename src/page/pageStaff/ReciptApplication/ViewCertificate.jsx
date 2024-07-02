@@ -207,7 +207,7 @@ export const ViewCertificate = () => {
                                 <div className='d-flex justify-content-center'>
                                     {certificate?.img && (
                                         <img
-                                            src={certificate[0].img}
+                                            src={certificate.img}
                                             alt="product-img"
                                             height='300'
                                             className='border border-dark w-75'

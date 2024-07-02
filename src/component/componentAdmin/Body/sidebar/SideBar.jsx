@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
-import { useSchedule } from '../../../../contexts/AuthContext/ScheduleContext.jsx';
-import { ManageSchedule } from '../../../../page/pageAdmin/ManageSchedule/ManageScheldule.jsx';
+
 import { Badge } from 'react-bootstrap';
 
 const AdminSideBar = () => {
   const [manageAccountOpen, setManageAccountOpen] = useState(false);
-  const { manageScheduleCount } = useSchedule();
+  const [manageScheduleCount, setManageScheduleCount] = useState(0);
+
+  useEffect(() => {
+    fetchScheduleCount(); // Fetch schedule count on component mount
+  }, []);
+
+  const fetchScheduleCount = async () => {
+    try {
+      const response = await fetch('https://667c01d13c30891b865ae980.mockapi.io/new');
+      if (!response.ok) {
+        throw new Error('Failed to fetch schedule count');
+      }
+      const data = await response.json();
+      if (data.length > 0) {
+        setManageScheduleCount(data[0].count); // Accessing count property from the first object in the array
+      }
+    } catch (error) {
+      console.error('Error fetching schedule count:', error);
+    }
+  };
 
   const toggleManageAccount = () => {
     setManageAccountOpen(!manageAccountOpen);
@@ -21,7 +39,7 @@ const AdminSideBar = () => {
       <Nav className="flex-column w-100 p-2 menu fw-bold">
         <NavLink className='nav-link admin mt-2 mx-2 py-2' to="/admin/dashboard">
           <img
-            src='/src/assets/assetsAdmin/housedoor.svg'
+            src='assets/assetsAdmin/housedoor.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -31,7 +49,7 @@ const AdminSideBar = () => {
         </NavLink>
         <div className='nav-link admin mx-2 my-3' onClick={toggleManageAccount} style={{ cursor: 'pointer' }}>
           <img
-            src='/src/assets/assetsAdmin/people.svg'
+            src='assets/assetsAdmin/people.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -47,7 +65,7 @@ const AdminSideBar = () => {
         )}
         <NavLink className='nav-link admin mx-2 my-3' to="/admin/manageschedule">
           <img
-            src='/assets/assetsAdmin/calender.svg'
+            src='assets/assetsAdmin/calender.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -57,7 +75,7 @@ const AdminSideBar = () => {
         </NavLink>
         <NavLink className='nav-link admin mx-2' to="/admin/manageservice">
           <img
-            src='/assets/assetsAdmin/board.svg'
+            src='assets/assetsAdmin/board.svg'
             width='30'
             height='30'
             className='mx-3'

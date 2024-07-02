@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import formattedDateTime from '../../../utils/formattedDate/formattedDateTime';
 import './ManageSchedule.css';
 import { Pagination } from 'react-bootstrap';
-import { useSchedule } from '../../../contexts/AuthContext/ScheduleContext.jsx';
 
 export const ManageSchedule = () => {
   const [dataManage, setDataManage] = useState([]);
@@ -14,7 +13,7 @@ export const ManageSchedule = () => {
   const [selectedEvaluationStaff, setSelectedEvaluationStaff] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const { setManageScheduleCount } = useSchedule();
+
 
   // Fetch orderDetail data
   const fetchData = async () => {
@@ -22,7 +21,7 @@ export const ManageSchedule = () => {
       const response = await fetch('http://localhost:8080/order_detail_request/getOrderDetailByEvaluationStaffIsNull');
       const data = await response.json();
       setDataManage(data);
-      setManageScheduleCount(data.length);
+    
     } catch (error) {
       console.error('Error fetching data:', error);  
     }
@@ -124,7 +123,7 @@ export const ManageSchedule = () => {
         <thead>
           <tr>
             <th>OrderDetailId</th>
-            <th>Image</th>
+            
             <th>Order Date</th>
             <th>Type Service</th>
             <th>Status</th>
@@ -136,7 +135,7 @@ export const ManageSchedule = () => {
           {currentPosts.map((data) => (
             <tr key={data.orderDetailId}>
               <td>{data.orderDetailId}</td>
-              <td>{data.img}</td>
+              
               <td>{formattedDateTime(data.orderId.orderDate)}</td>
               <td>{data.serviceId.serviceType}</td>
               <td>{data.status}</td>

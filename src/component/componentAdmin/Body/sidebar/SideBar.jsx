@@ -62,7 +62,7 @@ const AdminSideBar = () => {
         )}
         <NavLink className='nav-link admin mx-2 my-3' to="/admin/manageschedule">
           <img
-            src='/ assets/assetsAdmin/calender.svg'
+            src='/assets/assetsAdmin/calender.svg'
             width='30'
             height='30'
             className='mx-3'

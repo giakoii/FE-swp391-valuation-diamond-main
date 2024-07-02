@@ -36,7 +36,7 @@ const AdminSideBar = () => {
       <Nav className="flex-column w-100 p-2 menu fw-bold">
         <NavLink className='nav-link admin mt-2 mx-2 py-2' to="/admin/dashboard">
           <img
-            src='/assetsAdmin/housedoor.svg'
+            src='/assets/assetsAdmin/housedoor.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -46,7 +46,7 @@ const AdminSideBar = () => {
         </NavLink>
         <div className='nav-link admin mx-2 my-3' onClick={toggleManageAccount} style={{ cursor: 'pointer' }}>
           <img
-            src='/assetsAdmin/people.svg'
+            src='/assets/assetsAdmin/people.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -62,7 +62,7 @@ const AdminSideBar = () => {
         )}
         <NavLink className='nav-link admin mx-2 my-3' to="/admin/manageschedule">
           <img
-            src='/assetsAdmin/calender.svg'
+            src='/ assets/assetsAdmin/calender.svg'
             width='30'
             height='30'
             className='mx-3'
@@ -72,7 +72,7 @@ const AdminSideBar = () => {
         </NavLink>
         <NavLink className='nav-link admin mx-2' to="/admin/manageservice">
           <img
-            src='/assetsAdmin/board.svg'
+            src='/assets/assetsAdmin/board.svg'
             width='30'
             height='30'
             className='mx-3'

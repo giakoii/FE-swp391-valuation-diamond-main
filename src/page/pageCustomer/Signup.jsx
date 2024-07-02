@@ -16,7 +16,7 @@ function Signup() {
   });
   const [otp, setOtp] = useState('');
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [countdown, setCountdown] = useState(120); 
+  const [countdown, setCountdown] = useState(300); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,8 +28,8 @@ function Signup() {
       const timeout = setTimeout(() => {
         showAlert('Error!', 'OTP verification timed out. Please try again.', 'error');
         setShowOtpModal(false);
-        setCountdown(120); 
-      }, 120000);
+        setCountdown(300); 
+      }, 300000);
 
       return () => {
         clearTimeout(timeout);
@@ -93,7 +93,7 @@ function Signup() {
       userId: formState.userId,
       otp: otp,
     };
-
+    console.log(otpSendData);
     try {
       const response = await fetch('https://valuation.techtheworld.id.vn/user_request/confirm-email', {
         method: 'POST',

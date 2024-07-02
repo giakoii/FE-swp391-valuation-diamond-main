@@ -8,6 +8,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { API_BASE_URL } from "../../../utils/constants/url";
+import updateById from "../../../utils/updateAPI/updateById";
 import dayjs from "dayjs";
 
 
@@ -18,8 +19,8 @@ export const ValuationApplication = () => {
   const [priceMarket, setPriceMarket] = useState({})
   const [orderDetail, setOrderDetail] = useState({})
   const [isLoading, setIsLoading] = useState(true)
+  const [errorCarat, setErrorCarat] = useState('')
 
-  console.log(dayjs())
   //GET VALUATION BY VALUATION ORDER DETAILS
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,7 @@ export const ValuationApplication = () => {
     fetchData();
   }, []);
 
-  const { register: result, handleSubmit, formState: { errors } } = useForm({
+  const { register: result,handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       diamondOrigin: "",
       measurements: "",
@@ -59,20 +60,22 @@ export const ValuationApplication = () => {
 
   // Data market price
   const [marketPrice, setMarketPrice] = useState({
-    diamondOrigin: "Natural",
-    shape: "Round",
-    caratWeight: 1,
-    clarity: "FL",
-    color: "K",
-    cut: "Fair",
-    symmetry: "Fair",
-    polish: "Fair",
-    fluorescence: "Very Strong",
+    diamondOrigin: "",
+    shape: "",
+    caratWeight: 0,
+    clarity: "",
+    color: "",
+    cut: "",
+    symmetry: "",
+    polish: "",
+    fluorescence: "",
   });
 
   console.log(marketPrice)
   const handleOnChange = (e) => {
+   
     const { name, value } = e.target;
+    setErrorCarat("");
     if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
         ...currentState,
@@ -82,8 +85,14 @@ export const ValuationApplication = () => {
     else {
       setMarketPrice((currentState) => ({ ...currentState, [name]: value }));
     }
+    
   };
   const viewMarketPrice = () => {
+    const caratWeight = Number.parseFloat(marketPrice.caratWeight)
+    if (caratWeight < 0.3 || caratWeight > 50) {
+      setErrorCarat("Carat Weight must be between 0.3 and 50")
+      return;
+    }
     const queryParams = new URLSearchParams(marketPrice).toString();
     const fetchData = async () => {
       try {
@@ -100,7 +109,6 @@ export const ValuationApplication = () => {
       }
     };
     fetchData();
-
   }
 
   //Check if the evalution result ID by order ID exists
@@ -143,17 +151,14 @@ export const ValuationApplication = () => {
       ],
     });
   };
-
-
   //handleOnSubmit
   const handleOnSubmit = async (data) => {
-
     const formattedResult = {
       ...data,
       caratWeight: parseFloat(data.caratWeight),
       price: parseFloat(data.price),
       img: orderDetail.img,
-      createdDate: dayjs().format()
+      createDate: dayjs().format()
     };
     try {
       const response = await fetch(
@@ -167,11 +172,18 @@ export const ValuationApplication = () => {
           },
         }
       );
-      const res = await response.json();
+      console.log(res)
       if (response.ok) {
+        const res = await response.json();
         toast.success("Create successfully");
+       
+        // const updateFinishedOrder = await updateById(`${API_BASE_URL}/order_detail_request/getOrderDe/`,orderDetail,'status','Finished')
+        // if(updateFinishedOrder){
+        //   toast.success("Create and Update Finished sample successfully");
+        // }else{
+        //   toast.error("Failed to update Finished sample")
+        // }
       }
-      // check id trung nuẵ
       console.log("Submitted data", data);
     } catch (error) {
       console.log(error);
@@ -193,12 +205,6 @@ export const ValuationApplication = () => {
           }}
           style={{ cursor: "pointer" }}
         />
-        {/* <i className="bi bi-arrow-90deg-left"
-          onClick={() => {
-            navigate("/valuation-staff/valuation-order");
-          }}
-          style={{ cursor: "pointer" }}
-        ></i> */}
       </div>
       <ToastContainer />
       <Form onSubmit={handleSubmit(showConfirmFinished)}>
@@ -389,6 +395,7 @@ export const ValuationApplication = () => {
                     onChange={handleOnChange}
                   />
                   {errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}
+                  {errorCarat && <span className="text-danger">{errorCarat}</span>}
                 </Col>
               </Row>
 
@@ -573,7 +580,7 @@ export const ValuationApplication = () => {
                     id="proportions"
                     type="text"
                     {...result("proportions", { required: "Proportion is required" })}
-                    // value={result.proportions}
+                  
                     style={{
                       border: "none",
                       borderBottom: "solid",

@@ -16,6 +16,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
   const [errorMeetingDate, setErrorMeetingDate] = useState("");
 
   // console.log de test
+  console.log(appointmentDate)
   console.log(dayjs().format());
   console.log(dayjs(appointmentDate).format());
   console.log(formattedDateTime(appointmentDate));
@@ -39,7 +40,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ meetingDate: formattedDateTime(value) }),
+        body: JSON.stringify({ meetingDate: dayjs(value).format('MM/DD/YYYY, HH:mm') }),
       });
 
       const data = await response.json();
@@ -126,7 +127,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
                   <Button
                     className="mt-2"
                     onClick={() =>
-                      handleAddDate(formattedDateTime(appointmentDate))
+                      handleAddDate(appointmentDate)
                     }
                   >
                     Save
@@ -139,7 +140,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
                       ? formattedDateTime(appointmentDate)
                       : "Not set"}
                   </span>
-                  <i class="bi bi-plus-circle"
+                  <i className="bi bi-plus-circle"
                     onClick={() => {
                       if (userRequestDetail.status === "Canceled") {
                         setIsEditingDate(false);

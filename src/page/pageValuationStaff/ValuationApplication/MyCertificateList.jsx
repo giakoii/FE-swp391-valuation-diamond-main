@@ -39,8 +39,8 @@ export const MyCertificateList = () => {
           `${API_BASE_URL}/evaluation_results/getEvaluationResultsByUserId/${user.userId}`
         );
         const data = await response.json();
-        // const sortedData = data.sort((a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate));
-        setCertificateList(data);
+        const sortedData = data.sort((a, b) => Date.parse(b.createDate) - Date.parse(a.createDate));
+        setCertificateList(sortedData);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -72,7 +72,7 @@ export const MyCertificateList = () => {
               <th>Certificate Id</th>
               <th>Sample Image</th>
               <th>Create Date</th>
-              <th>Product Id</th>
+              <th>Sample Id</th>
               <th>View Detail</th>
             </tr>
           </thead>
@@ -84,7 +84,7 @@ export const MyCertificateList = () => {
                 <td>
                   <img src={result.img} alt="" width="100px" height="100px" />
                 </td>
-                <td>{formattedDate(result.createdDate)}</td>
+                <td>{formattedDate(result.createDate)}</td>
                 <td>{result.orderDetailId.orderDetailId}</td>
                 <td>
                   <Button

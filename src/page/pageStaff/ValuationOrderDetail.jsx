@@ -92,7 +92,7 @@ export const ValuationOrderDetail = () => {
                     <div>
                       <label htmlFor="upload-img">
                         <img
-                          src="/src/assets/assetsStaff/upload.svg"
+                          src="/assets/assetsStaff/upload.svg"
                           alt="Upload Icon"
                           height='40px'
                           width='40px'

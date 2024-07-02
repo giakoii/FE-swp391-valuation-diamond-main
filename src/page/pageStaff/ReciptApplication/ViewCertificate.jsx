@@ -229,7 +229,7 @@ export const ViewCertificate = () => {
             ) : (
                 <div>
                     <img
-                        src="/src/assets/assetsStaff/back.svg"
+                        src="/assets/assetsStaff/back.svg"
                         alt="go back"
                         className='mt-3'
                         height="20"

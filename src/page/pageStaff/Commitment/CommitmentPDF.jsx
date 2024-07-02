@@ -67,7 +67,7 @@ const CommitmentPDF = ({ commitmentResult }) => {
           <View style={styles.titleSection}>
             <Image
               style={styles.logo}
-              src="/src/assets/assetsCustomer/logo.png"
+              src="/assets/assetsCustomer/logo.png"
             />
             <Text style={styles.title}>Commitment Form</Text>
           </View>

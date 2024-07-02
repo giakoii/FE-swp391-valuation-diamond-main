@@ -114,7 +114,7 @@ export const ValuationOrderDetail = () => {
                     <div>
                       <label htmlFor="upload-img">
                         <img
-                          src="/src/assets/assetsStaff/upload.svg"
+                          src="/assets/assetsStaff/upload.svg"
                           alt="Upload Icon"
                           height='40px'
                           width='40px'
@@ -151,7 +151,7 @@ export const ValuationOrderDetail = () => {
                   <div className="d-flex justify-content-center">
                     <div className="text-center">{product.isDiamond ? "Yes" : "No"}</div>
                     <img
-                      src="/src/assets/assetsStaff/editStatus.svg"
+                      src="/assets/assetsStaff/editStatus.svg"
                       alt="Edit"
                       height="20"
                       width="20"
@@ -185,7 +185,7 @@ export const ValuationOrderDetail = () => {
                   <div className="d-flex justify-content-between">
                     <div>{product.status}</div>
                     <img
-                      src="/src/assets/assetsStaff/editStatus.svg"
+                      src="/assets/assetsStaff/editStatus.svg"
                       alt="Edit"
                       height="20"
                       width="20"

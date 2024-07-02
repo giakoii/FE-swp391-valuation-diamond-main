@@ -65,7 +65,7 @@ const CommitmentDetail = () => {
                   <Row className="d-flex">
                     <Col md={4}>
                       <img
-                        src="/src/assets/assetsCustomer/logo.png"
+                        src="/assets/assetsCustomer/logo.png"
                         alt="logo"
                         width="60%"
                         height="100%"
@@ -170,18 +170,18 @@ const CommitmentDetail = () => {
         </>
       ) : (
         <div>
-          {/* <img
-            src="/src/assets/assetsStaff/back.svg"
+          <img
+            src="/assets/assetsStaff/back.svg"
             alt="Go Back"
             className="mt-3"
             height="20"
             width="20"
             onClick={() => setIsPrint(false)}
-          /> */}
-          <i className="bi bi-arrow-90deg-left"
+          />
+          {/* <i className="bi bi-arrow-90deg-left"
             onClick={() => setIsPrint(false)}
             style={{ cursor: "pointer", height: 20, width: 20 }}
-          ></i>
+          ></i> */}
           <CommitmentGenerate commitmentResult={commitmentDetail} />
         </div>
       )}

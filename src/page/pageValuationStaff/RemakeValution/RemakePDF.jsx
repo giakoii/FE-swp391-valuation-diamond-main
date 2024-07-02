@@ -67,7 +67,7 @@ export const RemakePDF = ({ result }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.titleSection}>
-          <Image style={styles.logo} src="/src/assets/assetsCustomer/logo.png" />
+          <Image style={styles.logo} src="/assets/assetsCustomer/logo.png" />
           <Text style={styles.title}>Valuation Report</Text>
         </View>
         <View style={{ textAlign: 'center', marginBottom: 20 }}>

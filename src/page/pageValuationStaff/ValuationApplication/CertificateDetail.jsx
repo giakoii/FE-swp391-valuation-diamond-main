@@ -294,20 +294,20 @@ export const CertificateDetail = () => {
   return (
     <Container>
       <div className="mb-4">
-        {/* <img
-          src="/src/assets/assetsStaff/back.svg"
+        <img
+          src="/assets/assetsStaff/back.svg"
           alt="Back"
           onClick={() => {
             navigate("/valuation-staff/certificate-list");
           }}
           style={{ cursor: "pointer" }}
-        /> */}
-        <i className="bi bi-arrow-90deg-left"
+        />
+        {/* <i className="bi bi-arrow-90deg-left"
           onClick={() => {
             navigate("/valuation-staff/certificate-list");
           }}
           style={{ cursor: "pointer" }}
-        ></i>
+        ></i> */}
       </div>
       <ToastContainer />
       <h1 className="text-center my-3">Diamond Valuation Report</h1>

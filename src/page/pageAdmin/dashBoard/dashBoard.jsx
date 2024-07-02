@@ -10,7 +10,7 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://667c01d13c30891b865ae980.mockapi.io/test');
+        const response = await fetch('https://valuation.techtheworld.id.vn/order-request/sumTotalPriceWithinMonths');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -29,7 +29,7 @@ export const DashBoard = () => {
   useEffect(() => {
       const fetchTotalOrderData = async () => {
           try {
-              const response = await fetch('https://667c01d13c30891b865ae980.mockapi.io/test');
+              const response = await fetch('https://valuation.techtheworld.id.vn/order_request/countOrderCreatedWithin6Months');
               if (!response.ok) {
                   throw new Error('Network response was not ok');
               }
@@ -42,7 +42,7 @@ export const DashBoard = () => {
 
       const fetchAnotherData = async () => {
           try {
-              const response = await fetch('https://667c01d13c30891b865ae980.mockapi.io/test');
+              const response = await fetch(' https://valuation.techtheworld.id.vn/order_request/sumQuantityWithin6Months');
               if (!response.ok) {
                   throw new Error('Network response was not ok');
               }

@@ -17,7 +17,7 @@ const AdminSideBar = () => {
 
   const fetchScheduleCount = async () => {
     try {
-      const response = await fetch('https://667c01d13c30891b865ae980.mockapi.io/new');
+      const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/countOrderDetailWithEvaluationStaffIdIsNull');
       if (!response.ok) {
         throw new Error('Failed to fetch schedule count');
       }

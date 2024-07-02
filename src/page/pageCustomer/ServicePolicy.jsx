@@ -6,7 +6,7 @@ const ServicePolicy = () => {
     <div style={{ textAlign: "justify" }}>
       <Row>
         <Col md="8" style={{ marginBottom: "50px" }}>
-          <h1 className="" style={{ marginTop: "50px", marginBottom: "50px", textAlign: "center" }}>
+          <h1 className="" style={{ marginTop: "50px", marginBottom: "50px", marginLeft:"700px" }}>
             Service Policy
           </h1>
           <div style={{ paddingLeft: "50px", paddingRight: "50px" }}>

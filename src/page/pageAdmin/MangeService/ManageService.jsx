@@ -334,7 +334,7 @@ export const ManageService = () => {
             if (result.isConfirmed) {
                 const fetchDeleteData = async() => {
                     try {
-                        await fetch(`/api/servicePriceList/${priceList}`, {
+                        await fetch(`https://valuation.techtheworld.id.vn/service_price_list/deleteServicePriceListById/${priceList}`, {
                             method: 'DELETE',
                         });
                         setServicePriceList(prevState => prevState.filter(price => price.priceList !== priceList));

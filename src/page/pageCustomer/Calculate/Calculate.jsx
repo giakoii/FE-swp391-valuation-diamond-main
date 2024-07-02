@@ -28,11 +28,12 @@ function Calculate() {
     }));
   };
 
+
   const handleOnCalculate = () => {
     // convert caratWeight String to number
     const diamondCalculateFinal = {
       ...diamondCalculate,
-      caratWeight: Number.parseFloat(diamondCalculate.caratWeight)
+      caratWeight: Math.max(0.3, Math.min(5, Number.parseFloat(diamondCalculate.caratWeight)))
     }
     console.log(diamondCalculateFinal)
     const queryParams = new URLSearchParams(diamondCalculateFinal).toString();

@@ -101,7 +101,7 @@ function Login() {
                         <div className="form-password d-flex justify-content-between">
                             <label htmlFor="password">Password</label>
                             <div className="form-forgot">
-                                <a href="" className="link-secondary">Forgot password?</a>
+                                <NavLink to="/change-pass" className="link-secondary">Forgot password?</NavLink>
                             </div>
                         </div>
                         <input

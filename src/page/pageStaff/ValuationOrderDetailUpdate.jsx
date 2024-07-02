@@ -130,12 +130,7 @@ export const ValuationOrderDetailUpdate = () => {
             }}
             style={{ cursor: "pointer" }}
           />
-          {/* <i className="bi bi-arrow-90deg-left"
-            onClick={() => {
-              navigate("/valuation-staff/valuation-order");
-            }}
-            style={{ cursor: "pointer" }}
-          ></i> */}
+
         </div>
         <div className="text-center my-4">
           <h1>Edit Product</h1>
@@ -147,7 +142,7 @@ export const ValuationOrderDetailUpdate = () => {
             </Col>
             <Col md={4}>{product.orderDetailId}</Col>
           </Row>
-          {/* <Row className="mb-4 justify-content-center">
+          <Row className="mb-4 justify-content-center">
             <Col md={2} className="text-end">
               <Form.Label>Status</Form.Label>
             </Col>
@@ -162,7 +157,7 @@ export const ValuationOrderDetailUpdate = () => {
                 <option value="Finished">Finished</option>
               </Form.Select>
             </Col>
-          </Row> */}
+          </Row>
           <Row className="mb-4 justify-content-center">
             <Col md={2} className="text-end">
               <Form.Label>Is it Diamond?</Form.Label>

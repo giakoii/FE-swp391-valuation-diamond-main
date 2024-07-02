@@ -41,7 +41,7 @@ function EvaluationServicePage() {
     const requestData = { ...formRequest, requestDate };
     console.log(requestData);
     try {
-      const response = await fetch('http://localhost:8080/evaluation-request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/evaluation-request/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

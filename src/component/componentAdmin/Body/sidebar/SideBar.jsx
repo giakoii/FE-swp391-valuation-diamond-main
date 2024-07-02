@@ -4,6 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Badge } from 'react-bootstrap';
+import housedoor from 'assets/assetsAdmin/housedoor.svg';
+import people from 'assets/assetsAdmin/people.svg';
+import calendar from 'assets/assetsAdmin/calender.svg';
+import board from 'assets/assetsAdmin/board.svg';
 import '../../../componentAdmin/Body/sidebar/SideBarAdmin.css';
 
 const AdminSideBar = () => {
@@ -11,22 +15,21 @@ const AdminSideBar = () => {
   const [manageScheduleCount, setManageScheduleCount] = useState(0);
 
   useEffect(() => {
-    fetchScheduleCount(); 
-  }, []);
-
-  const fetchScheduleCount = async () => {
-    try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/countOrderDetailWithEvaluationStaffIdIsNull');
-      if (!response.ok) {
-        throw new Error('Failed to fetch schedule count');
+    const fetchScheduleCount = async () => {
+      try {
+        const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/countOrderDetailWithEvaluationStaffIdIsNull');
+        if (!response.ok) {
+          throw new Error('Failed to fetch schedule count');
+        }
+        const data = await response.json();
+        setManageScheduleCount(data.count);
+      } catch (error) {
+        console.error('Error fetching schedule count:', error);
       }
-      const data = await response.json();
-      setManageScheduleCount(data.count); 
-      
-    } catch (error) {
-      console.error('Error fetching schedule count:', error);
-    }
-  };
+    };
+
+    fetchScheduleCount();
+  }, []);
 
   const toggleManageAccount = () => {
     setManageAccountOpen(!manageAccountOpen);
@@ -37,7 +40,7 @@ const AdminSideBar = () => {
       <Nav className="flex-column w-100 p-2 menu fw-bold">
         <NavLink className='nav-link admin mt-2 mx-2 py-2' to="/admin/dashboard">
           <img
-            src='assets/assetsAdmin/housedoor.svg'
+            src={housedoor}
             width='30'
             height='30'
             className='mx-3'
@@ -47,7 +50,7 @@ const AdminSideBar = () => {
         </NavLink>
         <div className='nav-link admin mx-2 my-3' onClick={toggleManageAccount} style={{ cursor: 'pointer' }}>
           <img
-            src='assets/assetsAdmin/people.svg'
+            src={people}
             width='30'
             height='30'
             className='mx-3'
@@ -63,17 +66,17 @@ const AdminSideBar = () => {
         )}
         <NavLink className='nav-link admin mx-2 my-3' to="/admin/manageschedule">
           <img
-            src='assets/assetsAdmin/calender.svg'
+            src={calendar}
             width='30'
             height='30'
             className='mx-3'
             alt='calender'
           />
-          Manage Schedule  <Badge bg="warning" className='mx-5'>{manageScheduleCount}</Badge>
+          Manage Schedule <Badge bg="warning" className='mx-5'>{manageScheduleCount}</Badge>
         </NavLink>
         <NavLink className='nav-link admin mx-2' to="/admin/manageservice">
           <img
-            src='assets/assetsAdmin/board.svg'
+            src={board}
             width='30'
             height='30'
             className='mx-3'

@@ -132,7 +132,7 @@ const ServicePolicy = () => {
             Clear Policy - Loyal Customers
           </h2>
           <Image
-            src="/src/assets/assetsCustomer/servicepolicy.png"
+            src="/assets/assetsCustomer/servicepolicy.png"
             fluid
             style={{
               borderRadius: "4px",
@@ -148,7 +148,7 @@ const ServicePolicy = () => {
             Diamond Valuation Life Valuation
           </h2>
           <Image
-            src="/src/assets/assetsCustomer/diamond.png"
+            src="/assets/assetsCustomer/diamond.png"
             fluid
             style={{
               borderRadius: "4px",
@@ -164,7 +164,7 @@ const ServicePolicy = () => {
           Quality Comes with Prestige
           </h2>
           <Image
-            src="/src/assets/assetsCustomer/quantity.png"
+            src="\assets\assetsCustomer\cc.png"
             fluid
             style={{
               borderRadius: "4px",

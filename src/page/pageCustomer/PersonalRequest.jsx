@@ -67,7 +67,7 @@ export const PersonalRequest = () => {
                             </Col>
                             <Col xs="auto" className="d-flex align-items-center">
                                 <img
-                                    src="/src/assets/assetsCustomer/diamond-svgrepo-com.svg"
+                                    src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856518/diamond-svgrepo-com_oih7hx.jpg?_s=public-apps"
                                     alt="Diamond"
                                     width="50"
                                     height="50"
@@ -84,12 +84,7 @@ export const PersonalRequest = () => {
                                 <Stack>
                                     <Button style={{ backgroundColor: '#CCFBF0' }} onClick={() => viewMyRequest(request)}>
                                         <span className='text-dark me-1'>View</span>
-                                        <img
-                                            src="/src/assets/assetsCustomer/seemore.svg"
-                                            alt=""
-                                            width="20"
-                                            height="20"
-                                        />
+                                        <i class="bi bi-arrow-right"></i>
                                     </Button>
                                 </Stack>
                             </Col>

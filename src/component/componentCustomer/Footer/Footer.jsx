@@ -10,7 +10,7 @@ function Footer() {
                 <Row className='mt-auto'>
                     <Col className='d-flex align-items-center justify-content-center' style={{ flex: "3" }}>
                         <Image
-                            src='/src/assets/assetsCustomer/logo.png'
+                            src='https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps'
                             alt=''
                             width='30%'
                             height='80%'
@@ -51,45 +51,19 @@ function Footer() {
                         <div className='text-center section-title'>Contact Us</div>
                         <Nav className='justify-content-center'>
                             <NavLink href='' className='p-2'>
-                                <img
-                                    src='/src/assets/assetsCustomer/instagram.svg'
-                                    alt='Instagram'
-                                    width='15'
-                                    height='15'
-                                />
+                                <i className="bi bi-pinterest"></i>
                             </NavLink>
                             <NavLink href='' className='p-2'>
-                                <img
-                                    src='/src/assets/assetsCustomer/facebook.svg'
-                                    alt='Facebook'
-                                    width='15'
-                                    height='15'
-                                />
+                                <i className="bi bi-facebook"></i>
                             </NavLink>
                             <NavLink href='' className='p-2'>
-                                <img
-                                    src='/src/assets/assetsCustomer/youtube.svg'
-                                    alt='YouTube'
-                                    width='15'
-                                    height='15'
-                                />
+                                <i className="bi bi-youtube"></i>
                             </NavLink>
                             <NavLink href='' className='p-2'>
-                                <img
-                                    src='/src/assets/assetsCustomer/pinterest.svg'
-                                    alt='Pinterest'
-                                    width='15'
-                                    height='15'
-                                />
+                                <i className="bi bi-instagram"></i>
                             </NavLink>
                             <NavLink href='' className='p-2'>
-                                {/* <img
-                                    src='/src/assets/assetsCustomer/tiktok.svg'
-                                    alt='TikTok'
-                                    width='15'
-                                    height='15'
-                                /> */}
-                                <i class="bi-alarm"></i>
+                                <i className="bi bi-tiktok"></i>
                             </NavLink>
                         </Nav>
                     </Col>

@@ -182,16 +182,13 @@ export const UserRequest = () => {
                         <div>
                           <Status status={user.status} />
                         </div>
-                        <img
-                          src="/src/assets/assetsAdmin/edit.svg"
-                          alt="Edit"
-                          height="20"
-                          width="20"
+                        <i className="bi bi-pencil"
+                          style={{ height: 20, width: 20 }}
                           onClick={() => {
                             setEditRowId(user.requestId);
                             setEditStatus(user.status); // Cài đặt editStatus ban đầu
                           }}
-                        />
+                        ></i>
                       </div>
                     )}
                   </td>
@@ -218,14 +215,19 @@ export const UserRequest = () => {
       ) : (
         currentDetail && (
           <div>
-            <img
+            {/* <img
               src="/src/assets/assetsStaff/back.svg"
               alt="go back"
               className="mt-3"
               height="40"
               width="40"
               onClick={() => setIsViewDetail(false)}
-            />
+            /> */}
+
+            <i className="bi bi-arrow-90deg-left mt-3"
+              onClick={() => setIsViewDetail(false)}
+              style={{ cursor: "pointer", height: 40, width: 40 }}
+            ></i>
             <UserRequestDetails1
               key={currentDetail.requestId}
               userRequestDetail={currentDetail}

@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 // ROLE: VALUATION_STAFF
 export const ValuationApplication = () => {
   const navigate = useNavigate();
-  const {orderDetailId} = useParams()
+  const { orderDetailId } = useParams()
   const [priceMarket, setPriceMarket] = useState({})
   const [orderDetail, setOrderDetail] = useState({})
   const [isLoading, setIsLoading] = useState(true)
@@ -37,8 +37,8 @@ export const ValuationApplication = () => {
     };
     fetchData();
   }, []);
-  
-  const { register: result, handleSubmit, formState: { errors }} = useForm({
+
+  const { register: result, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       diamondOrigin: "",
       measurements: "",
@@ -58,8 +58,8 @@ export const ValuationApplication = () => {
     }
   });
 
-   // Data market price
-   const [marketPrice, setMarketPrice] = useState({
+  // Data market price
+  const [marketPrice, setMarketPrice] = useState({
     diamondOrigin: "Natural",
     shape: "Round",
     caratWeight: 1,
@@ -84,25 +84,25 @@ export const ValuationApplication = () => {
       setMarketPrice((currentState) => ({ ...currentState, [name]: value }));
     }
   };
-    const viewMarketPrice = () => {
-      const queryParams = new URLSearchParams(marketPrice).toString();
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
-          );
-          const data = await response.json();
-          setPriceMarket(data);
-          console.log(data)
-        } catch (error) {
-          setError(error);
-        } finally {
-          
-        }
-      };
-      fetchData();
-  
-    }
+  const viewMarketPrice = () => {
+    const queryParams = new URLSearchParams(marketPrice).toString();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
+        );
+        const data = await response.json();
+        setPriceMarket(data);
+        console.log(data)
+      } catch (error) {
+        setError(error);
+      } finally {
+
+      }
+    };
+    fetchData();
+
+  }
 
   //Check if the evalution result ID by order ID exists
   const checkExistId = async (orderDetailId) => {
@@ -124,7 +124,7 @@ export const ValuationApplication = () => {
 
   const showConfirmFinished = async (data) => {
     const exist = await checkExistId(orderDetailId)
-    if(exist){
+    if (exist) {
       toast.error("Sample ID already exists. Cannot create duplicate sample.");
       return;
     }
@@ -153,7 +153,7 @@ export const ValuationApplication = () => {
       ...data,
       caratWeight: parseFloat(data.caratWeight),
       price: parseFloat(data.price),
-      img:orderDetail.img,
+      img: orderDetail.img,
       createdDate: dayjs().format()
     };
     try {
@@ -169,7 +169,7 @@ export const ValuationApplication = () => {
         }
       );
       const res = await response.json();
-      if(response.ok){
+      if (response.ok) {
         toast.success("Create successfully");
       }
       // check id trung nuẵ
@@ -186,14 +186,20 @@ export const ValuationApplication = () => {
   return (
     <Container>
       <div className="mb-4">
-        <img
+        {/* <img
           src="/src/assets/assetsStaff/back.svg"
           alt="Back"
           onClick={() => {
             navigate("/valuation-staff/valuation-order");
           }}
           style={{ cursor: "pointer" }}
-        />
+        /> */}
+        <i className="bi bi-arrow-90deg-left"
+          onClick={() => {
+            navigate("/valuation-staff/valuation-order");
+          }}
+          style={{ cursor: "pointer" }}
+        ></i>
       </div>
       <ToastContainer />
       <Form onSubmit={handleSubmit(showConfirmFinished)}>
@@ -310,7 +316,7 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                    
+
                     onChange={handleOnChange}
                   >
                     <option value=""></option>
@@ -380,8 +386,8 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                  // value={result.caratWeight || ""}
-                  onChange={handleOnChange}
+                    // value={result.caratWeight || ""}
+                    onChange={handleOnChange}
                   />
                   {errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}
                 </Col>
@@ -430,7 +436,7 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                  onChange={handleOnChange}
+                    onChange={handleOnChange}
                   >
                     <option value=""></option>
                     <option value="SI2">SI2</option>
@@ -459,7 +465,7 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                  onChange={handleOnChange}
+                    onChange={handleOnChange}
                   >
                     <option value=""></option>
                     <option value="Fair">FAIR</option>
@@ -494,7 +500,7 @@ export const ValuationApplication = () => {
                     }}
                     onChange={handleOnChange}
                   >
-                   <option value=""></option>
+                    <option value=""></option>
                     <option value="Fair">FAIR</option>
                     <option value="Good">GOOD</option>
                     <option value="Very Good">V.GOOD</option>
@@ -543,7 +549,7 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                  onChange={handleOnChange}
+                    onChange={handleOnChange}
                   >
                     <option value=""></option>
                     <option value="Very Strong">VSTG</option>
@@ -605,27 +611,27 @@ export const ValuationApplication = () => {
                   <label htmlFor="market-price">Market Price</label>
                 </Col>
                 <Col md={5} >
-                <div
-                  style={{
-                    border: "none",
-                    borderBottom: "solid",
-                    width: "100%",
-                    padding:"5px",
-                    color:"red"
-                  }}>
-                  {priceMarket.baseFinalPrice ? `$${Math.round(priceMarket.baseFinalPrice)}` : 0}
-                </div>
+                  <div
+                    style={{
+                      border: "none",
+                      borderBottom: "solid",
+                      width: "100%",
+                      padding: "5px",
+                      color: "red"
+                    }}>
+                    {priceMarket.baseFinalPrice ? `$${Math.round(priceMarket.baseFinalPrice)}` : 0}
+                  </div>
                 </Col>
               </Row>
               <div className="d-flex justify-content-end">
-                
-              <Button 
-                onClick={viewMarketPrice}
-              >
-                View Price
-              </Button>
+
+                <Button
+                  onClick={viewMarketPrice}
+                >
+                  View Price
+                </Button>
               </div>
-            
+
 
             </div>
           </div>

@@ -11,15 +11,15 @@ import { Pagination } from '../../../component/Pagination/Pagination';
 import { Status } from '../../../component/Status';
 import { Spinner } from 'react-bootstrap';
 import updateById from '../../../utils/updateAPI/updateById';
+import { API_BASE_URL } from '../../../utils/constants/url';
 
-const API_BASE_URL = 'http://localhost:8080';
 
 export const ViewReciptList = () => {
   const [selection, setSelection] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredSelection, setFilteredSelection] = useState([]);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //paginate
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,12 +33,14 @@ export const ViewReciptList = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  //update order status is completed when order all finished is completed
+  // get order details
   const fetchOrderDetails = async (orderId) => {
     const response = await fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`);
     const data = await response.json();
     return data;
   };
-
+  // update order details
   const checkAndUpdateOrderStatus = async (orders) => {
     for (const order of orders) {
       const orderDetails = await fetchOrderDetails(order.orderId);
@@ -57,18 +59,17 @@ export const ViewReciptList = () => {
         const response = await fetch(`${API_BASE_URL}/order_request/getOrders`);
         let data = await response.json();
         data = await checkAndUpdateOrderStatus(data);
-        setSelection(data.reverse());
-        setFilteredSelection(data);
-        setLoading(true);
+        const sortedData = data.sort((a, b) => Date.parse(b.orderDate) - Date.parse(a.orderDate));
+        setSelection(sortedData);
+        setFilteredSelection(sortedData);
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false);
+      }finally{
+        setLoading(false)
       }
     };
     fetchData();
-    return ()=>{
-      setLoading(false)
-    }
   }, []);
 
   const handleSearch = () => {
@@ -82,7 +83,7 @@ export const ViewReciptList = () => {
     navigate(`/staff/view-receipt/${item.orderId}`, { state: { item } });
   };
 
-  if (!loading) {
+  if (loading) {
     return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
   }
 

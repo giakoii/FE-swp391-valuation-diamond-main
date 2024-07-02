@@ -19,7 +19,7 @@ function Header() {
             <Container fluid>
                 <Navbar.Brand href='/staff' className='p-3 fw-bold fst-italic'>
                     <img
-                        src='/src/assets/assetsStaff/diamond-svgrepo-com.svg'
+                        src='https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps'
                         width='60'
                         height='60'
                         alt='Logo'

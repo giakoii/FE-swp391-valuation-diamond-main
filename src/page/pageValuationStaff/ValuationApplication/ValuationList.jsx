@@ -130,12 +130,7 @@ export const ValuationList = () => {
           <Row className="mt-3">
             <Col>
               <Button variant="secondary" onClick={handleGoBack}>
-                <img
-                  src="/src/assets/assetsStaff/back.svg"
-                  alt="go back"
-                  height="20"
-                  width="20"
-                />
+              <i className="bi bi-arrow-90deg-left"></i>
               </Button>
             </Col>
           </Row>

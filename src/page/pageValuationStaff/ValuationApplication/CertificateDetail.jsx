@@ -61,7 +61,7 @@ export const CertificateDetail = () => {
         const data = await response.json();
         setResultDefault(data)
         setMarketPrice({
-          diamondOrigin: data.diamondOrigin === 'Lab Grown' ? 'Lab':'Natural',
+          diamondOrigin: data.diamondOrigin === 'Lab Grown' ? 'Lab' : 'Natural',
           shape: data.shapeCut,
           color: data.color,
           clarity: data.clarity,
@@ -294,14 +294,20 @@ export const CertificateDetail = () => {
   return (
     <Container>
       <div className="mb-4">
-        <img
+        {/* <img
           src="/src/assets/assetsStaff/back.svg"
           alt="Back"
           onClick={() => {
             navigate("/valuation-staff/certificate-list");
           }}
           style={{ cursor: "pointer" }}
-        />
+        /> */}
+        <i className="bi bi-arrow-90deg-left"
+          onClick={() => {
+            navigate("/valuation-staff/certificate-list");
+          }}
+          style={{ cursor: "pointer" }}
+        ></i>
       </div>
       <ToastContainer />
       <h1 className="text-center my-3">Diamond Valuation Report</h1>
@@ -342,7 +348,7 @@ export const CertificateDetail = () => {
                   isInvalid={!!validationErrors.diamondOrigin}
                   onChange={handleOnChange}
                 >
-                 
+
                   <option value="Natural">Natural</option>
                   <option value="Lab Grown">Lab Grown</option>
                 </Form.Control>
@@ -394,7 +400,7 @@ export const CertificateDetail = () => {
                   onChange={handleOnChange}
                   isInvalid={!!validationErrors.shapeCut}
                 >
-                 
+
                   <option value="Round">Round</option>
                   <option value="Cushion">Cushion</option>
                   <option value="Emerald">Emerald</option>
@@ -512,7 +518,7 @@ export const CertificateDetail = () => {
                   isInvalid={!!validationErrors.clarity}
                   onChange={handleOnChange}
                 >
-                  
+
                   <option value="SI2">SI2</option>
                   <option value="SI1">SI1</option>
                   <option value="VS2">VS2</option>
@@ -544,7 +550,7 @@ export const CertificateDetail = () => {
                   isInvalid={!!validationErrors.cut}
                   onChange={handleOnChange}
                 >
-                 
+
                   <option value="Fair">FAIR</option>
                   <option value="Good">GOOD</option>
                   <option value="Very Good">V.GOOD</option>
@@ -581,7 +587,7 @@ export const CertificateDetail = () => {
                   isInvalid={!!validationErrors.polish}
                   onChange={handleOnChange}
                 >
-                
+
                   <option value="Fair">FAIR</option>
                   <option value="Good">GOOD</option>
                   <option value="Very Good">V.GOOD</option>
@@ -610,7 +616,7 @@ export const CertificateDetail = () => {
                   onChange={handleOnChange}
                   isInvalid={!!validationErrors.symmetry}
                 >
-                 
+
                   <option value="Fair">FAIR</option>
                   <option value="Good">GOOD</option>
                   <option value="Very Good">V.GOOD</option>
@@ -638,7 +644,7 @@ export const CertificateDetail = () => {
                   isInvalid={!!validationErrors.fluorescence}
                   onChange={handleOnChange}
                 >
-                 
+
                   <option value="Very Strong">VSTG</option>
                   <option value="Strong">STG</option>
                   <option value="Medium">MED</option>

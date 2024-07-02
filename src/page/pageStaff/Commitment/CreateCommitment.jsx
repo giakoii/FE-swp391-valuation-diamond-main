@@ -129,13 +129,19 @@ const CreateCommitment = () => {
     <div>
       <ToastContainer />
       <div>
-        <img
+        {/* <img
           src="/src/assets/assetsStaff/back.svg"
           alt="Back"
           onClick={() => {
             navigate(-1); // Navigate back to the previous page
           }}
-        />
+        /> */}
+        <i className="bi bi-arrow-90deg-left"
+          onClick={() => {
+            navigate("/my-order");
+          }}
+          style={{ cursor: "pointer" }}
+        ></i>
       </div>
       <div className="d-flex justify-content-center mt-5">
         <div className="w-75">

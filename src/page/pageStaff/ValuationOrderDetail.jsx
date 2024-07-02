@@ -49,7 +49,7 @@ export const ValuationOrderDetail = () => {
 
   const handleCreateForm = (product) => {
     // check update isDiamond and image
-    if(product.img === null){
+    if (product.img === null) {
       toast.error('Your sample must include image')
       return;
     }
@@ -106,11 +106,11 @@ export const ValuationOrderDetail = () => {
               <td style={{ backgroundColor: getColorTime(product.orderId.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
               <td>{product.size}</td>
               <td>
-                <div className="text-center">{product.isDiamond ? "Diamond" : "Not a diamond"}</div>   
-                  {/* <div style={{ alignItems: "center" }}>
+                <div className="text-center">{product.isDiamond ? "Diamond" : "Not a diamond"}</div>
+                {/* <div style={{ alignItems: "center" }}>
                     {(product.isDiamond === null || product.isDiamond === "") ? "Unknown" : (product.isDiamond ? "Diamond" : "Not a diamond")}
                   </div> */}
-                
+
               </td>
               <td>
                 <div><Status status={product.status} /></div>
@@ -119,7 +119,7 @@ export const ValuationOrderDetail = () => {
                 <Button onClick={() => handleCreateForm(product)} disabled={!product.isDiamond}>Create Certificate</Button>
               </td>
               <td>
-                <img
+                {/* <img
                   src="/src/assets/assetsStaff/editStatus.svg"
                   alt="Upload Icon"
                   height='20'
@@ -127,7 +127,13 @@ export const ValuationOrderDetail = () => {
                   onClick={() => {
                     navigate(`/valuation-staff/valuation-order/${product.orderDetailId}`, { state: { product } })
                   }}
-                />
+                /> */}
+                <i className="bi bi-pencil"
+                  onClick={() => {
+                    navigate(`/valuation-staff/valuation-order/${product.orderDetailId}`, { state: { product } })
+                  }}
+                  style={{height:20, width:20}}
+                ></i>
               </td>
             </tr>
           ))}

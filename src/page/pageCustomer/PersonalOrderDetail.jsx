@@ -67,11 +67,11 @@ export const PersonalOrderDetail = () => {
     // confirm finish
     const APIUpdate = `${API_BASE_URL}/order_request/updateStatus`;
     const handleOnFinished = async (value) => {
-        if((order?.status !== "Completed" || order?.status !== "Finished" )){
+        if ((order?.status !== "Completed" || order?.status !== "Finished")) {
             toast.error("Your order is In-progress")
             return;
         }
-        if((order?.status == "Sealed")){
+        if ((order?.status == "Sealed")) {
             toast.error("Your order is Sealed")
             return;
         }
@@ -124,16 +124,14 @@ export const PersonalOrderDetail = () => {
         <div>
             <ToastContainer />
             <div className=" mx-4">
-                <img
-                    src="/src/assets/assetsStaff/back.svg"
-                    alt="Back"
+                <i className="bi bi-arrow-90deg-left"
                     onClick={() => {
                         navigate("/my-order");
                     }}
                     style={{ cursor: "pointer" }}
-                />
+                ></i>
             </div>
-            <div  style={{minHeight:"400px"}}>
+            <div style={{ minHeight: "400px" }}>
                 <Container>
                     {/* List of order */}
                     <Row >
@@ -222,11 +220,11 @@ export const PersonalOrderDetail = () => {
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold mb-1'>Status</div>
-                                                    {isOrder  && <Status status={order.status} />}
+                                                    {isOrder && <Status status={order.status} />}
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold'>Created Order Date</div>
-                                                    {isOrder &&  <div>{formattedDateTime(order.orderDate)}</div>}
+                                                    {isOrder && <div>{formattedDateTime(order.orderDate)}</div>}
                                                 </div>
                                             </Stack>
                                         </Col>
@@ -235,12 +233,12 @@ export const PersonalOrderDetail = () => {
                             </div>
                             {/* Button */}
                             <div className='d-grid mt-4'>
-                                <Button 
-                                    className='p-2 border border-none rounded text-dark' 
+                                <Button
+                                    className='p-2 border border-none rounded text-dark'
                                     style={{ backgroundColor: "#CCFBF0" }}
                                     onClick={showReceivedOrderConfirmation}
-                                    disabled = {order.status === 'Finished' || order.status === 'Sealed'}
-                                    >
+                                    disabled={order.status === 'Finished' || order.status === 'Sealed'}
+                                >
                                     Finished
                                 </Button>
                             </div>

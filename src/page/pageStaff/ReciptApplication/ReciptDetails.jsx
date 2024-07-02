@@ -10,7 +10,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { Status } from "../../../component/Status";
 import getColorTime from "../../../utils/hook/getTimeColor";
 import { API_BASE_URL } from "../../../utils/constants/url";
-import checkExistId from "../../../utils/checkExistId";
 
 export const ReceiptDetails = () => {
   const [orderDetails, setOrderDetails] = useState([]);
@@ -42,18 +41,7 @@ export const ReceiptDetails = () => {
   }
 
   const createCommitment = async () => {
-    // try {
-    //   const isExist = await checkExistId(`${API_BASE_URL}/committed_Paper/getCommittedPaperByOrderId`, orderDetails[0]?.orderId.orderId);
-    //   console.log("Check existence result:", isExist); // Log the result of the check
-    //   if (isExist) {
-    //     toast.error("Your commitment paper for this order has already been created");
-    //   } else {
-        navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
-      // }
-    // } catch (error) {
-    //   console.error("Error checking commitment existence:", error);
-    //   toast.error("Error checking commitment existence");
-    // }
+    navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
   };
 
 

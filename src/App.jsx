@@ -26,7 +26,6 @@ import Signup from "./page/pageCustomer/Signup";
 import Contact from "./page/pageCustomer/Contact";
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";
 import Calculate from "./page/pageCustomer/Calculate/Calculate.jsx";
-import Check from "./page/pageCustomer/Check";
 import { PersonalRequest } from "./page/pageCustomer/PersonalRequest";
 import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx";
 import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
@@ -105,7 +104,6 @@ function App() {
             }
           />
           <Route path="calculate" element={<Calculate />} />
-          <Route path="check" element={<Check />} />
           <Route path="checkDiamond" element={<CheckDiamond />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />
           <Route path="policy" element={<ServicePolicy />} />

@@ -48,7 +48,7 @@ export const ValuationOrderDetailUpdate = () => {
       return null;
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,7 +70,7 @@ export const ValuationOrderDetailUpdate = () => {
 
   const handleFormChange = (field, value) => {
     setFormEdit((currentState) => ({ ...currentState, [field]: value }));
-    
+
   };
 
   //on change image
@@ -122,14 +122,20 @@ export const ValuationOrderDetailUpdate = () => {
     <Container>
       <div>
         <div className="mb-4">
-          <img
+          {/* <img
             src="/src/assets/assetsStaff/back.svg"
             alt="Back"
             onClick={() => {
               navigate("/valuation-staff/valuation-order");
             }}
             style={{ cursor: "pointer" }}
-          />
+          /> */}
+          <i className="bi bi-arrow-90deg-left"
+            onClick={() => {
+              navigate("/valuation-staff/valuation-order");
+            }}
+            style={{ cursor: "pointer" }}
+          ></i>
         </div>
         <div className="text-center my-4">
           <h1>Edit Product</h1>

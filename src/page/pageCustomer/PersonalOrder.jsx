@@ -103,7 +103,7 @@ export const PersonalOrder = () => {
                         <Row key={order.orderId} className="justify-content-center w-50 mx-auto p-3" style={{ boxShadow: 'rgb(0 0 0 / 16%) 1px 1px 10px' }}>
                             <Col xs="auto" className="d-flex align-items-center">
                                 <img
-                                    src="/src/assets/assetsCustomer/logo.png"
+                                    src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps"
                                     alt="Diamond"
                                     width="100"
                                     height="100"
@@ -120,12 +120,7 @@ export const PersonalOrder = () => {
                                 <Stack >
                                     <Button style={{ backgroundColor: '#CCFBF0' }} onClick={() => viewMyRequest(order)}>
                                         <span className='text-dark me-1'>View</span>
-                                        <img
-                                            src="/src/assets/assetsCustomer/seemore.svg"
-                                            alt=""
-                                            width="20"
-                                            height="20"
-                                        />
+                                        <i class="bi bi-arrow-right"></i>
                                     </Button>
                                 </Stack>
                             </Col>

@@ -10,7 +10,7 @@ export const MyCertificateList = () => {
   //get certificate list
   const [certificateList, setCertificateList] = useState([]);
   const navigate = useNavigate();
-  const {user} = useAuth()
+  const { user } = useAuth()
   const [loading, setLoading] = useState(true);
 
   // Pagination
@@ -25,8 +25,8 @@ export const MyCertificateList = () => {
     indexOfLastPost
   );
 
-  const viewCertificateDetail = (result)=>{
-    navigate(`/valuation-staff/certificate-list/${result.evaluationResultId}`, {state:{result}} )
+  const viewCertificateDetail = (result) => {
+    navigate(`/valuation-staff/certificate-list/${result.evaluationResultId}`, { state: { result } })
   }
 
   // Change page
@@ -44,7 +44,7 @@ export const MyCertificateList = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
-      }finally {
+      } finally {
         setLoading(false)
       }
     };
@@ -87,17 +87,14 @@ export const MyCertificateList = () => {
                 <td>{formattedDate(result.createdDate)}</td>
                 <td>{result.orderDetailId.orderDetailId}</td>
                 <td>
-                  <Button 
-                  style={{backgroundColor:"#7CF4DE" , color:"#333" }} 
-                  size="md"
-                  onClick={()=>viewCertificateDetail(result)}
+                  <Button
+                    style={{ backgroundColor: "#7CF4DE", color: "#333" }}
+                    size="md"
+                    onClick={() => viewCertificateDetail(result)}
                   >
-                    <img 
-                     src="/src/assets/assetsStaff/editStatus.svg"
-                     alt="Upload Icon"
-                     height='20'
-                     width='20'
-                    />
+                    <i className="bi bi-pencil"
+                      style={{ height: 20, width: 20 }}
+                    ></i>
                   </Button>
                 </td>
               </tr>

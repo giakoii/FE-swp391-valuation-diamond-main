@@ -23,7 +23,7 @@ function Header() {
             <Container fluid>
                 <Navbar.Brand href='/' className='p-3 fw-bold fst-italic'>
                     <img
-                        src='/src/assets/assetsCustomer/logo.png'
+                        src='https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps'
                         width='20%'
                         height='20%'
                         alt='Logo'
@@ -40,7 +40,6 @@ function Header() {
                             <NavDropdown.Item as={NavLink} to="/evaluationservice">
                                 Diamond Valuation Service
                             </NavDropdown.Item>
-
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={NavLink} to="/policy">Diamond Valuation Policy</NavDropdown.Item>
                             <NavDropdown.Divider />
@@ -49,19 +48,14 @@ function Header() {
                             </NavDropdown.Item>
                         </NavDropdown>
                         <NavLink to="/checkdiamond" className="nav-link">Check</NavLink>
-                        <NavLink to="/blog" className="nav-link">Blog</NavLink>
                         <NavLink to="/contact" className="nav-link">Contact</NavLink>
-                        <NavDropdown title="Language" id="nav-dropdown">
-                            <NavDropdown.Item>Vietnamese</NavDropdown.Item>
-                            <NavDropdown.Item>English</NavDropdown.Item>
-                        </NavDropdown>
 
                         {user ? (
                             <NavDropdown title={`${user.firstName} ${user.lastName}`} id="nav-dropdown">
                                 <NavDropdown.Item as={NavLink} to="/profile">My Profile</NavDropdown.Item>
                                 <NavDropdown.Item as={NavLink} to="/my-request">My Request</NavDropdown.Item>
-                                <NavDropdown.Item as={NavLink} to="/my-order">My Order</NavDropdown.Item>
                                 <NavDropdown.Divider />
+                                <NavDropdown.Item as={NavLink} to="/my-order">My Order</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleLogout}>
                                     Log out
                                 </NavDropdown.Item>

@@ -131,7 +131,7 @@ function Login() {
                     <div className="form-img text-center mt-4">
                         <a href="">
                             <img
-                                src="/src/assets/assetsCustomer/Google.png"
+                                src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856697/Google_wkqv8i.jpg?_s=public-apps"
                                 alt="google"
                                 className="img rounded-circle border border-dark"
                                 height="40"

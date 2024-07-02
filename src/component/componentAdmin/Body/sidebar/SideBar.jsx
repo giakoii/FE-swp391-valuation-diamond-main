@@ -17,13 +17,13 @@ const AdminSideBar = () => {
 
   const fetchScheduleCount = async () => {
     try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/countOrderDetailWithEvaluationStaffIdIsNull');
+      const response = await fetch('https://valuation.techtheworld.id.vn/countOrderDetailWithEvaluationStaffIdIsNull');
       if (!response.ok) {
         throw new Error('Failed to fetch schedule count');
       }
       const data = await response.json();
       if (data.length > 0) {
-        setManageScheduleCount(data[0].count); // Accessing count property from the first object in the array
+        setManageScheduleCount(data.count); // Accessing count property from the first object in the array
       }
     } catch (error) {
       console.error('Error fetching schedule count:', error);

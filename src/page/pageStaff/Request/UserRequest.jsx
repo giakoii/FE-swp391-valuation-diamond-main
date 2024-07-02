@@ -192,7 +192,6 @@ export const UserRequest = () => {
                       </div>
                     )}
                   </td>
-
                   <td>
                     <Button
                       onClick={() => viewDetails(user)}
@@ -215,15 +214,6 @@ export const UserRequest = () => {
       ) : (
         currentDetail && (
           <div>
-            {/* <img
-              src="/src/assets/assetsStaff/back.svg"
-              alt="go back"
-              className="mt-3"
-              height="40"
-              width="40"
-              onClick={() => setIsViewDetail(false)}
-            /> */}
-
             <i className="bi bi-arrow-90deg-left mt-3"
               onClick={() => setIsViewDetail(false)}
               style={{ cursor: "pointer", height: 40, width: 40 }}

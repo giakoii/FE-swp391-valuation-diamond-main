@@ -11,7 +11,7 @@ import { API_BASE_URL } from '../../../utils/constants/url';
 export const ViewCertificate = () => {
     const [isPrint, setIsPrint] = useState(false);
     const { orderDetailId } = useParams();
-    const [certificate, setCertificate] = useState([]);
+    const [certificate, setCertificate] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export const ViewCertificate = () => {
                     <Row className="mb-4">
                         <Col md={2}>
                             <Image
-                                src="/src/assets/assetsCustomer/logo.png"
+                                src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps"
                                 alt="Logo"
                                 className='mt-3'
                                 fluid
@@ -76,7 +76,7 @@ export const ViewCertificate = () => {
                                     <Form.Label className="mb-2">Certificate ID:</Form.Label>
                                 </Col>
                                 <Col md={6} className="text-center w-100 fw-bold">
-                                    <p>{certificate[0]?.evaluationResultId}</p>
+                                    <p>{certificate?.evaluationResultId}</p>
                                 </Col>
                             </Row>
                         </Col>
@@ -91,7 +91,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Diamond Origin</Form.Label>
                                     </Col>
                                     <Col md={6} >
-                                        <p>{certificate[0]?.diamondOrigin}</p>
+                                        <p>{certificate?.diamondOrigin}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -99,7 +99,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Measurements</Form.Label>
                                     </Col>
                                     <Col md={6} >
-                                        <p>{certificate[0]?.measurements}</p>
+                                        <p>{certificate?.measurements}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -107,7 +107,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Shape Cut</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.shapeCut}</p>
+                                        <p>{certificate?.shapeCut}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -115,7 +115,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Description</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.description}</p>
+                                        <p>{certificate?.description}</p>
                                     </Col>
                                 </Row>
                             </div>
@@ -127,7 +127,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Carat Weight</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.caratWeight}</p>
+                                        <p>{certificate?.caratWeight}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -135,7 +135,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Color Grade</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.color}</p>
+                                        <p>{certificate?.color}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -143,7 +143,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Clarity Grade</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.clarity}</p>
+                                        <p>{certificate?.clarity}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -151,7 +151,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Cut Grade</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.cut}</p>
+                                        <p>{certificate?.cut}</p>
                                     </Col>
                                 </Row>
                             </div>
@@ -163,7 +163,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Polish</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.polish}</p>
+                                        <p>{certificate?.polish}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -171,7 +171,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Symmetry</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.symmetry}</p>
+                                        <p>{certificate?.symmetry}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -179,7 +179,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Fluorescence</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.fluorescence}</p>
+                                        <p>{certificate?.fluorescence}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -187,7 +187,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Proportion</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.proportions}</p>
+                                        <p>{certificate?.proportions}</p>
                                     </Col>
                                 </Row>
                                 <Row className="mb-2">
@@ -195,7 +195,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Estimate Price</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate[0]?.price}</p>
+                                        <p>{certificate?.price}</p>
                                     </Col>
                                 </Row>
                             </div>
@@ -205,7 +205,7 @@ export const ViewCertificate = () => {
                             <div className='my-4' style={{ width: '100%' }}>
                                 <h4 className='text-center py-2' style={{ backgroundColor: '#7CF4DE' }}>Product Image</h4>
                                 <div className='d-flex justify-content-center'>
-                                    {certificate[0]?.img && (
+                                    {certificate?.img && (
                                         <img
                                             src={certificate[0].img}
                                             alt="product-img"

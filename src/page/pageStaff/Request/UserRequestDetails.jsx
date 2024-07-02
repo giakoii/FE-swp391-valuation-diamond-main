@@ -43,7 +43,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
       });
 
       const data = await response.json();
-      
+
       if (data) {
         toast.success("Update meeting date successful");
         setAppointmentDate(value); // Update the state with the new date
@@ -139,9 +139,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
                       ? formattedDateTime(appointmentDate)
                       : "Not set"}
                   </span>
-                  <img
-                    src="/src/assets/assetsStaff/add.svg"
-                    alt="Edit Date"
+                  <i class="bi bi-plus-circle"
                     onClick={() => {
                       if (userRequestDetail.status === "Canceled") {
                         setIsEditingDate(false);
@@ -151,7 +149,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
                       }
                     }}
                     style={{ cursor: "pointer" }}
-                  />
+                  ></i>
                 </div>
               )}
             </Col>

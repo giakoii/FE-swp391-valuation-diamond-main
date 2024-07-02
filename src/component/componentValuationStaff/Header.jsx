@@ -21,8 +21,8 @@ function Header() {
                 <Navbar.Brand href='#home' className='p-3 fw-bold fst-italic'>
                     <img
                         src='https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps'
-                        width='60'
-                        height='60'
+                        width='20%'
+                        height='20%'
                         alt='Logo'
                     /> 
                     Valuation Diamond

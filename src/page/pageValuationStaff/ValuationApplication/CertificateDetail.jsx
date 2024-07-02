@@ -90,16 +90,11 @@ export const CertificateDetail = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!resultDefault.diamondOrigin) {
-      errors.diamondOrigin = "Diamond origin is required";
-    }
+
     if (!resultDefault.measurements) {
       errors.measurements = "Measurements are required";
     }
 
-    if (!resultDefault.shapeCut) {
-      errors.shapeCut = "Shape cut is required";
-    }
     if (!resultDefault.description) {
       errors.description = "Description is required";
     }
@@ -109,25 +104,11 @@ export const CertificateDetail = () => {
     if (!resultDefault.caratWeight) {
       errors.caratWeight = "Carat weight is required";
     }
-    if (Number.parseFloat(resultDefault.caratWeight) <= 0) {
-      errors.caratWeight = "Carat weight must have positive";
+    if (Number.parseFloat(resultDefault.caratWeight) <= 0.3) {
+      errors.caratWeight = "Carat weight must greater than 0.3 carat";
     }
-    if (!resultDefault.color) {
-      errors.color = "Color grade is required";
-    }
-
-    if (!resultDefault.clarity) {
-      errors.clarity = "Clarity grade is required";
-    }
-    if (!resultDefault.cut) {
-      errors.cut = "Cut grade is required";
-    }
-
-    if (!resultDefault.symmetry) {
-      errors.symmetry = "Symmetry  is required";
-    }
-    if (!resultDefault.polish) {
-      errors.polish = " Polish is required";
+    if (Number.parseFloat(resultDefault.caratWeight) >= 50) {
+      errors.caratWeight = "Carat weight must smaller than 50 carat";
     }
 
     if (!resultDefault.proportions) {
@@ -146,7 +127,6 @@ export const CertificateDetail = () => {
     return Object.keys(errors).length === 0;
   };
 
-  console.log(validateForm)
   const showConfirmUpdate = (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -272,23 +252,26 @@ export const CertificateDetail = () => {
   // view market price
   const viewMarketPrice = () => {
     const queryParams = new URLSearchParams(marketPrice).toString();
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
-        );
-        const data = await response.json();
-        setPriceMarket(data);
-
-        console.log(data)
-      } catch (error) {
-        setError(error);
-      } finally {
-
-      }
-    };
-    fetchData();
-
+    if(validateForm()){
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
+          );
+          const data = await response.json();
+          setPriceMarket(data);
+  
+          console.log(data)
+        } catch (error) {
+          setError(error);
+        } finally {
+  
+        }
+      };
+      fetchData();
+  
+    }
+    
   }
 
   return (
@@ -712,7 +695,7 @@ export const CertificateDetail = () => {
                     padding: "5px",
                     color: "red"
                   }}>
-                  {priceMarket.basePrice ? `$${Math.round(priceMarket.baseFinalPrice)}` : 0}
+                  {priceMarket.baseFinalPrice ? `$${Math.round(priceMarket.baseFinalPrice)}` : 0}
                 </div>
               </Col>
             </Row>

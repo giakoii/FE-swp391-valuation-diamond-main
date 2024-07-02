@@ -12,6 +12,7 @@ export const CalculateOutput = () => {
   const [resultRecommend, setResultRecommend] = useState([])
   const [error, setError] = useState(null);
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search).toString();
   // set default neu ko co queryParams
   const diamondCalculateDefault = {
@@ -25,8 +26,6 @@ export const CalculateOutput = () => {
     polish: "Fair",
     fluorescence: "Very Strong",
   };
-
-
   const queryParamsDefault = new URLSearchParams(diamondCalculateDefault).toString()
   console.log(queryParamsDefault)
 
@@ -100,8 +99,7 @@ export const CalculateOutput = () => {
           </div>
           <div className="d-flex justify-content-center">
             <div className="quality-diamond">
-              {/* {`${result.diamondOrigin} - ${result.shape} - ${result.carat} - ${result.clarity} - ${result.color} - ${result.cut}`} */}
-              Natural - Round - 1.75 - Good - J -Excellent
+  
             </div>
           </div>
           <div className="d-flex justify-content-center">
@@ -139,6 +137,10 @@ export const CalculateOutput = () => {
                 </Col>
                 <Col md={9} className="m-2">
                   <div className="d-flex justify-content-between align-items-center">
+                  <div className="text-center">
+                      <div className="fw-bold">{store.assessOrigin}</div>
+                      <div>Origin</div>
+                    </div>
                     <div className="text-center">
                       <div className="fw-bold">{store.assessCut}</div>
                       <div>Cut</div>

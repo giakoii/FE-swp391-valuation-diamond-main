@@ -30,6 +30,7 @@ import { PersonalRequest } from "./page/pageCustomer/PersonalRequest";
 import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx";
 import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
+import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
 import { ManageCustomer } from "./page/pageAdmin/ManageCustomer/ManageCustomer.jsx";
@@ -52,7 +53,7 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Routes>
+      <Routes>
         {/* ROLES: CUSTOMER OR GUEST */}
         <Route
           element={
@@ -103,6 +104,7 @@ function App() {
               </GuestGuard>
             }
           />
+          <Route path="change-pass" element={<ChangePassword />} />
           <Route path="calculate" element={<Calculate />} />
           <Route path="checkDiamond" element={<CheckDiamond />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />

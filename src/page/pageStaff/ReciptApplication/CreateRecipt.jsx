@@ -24,7 +24,7 @@ export const CreateReceipt = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/service/getServices"
+          "https://valuation.techtheworld.id.vn/service/getServices"
         );
         const data = await response.json();
         setSelection(data);
@@ -138,7 +138,7 @@ export const CreateReceipt = () => {
   const fetchUnitPrice = async (serviceId, size) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/service_price_list/calculate?serviceId=${serviceId}&size=${size}`
+        `https://valuation.techtheworld.id.vn/service_price_list/calculate?serviceId=${serviceId}&size=${size}`
       );
       const data = await response.json();
       console.log(
@@ -201,7 +201,7 @@ export const CreateReceipt = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/order_request/create",
+        "https://valuation.techtheworld.id.vn/order_request/create",
         {
           method: "POST",
           headers: {

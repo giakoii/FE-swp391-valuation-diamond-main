@@ -93,7 +93,7 @@ function Signup() {
       userId: formState.userId,
       otp: otp,
     };
-
+    console.log(otpSendData);
     try {
       const response = await fetch('https://valuation.techtheworld.id.vn/user_request/confirm-email', {
         method: 'POST',

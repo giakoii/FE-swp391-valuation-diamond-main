@@ -11,7 +11,7 @@ const AdminSideBar = () => {
   const [manageScheduleCount, setManageScheduleCount] = useState(0);
 
   useEffect(() => {
-    fetchScheduleCount(); // Fetch schedule count on component mount
+    fetchScheduleCount(); 
   }, []);
 
   const fetchScheduleCount = async () => {
@@ -22,7 +22,7 @@ const AdminSideBar = () => {
       }
       const data = await response.json();
       setManageScheduleCount(data.count); 
-      console.log(data.count);
+      
     } catch (error) {
       console.error('Error fetching schedule count:', error);
     }

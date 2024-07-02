@@ -62,7 +62,7 @@ export const DashBoard = () => {
         <ChartBox
             icon="/assets/assetsAdmin/kanban.svg"
             title="Total Order"
-            dataKey="totalPrice"
+            dataKey="count"
             chartData={totalOrderData}
         />
     </div>
@@ -70,7 +70,7 @@ export const DashBoard = () => {
         <ChartBox
             icon="/assets/assetsAdmin/kanban.svg"
             title="Total Quantity"
-            dataKey="totalPrice"
+            dataKey="totalQuantity"
             chartData={totalQuantityData}
         />
     </div>

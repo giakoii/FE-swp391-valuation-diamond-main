@@ -17,7 +17,7 @@
 
     const fetchScheduleCount = async () => {
       try {
-        const response = await fetch('https://valuation.techtheworld.id.vn/countOrderDetailWithEvaluationStaffIdIsNull');
+        const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/countOrderDetailWithEvaluationStaffIdIsNull');
         if (!response.ok) {
           throw new Error('Failed to fetch schedule count');
         }

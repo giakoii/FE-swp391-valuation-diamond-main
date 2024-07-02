@@ -36,7 +36,7 @@ export const ManageService = () => {
     useEffect(() => {
         const fetchDataService = async() => { 
             try { 
-                const response = await fetch('http://localhost:8080/service/getServices');
+                const response = await fetch('https://valuation.techtheworld.id.vn/service/getServices');
                 const data = await response.json(); 
                 setViewService(data);
             } catch(error) {
@@ -50,7 +50,7 @@ export const ManageService = () => {
     const handleOnServiceTypeChange = (serviceId) => {
         const fetchUpdateData = async() => {
             try {
-                await fetch(`http://localhost:8080/service/update/${serviceId}`, {
+                await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json', 
@@ -72,7 +72,7 @@ export const ManageService = () => {
     const handleOnServiceDescriptionChange = (serviceId) => {
         const fetchUpdateData = async() => {
             try {
-                await fetch(`http://localhost:8080/service/update/${serviceId}`, {
+                await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json', 
@@ -103,7 +103,7 @@ export const ManageService = () => {
     const handleAddNewService = async(e) => {
         e.preventDefault();
         try { 
-            const response = await fetch('http://localhost:8080/service/create', {
+            const response = await fetch('https://valuation.techtheworld.id.vn/service/create', {
                 method : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ export const ManageService = () => {
     // price LIst is exist
     const checkServicePriceListEmpty = async (serviceId) => {
         try {
-            const response = await fetch(`http://localhost:8080/service_price_list/getServicePrice/${serviceId}`);
+            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePrice/${serviceId}`);
             const priceList = await response.json();
             return priceList.length === 0;
         } catch (error) {
@@ -184,7 +184,7 @@ export const ManageService = () => {
     const handleViewServicePriceList = async(serviceId) => {
         setSelectedServiceId(serviceId);
         try {
-            const response = await fetch(`http://localhost:8080/service_price_list/getServicePrice/${serviceId}`);
+            const response = await fetch(`hhttps://valuation.techtheworld.id.vn/service_price_list/getServicePrice/${serviceId}`);
             const data = await response.json();
             setServicePriceList(data);
             setShowPriceList(true);
@@ -230,7 +230,7 @@ export const ManageService = () => {
         }
       
         try {
-          const response = await fetch('http://localhost:8080/service_price_list/addPriceList', {
+          const response = await fetch('https://valuation.techtheworld.id.vn/service_price_list/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -296,7 +296,7 @@ export const ManageService = () => {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:8080/service_price_list/updateServicePriceListById/${priceListId}`, {
+            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/updateServicePriceListById/${priceListId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

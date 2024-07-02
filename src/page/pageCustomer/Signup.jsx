@@ -64,7 +64,7 @@ function Signup() {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ function Signup() {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/verify_otp', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/confirm-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

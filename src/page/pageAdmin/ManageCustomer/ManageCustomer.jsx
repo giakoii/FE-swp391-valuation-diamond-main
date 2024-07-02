@@ -63,7 +63,7 @@ export const ManageCustomer = () => {
     };
     console.log(formSendAddNewCustomer);
     try {
-      const response = await fetch('http://localhost:8080/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const ManageCustomer = () => {
   useEffect(() => {
     const fetchDataStaff = async () => {
       try {
-        const response = await fetch('http://localhost:8080/user_request/getCustomer');
+        const response = await fetch('https://valuation.techtheworld.id.vn/user_request/getCustomer');
         const data = await response.json();
         setDataCust(data);
         setFilteredSelection(data);
@@ -105,7 +105,7 @@ export const ManageCustomer = () => {
   // Show sutomer information
   const handleShowCustInfor = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:8080/user_request/getAUser/${userId}`);
+      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/getAUser/${userId}`);
       const cutomer = await response.json();
       setFormContainCustById(cutomer);
       setShowFormInfor(true);
@@ -122,7 +122,7 @@ export const ManageCustomer = () => {
   // Show edit Cust form
   const handleShowEditCust = async (CustId) => {
     try {
-      const response = await fetch(`http://localhost:8080/user_request/getAUser/${CustId}`);
+      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/getAUser/${CustId}`);
       const customer = await response.json();
       setFormEditCust(customer);
       setOriginalData(customer); // Store the original data
@@ -148,7 +148,7 @@ export const ManageCustomer = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:8080/user_request/updateUser/${formEditCust.userId}`, {
+      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/updateUser/${formEditCust.userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ export const ManageCustomer = () => {
   
     if (confirmResult.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:8080/user_request/deleteUser/${userId}`, {
+        const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/deleteUser/${userId}`, {
           method: 'DELETE',
         });
   

@@ -18,7 +18,7 @@ export const ManageSchedule = () => {
   // Fetch orderDetail data
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8080/order_detail_request/getOrderDetailByEvaluationStaffIsNull');
+      const response = await fetch('https://valuation.techtheworld.id.vn/order_detail_request/getOrderDetailByEvaluationStaffIsNull');
       const data = await response.json();
       setDataManage(data);
     
@@ -31,7 +31,7 @@ export const ManageSchedule = () => {
   useEffect(() => {
     const fetchStaffIds = async () => {
       try {
-        const response = await fetch('http://localhost:8080/user_request/getStaff');
+        const response = await fetch('https://valuation.techtheworld.id.vn/user_request/getStaff');
         const data = await response.json();
         setEvaluationStaffIds(data);
       } catch (error) {
@@ -67,7 +67,7 @@ export const ManageSchedule = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/order_detail_request/updateAllOD/${orderDetailId}`, {
+      const response = await fetch(`https://valuation.techtheworld.id.vn/order_detail_request/updateAllOD/${orderDetailId}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

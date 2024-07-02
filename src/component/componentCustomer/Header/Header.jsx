@@ -43,7 +43,7 @@ function Header() {
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={NavLink} to="/policy">Diamond Valuation Policy</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={NavLink} to="/type-of-valuation">
+                            <NavDropdown.Item as={NavLink} to="/typevaluation">
                                 Type of Valuation
                             </NavDropdown.Item>
                         </NavDropdown>

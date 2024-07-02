@@ -31,6 +31,7 @@ import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx"
 import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
+import TypeValuation from './page/pageCustomer/Typevaluation.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
 import { ManageCustomer } from "./page/pageAdmin/ManageCustomer/ManageCustomer.jsx";
@@ -109,6 +110,7 @@ function App() {
           <Route path="checkDiamond" element={<CheckDiamond />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />
           <Route path="policy" element={<ServicePolicy />} />
+          <Route path="typevaluation" element={<TypeValuation />} />
         </Route>
 
         {/* ROLE: CONSULTANT_STAFF */}

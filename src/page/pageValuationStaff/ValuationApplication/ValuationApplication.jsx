@@ -130,11 +130,11 @@ export const ValuationApplication = () => {
 
 
   const showConfirmFinished = async (data) => {
-    // const exist = await checkExistId(orderDetailId)
-    // if (exist) {
-    //   toast.error("Sample ID already exists. Cannot create duplicate sample.");
-    //   return;
-    // }
+    const exist = await checkExistId(orderDetailId)
+    if (exist) {
+      toast.error("Sample ID already exists. Cannot create duplicate sample.");
+      return;
+    }
 
     confirmAlert({
       title: "Confirm to Finish",

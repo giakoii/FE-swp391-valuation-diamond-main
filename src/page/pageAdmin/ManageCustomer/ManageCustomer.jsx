@@ -197,7 +197,7 @@ export const ManageCustomer = () => {
           setFilteredSelection(filteredSelection.filter(cust => cust.userId !== userId));
           showAlert('Deleted!', 'Staff has been deleted.', 'success');
         } else {
-          console.log('Delete failed');
+          showAlert('Error!', 'Delete Failed !!!!!!', 'error');
         }
       } catch (error) {
         console.log('Error:', error);
@@ -284,8 +284,8 @@ export const ManageCustomer = () => {
             <div className='row  mx-2 my-2'>
               <p className='col-md-2'>CustomerID</p>
               <p className='col-md-3'>CustName</p>
-              <p className='col-md-3'>Phone</p>
-              <p className='col-md-2'>Email</p>
+              <p className='col-md-3'>Email</p>
+              <p className='col-md-2'>Phone</p>
             </div>
           </div>
           {currentPosts.map((dataCust, index) => (
@@ -395,7 +395,7 @@ export const ManageCustomer = () => {
                 />
               </div>
               <div className='form-group col-md-6 my-5'>
-                <label htmlFor='password'>Password:</label>
+                <label htmlFor='password'>Password :</label>
                 <input
                   id='password'
                   type='password'
@@ -467,7 +467,7 @@ export const ManageCustomer = () => {
                         <p className='mx-4'><strong>ID:</strong> {formContainCustById.userId} <strong className='mx-5'></strong><strong>Role:</strong> {formContainCustById.role} </p>
                         <p className='mx-4'><strong>Phone:</strong> {formContainCustById.phoneNumber}</p>
                         <p className='mx-4'><strong>Email:</strong> {formContainCustById.email}</p>
-                        <p className='mx-4'><strong>Password:</strong> {formContainCustById.password}</p>
+                       
                         <p className='mx-4'><strong>Birthday:</strong> {formattedDate(formContainCustById.birthday)}</p>
                         </div>
                 </div>
@@ -491,7 +491,7 @@ export const ManageCustomer = () => {
               <Modal.Title className='w-100 d-flex justify-content-center'>EDIT CUSTOMER</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form
+            <Form
                 className='form-row my-5 p-3 mx-5'
                 style={{ width: "650px", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }}
                 onSubmit={handleEditOnSubmit}
@@ -528,46 +528,46 @@ export const ManageCustomer = () => {
                   </div>
                 </div>
                 
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='password'>Password:</label>
+                <div className='form-group col-md-7 my-3 '>
+                  <label htmlFor='password' className='mx-1'>Password:</label>
                   <input
                     id='password'
                     type='password'
                     name='password'
                     value={formEditCust.password}
-                    className='mx-2'
+                    className=' formmx-2 px-1'
                     onChange={handleEditOnChange}
                     style={{ width: "70%", borderRadius: "5px" }}
                     required
                   />
                 </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='email'>Email:</label>
+                <div className='form-group col-md-7 my-5'>
+                  <label htmlFor='email' className='mx-2'>Email:</label>
                   <input
                     id='email'
                     type='email'
                     name='email'
                     value={formEditCust.email}
-                    className='mx-2'
+                    className='mx-3 '
                     onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
+                    style={{ width: "70%", borderRadius: "5px",marginLeft:"20px" }}
                     required
                   />
                 </div>
-                <div className='form-group col-md-6 my-5'>
-                  <label htmlFor='phoneNumber'>Phone:</label>
+                <div className='form-group col-md-7 my-5'>
+                  <label htmlFor='phoneNumber' className='mx-1'>Phone:</label>
                   <input
                     id='phoneNumber'
                     type='text'
                     name='phoneNumber'
                     value={formEditCust.phoneNumber}
-                    className='mx-2'
+                    className='mx-3'
                     onChange={handleEditOnChange}
                     style={{ width: "70%", borderRadius: "5px" }}
                     required
                   />
                 </div>
-                <div className='form-group col-md-6 my-5'>
+                <div className='form-group col-md-7 my-5'>
                   <label htmlFor='address'>Address:</label>
                   <input
                     id='address'

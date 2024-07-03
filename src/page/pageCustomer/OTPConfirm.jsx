@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../utils/constants/url';
+import { validatePassword } from '../../utils/validation/valAdd';
 
 export const OTPConfirm = ({ userId }) => {
     const [otpConfirm, setOtpConfirm] = useState({
@@ -10,8 +11,9 @@ export const OTPConfirm = ({ userId }) => {
         otp: '',
     });
     const [error, setError] = useState('');
+    const [errorNewPassword, setErrorNewPassword] = useState('');
     const [success, setSuccess] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(300); 
+    const [timeLeft, setTimeLeft] = useState(300);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +21,7 @@ export const OTPConfirm = ({ userId }) => {
             setError('Time is up. Please request a new OTP.');
             setTimeout(() => {
                 navigate('/login');
-            }, 3000); 
+            }, 3000);
         }
         const intervalId = setInterval(() => {
             setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
@@ -34,6 +36,13 @@ export const OTPConfirm = ({ userId }) => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+
+        // Kiểm tra mật khẩu mới có hợp lệ không
+        if (!validatePassword(otpConfirm.newPassword)) {
+            setErrorNewPassword('Password must be between 8 and 20 characters');
+            return;
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}/user_request/reset-password`, {
                 method: 'POST',
@@ -90,8 +99,11 @@ export const OTPConfirm = ({ userId }) => {
                                         name="newPassword"
                                         value={otpConfirm.newPassword}
                                         onChange={handleOnChange}
+                                        isInvalid={!!errorNewPassword}
                                     />
+                                    <Form.Control.Feedback type='invalid'>{errorNewPassword}</Form.Control.Feedback>
                                 </Form.Group>
+
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 <Button type="submit" className="w-100" style={{ backgroundColor: '#CCFBF0' }}>
                                     Send
@@ -105,7 +117,7 @@ export const OTPConfirm = ({ userId }) => {
                                 <Alert variant="success">
                                     Password reset request sent successfully!
                                 </Alert>
-                                <Button onClick={handleBackToLogin} className="w-100" style={{ backgroundColor: '#CCFBF0' ,color:"black" }}>
+                                <Button onClick={handleBackToLogin} className="w-100" style={{ backgroundColor: '#CCFBF0', color: "black" }}>
                                     Back to Login
                                 </Button>
                             </div>

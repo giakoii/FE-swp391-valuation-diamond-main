@@ -41,32 +41,32 @@ export const PersonalRequestDetail = () => {
   }, [requestId]);
 
   // get order by request id 
-  // const APIOrderById = `${API_BASE_URL}/getOrderByRequestId`;
-  // useEffect(() => {
-  //   const fetchOrderData = async () => {
-  //     try {
-  //       const response = await fetch(`${APIOrderById}/${requestId}`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch order details');
-  //       }
-  //       const data = await response.json();
-  //       if (data != null) {
-  //         setOrder(data);
-  //         setIsOrder(true);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching order data:', error);
-  //     }
-  //   };
-  //   fetchOrderData();
-  // }, [requestId]);
+  const APIOrderById = `${API_BASE_URL}/order_request/getOrderByRequestId`;
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const response = await fetch(`${APIOrderById}/${requestId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch order details');
+        }
+        const data = await response.json();
+        if (data != null) {
+          setOrder(data);
+          setIsOrder(true);
+        }
+      } catch (error) {
+        console.error('Error fetching order data:', error);
+      }
+    };
+    fetchOrderData();
+  }, [requestId]);
 
   const APIUpdate = `${API_BASE_URL}/evaluation-request/update`;
   const handleOnCancel = async (value) => {
-    // if (order.length > 0 && order[0].orderId) {
-    //   toast.error("You have had an order, so you cannot cancel at this time");
-    //   return;
-    // }
+    if (order.length > 0 && order[0].orderId) {
+      toast.error("You have had an order, so you cannot cancel at this time");
+      return;
+    }
 
     try {
       const response = await fetch(`${APIUpdate}/${requestId}`, {
@@ -142,7 +142,7 @@ export const PersonalRequestDetail = () => {
           </Col>
           <Col md={3}>
             <div className='fw-bold'>Order ID</div>
-            {/* {isOrder && order.length > 0 && <div>{order[0].orderId}</div>} */}
+            {isOrder && order.length > 0 && <div>{order[0].orderId}</div>}
           </Col>
         </Row>
         <Row className='mb-3'>

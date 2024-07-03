@@ -5,15 +5,16 @@ const Typevaluation = () => {
   const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
-    // Example fetch data function (replace with actual API call)
     const fetchData = async () => {
       try {
-        const response = await fetch("api_endpoint_url_here");
+        const response = await fetch(
+          "https://valuation.techtheworld.id.vn/service_price_list/getServicePriceLists"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        setApiData(data); // Assuming data structure matches the expected format
+        setApiData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -146,7 +147,7 @@ const Typevaluation = () => {
               <tr>
                 <td>7</td>
                 <td>Proportions</td>
-                <td>Measuring the stone's cutting proportions.</td>
+                <td>Measuring the stone cutting proportions.</td>
               </tr>
               <tr>
                 <td>8</td>
@@ -183,8 +184,8 @@ const Typevaluation = () => {
           <h1 className="text-center" style={{ marginTop: "50px" }}>Service List</h1>
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
-              <tr  style={{textAlign:"center"}}>
-                <th>Service ID</th>
+              <tr style={{ textAlign: "center" }}>
+               
                 <th>Size From</th>
                 <th>Size To</th>
                 <th>Initial Price</th>
@@ -192,10 +193,9 @@ const Typevaluation = () => {
                 <th>Price List</th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               {apiData.map((item) => (
-                <tr key={item.serviceId}  style={{textAlign:"center"}}>
-                  <td >{item.serviceId}</td>
+                <tr key={item.sizeFrom} style={{ textAlign: "center" }}>
                   <td>{item.sizeFrom}</td>
                   <td>{item.sizeTo}</td>
                   <td>{item.initPrice}</td>

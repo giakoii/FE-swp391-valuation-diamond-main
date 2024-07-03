@@ -119,7 +119,7 @@ export const PersonalOrder = () => {
                                 <Stack >
                                     <Button style={{ backgroundColor: '#CCFBF0' }} onClick={() => viewMyRequest(order)}>
                                         <span className='text-dark me-1'>View</span>
-                                        <i class="bi bi-arrow-right"></i>
+                                        <i className="bi bi-arrow-right"></i>
                                     </Button>
                                 </Stack>
                             </Col>

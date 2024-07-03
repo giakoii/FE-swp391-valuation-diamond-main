@@ -32,6 +32,7 @@ import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
 import TypeValuation from './page/pageCustomer/Typevaluation.jsx';
+// import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
 import { ManageCustomer } from "./page/pageAdmin/ManageCustomer/ManageCustomer.jsx";
@@ -106,6 +107,7 @@ function App() {
             }
           />
           <Route path="change-pass" element={<ChangePassword />} />
+          {/* <Route path="otp-confirmation" element={<OTPConfirm />} /> */}
           <Route path="calculate" element={<Calculate />} />
           <Route path="checkDiamond" element={<CheckDiamond />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />

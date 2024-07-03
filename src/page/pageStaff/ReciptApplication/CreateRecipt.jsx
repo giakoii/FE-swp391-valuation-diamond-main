@@ -6,19 +6,20 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../utils/hook/useAuth";
+
 export const CreateReceipt = () => {
   const [selection, setSelection] = useState([]);
   const [custName, setCustName] = useState("");
   const [phone, setPhone] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [reviewMode, setReviewMode] = useState(false);
   const [orderDate, setOrderDate] = useState("");
   const [rows, setRows] = useState([]);
   const [sizeError, setSizeError] = useState(""); // State để lưu thông tin lỗi size
   const location = useLocation();
   const { userRequestDetail } = location.state;
   const componentRef = useRef();
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const [printing, setPrinting] = useState(false); // State để kiểm soát chế độ in ấn
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +67,7 @@ export const CreateReceipt = () => {
   };
 
   const handleRowChange = async (index, field, value) => {
-    const numericValue = value.replace(/^0+(?=\d)|[^.\d]/g, '');
+    const numericValue = value.replace(/^0+(?=\d)|[^.\d]/g, "");
 
     const updatedRows = rows.map((row, rowIndex) =>
       rowIndex === index ? { ...row, [field]: numericValue } : row
@@ -83,7 +84,10 @@ export const CreateReceipt = () => {
     }
 
     if (field === "size" && updatedRows[index].serviceId && numericValue) {
-      const unitPrice = await fetchUnitPrice(updatedRows[index].serviceId, numericValue);
+      const unitPrice = await fetchUnitPrice(
+        updatedRows[index].serviceId,
+        numericValue
+      );
       updatedRows[index].unitPrice = unitPrice || 0;
       updateDatesAndPrices(index, updatedRows);
     }
@@ -141,10 +145,7 @@ export const CreateReceipt = () => {
         `https://valuation.techtheworld.id.vn/service_price_list/calculate?serviceId=${serviceId}&size=${size}`
       );
       const data = await response.json();
-      console.log(
-        `Fetching price for serviceId ${serviceId} with size ${size}:`,
-        data
-      );
+      console.log(`Fetching price for serviceId ${serviceId} with size ${size}:`, data);
       return data;
     } catch (error) {
       console.error("Error fetching unitPrice:", error);
@@ -187,7 +188,7 @@ export const CreateReceipt = () => {
     }
 
     const dataToSend = {
-      userId:user.userId,
+      userId: user.userId,
       customerName: userRequestDetail.guestName,
       requestId: userRequestDetail.requestId,
       phone: userRequestDetail.phoneNumber,
@@ -234,190 +235,197 @@ export const CreateReceipt = () => {
     content: () => componentRef.current,
   });
 
-  return (
-    <div>
-      {reviewMode ? (
-        <div>
-          <h2 className="d-flex justify-content-center">Review</h2>
-          <div ref={componentRef} className="print-container">
-            <div className="d-flex justify-content-center">
-              <div className="flex-column" style={{ width: "50%" }}>
-                <p>Customer Name: {custName}</p>
-                <p>Phone: {phone}</p>
-                <p>Quantity: {quantity}</p>
-                <p>Order Date: {orderDate}</p>
-              </div>
-            </div>
-            <div className="print-content">
-              <Table striped bordered className="fs-5 print-table" style={{width:"50%", marginLeft:"250px"}}>
-                <thead className="text-center">
-                  <tr>
-                    <th>Type Service</th>
-                    <th>Received Date</th>
-                    <th>Expired Date</th>
-                    <th>Sample Size</th>
-                    <th>Service Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map((row, index) => (
-                    <tr key={index}>
-                      <td>{row.serviceId}</td>
-                      <td>{row.receivedDate}</td>
-                      <td>{row.expiredReceivedDate}</td>
-                      <td>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={row.size}
-                          onChange={(e) =>
-                            handleRowChange(index, "size", e.target.value)
-                          }
-                        />
-                        {/* Hiển thị thông báo lỗi size */}
-                        {index === 0 && sizeError && (
-                          <span className="text-danger">{sizeError}</span>
-                        )}
-                      </td>
-                      <td>{row.unitPrice}</td>
-                    </tr>
-                  ))}
-                  <tr>
-                    <td colSpan="4" className="text-end">
-                      <strong>Total Price</strong>
-                    </td>
-                    <td>{totalPrice}</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </div>
+  const handleReview = () => {
+    setPrinting(true); // Chuyển sang chế độ in ấn khi nhấn nút Review
+  };
+
+  if (printing) {
+    return (
+      <div ref={componentRef} className="print-container">
+        
+        <div className="d-flex justify-content-center">
+          
+          <div className="flex-column" style={{ width: "75%" }}>
+          <h2 style={{marginLeft:"200px"}}>DIAMOND VALUATION </h2>
+          <div  style={{marginLeft:"50px"}}>
+          <p>Customer Name: {custName}</p>
+            <p>Phone: {phone}</p>
+            <p>Quantity: {quantity}</p>
+            <p>Order Date: {orderDate}</p>
           </div>
-          <div className="d-flex justify-content-end" style={{ width: "90%" }}>
-            <Button onClick={handlePrint}>Print</Button>
+           
           </div>
         </div>
-      ) : (
-        <form onSubmit={handleOnSubmit}>
-          <div className="row mb-5">
-            <h2 className="p-2 text-center">Order</h2>
-            <div className="row mb-3 d-flex justify-content-center">
-              <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Customer Name</label>
-              </div>
-              <div className="col-7">{userRequestDetail.guestName}</div>
-            </div>
-            <div className="row mb-3 d-flex justify-content-center">
-              <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Phone</label>
-              </div>
-              <div className="col-7">{userRequestDetail.phoneNumber}</div>
-            </div>
-            <div className="row mb-3 d-flex justify-content-center">
-              <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Quantity</label>
-              </div>
-              <div className="col-7">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                />
-              </div>
-            </div>
-            <div className="row mb-3 d-flex justify-content-center">
-              <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Request ID</label>
-              </div>
-              <div className="col-7">{userRequestDetail.requestId}</div>
-            </div>
-            <div className="row mb-3 d-flex justify-content-center">
-              <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Order Date</label>
-              </div>
-              <div className="col-7">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={orderDate}
-                  readOnly
-                />
-              </div>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center">
-            <Table striped bordered className="fs-5" style={{ width: "80%" }}>
-              <thead className="text-center">
-                <tr>
-                  <th>Type Service</th>
-                  <th>Received Date</th>
-                  <th>Expired Date</th>
-                  <th>Sample Size</th>
-                  <th>Service Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, index) => (
-                  <tr key={index}>
-                    <td>
-                      <select
-                        className="form-control"
-                        value={row.serviceId}
-                        onChange={(e) => handleServiceChange(index, e.target.value)}
-                      >
-                        <option value="">Select Service</option>
-                        {selection.map((service) => (
-                          <option key={service.serviceId} value={service.serviceId}>
-                            {service.serviceType}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" className="form-control" value={row.receivedDate} readOnly />
-                    </td>
-                    <td>
-                      <input type="text" className="form-control" value={row.expiredReceivedDate} readOnly />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={row.size}
-                        onChange={(e) => handleRowChange(index, "size", e.target.value)}
-                      />
-                      {/* Hiển thị thông báo lỗi size */}
-                      {index === 0 && sizeError && (
-                        <span className="text-danger">{sizeError}</span>
-                      )}
-                    </td>
-                    <td>
-                      <input type="text" className="form-control" value={row.unitPrice} readOnly />
-                    </td>
-                  </tr>
-                ))}
-                <tr>
-                  <td colSpan="4" className="text-end">
-                    <strong>Total Price</strong>
-                  </td>
+        <div className="print-content">
+          <Table striped bordered className="fs-5 print-table" style={{width:"50%", marginLeft:"100px"}}>
+            <thead className="text-center">
+              <tr>
+                <th>Type Service</th>
+                <th>Received Date</th>
+                <th>Expired Date</th>
+                <th>Sample Size</th>
+                <th>Service Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.serviceId}</td>
+                  <td>{row.receivedDate}</td>
+                  <td>{row.expiredReceivedDate}</td>
                   <td>
-                    <input type="text" className="form-control" value={totalPrice} readOnly />
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={row.size}
+                      onChange={(e) =>
+                        handleRowChange(index, "size", e.target.value)
+                      }
+                    />
+                    {/* Hiển thị thông báo lỗi size */}
+                    {index === 0 && sizeError && (
+                      <span className="text-danger">{sizeError}</span>
+                    )}
                   </td>
+                  <td>{row.unitPrice}</td>
                 </tr>
-              </tbody>
-            </Table>
+              ))}
+              <tr>
+                <td colSpan="4" className="text-end">
+                  <strong>Total Price</strong>
+                </td>
+                <td>{totalPrice}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        <div className="d-flex justify-content-end" style={{ width: "70%"}}>
+          <Button onClick={handlePrint}>Print</Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleOnSubmit}>
+      <div className="row mb-5">
+        <h2 className="p-2 text-center">Order</h2>
+        <div className="row mb-3 d-flex justify-content-center">
+          <div className="col-3" style={{ width: "15%" }}>
+            <label className="form-label fw-bold">Customer Name</label>
           </div>
-          <div className="d-flex justify-content-end" style={{ width: "90%" }}>
-            <Button className="btn btn-success me-4" type="submit">
-              Accept
-            </Button>
-            <Button className="btn btn-primary" onClick={() => setReviewMode(true)}>
-              Review
-            </Button>
+          <div className="col-7">{userRequestDetail.guestName}</div>
+        </div>
+        <div className="row mb-3 d-flex justify-content-center">
+          <div className="col-3" style={{ width: "15%" }}>
+            <label className="form-label fw-bold">Phone</label>
           </div>
-        </form>
-      )}
-    </div>
+          <div className="col-7">{userRequestDetail.phoneNumber}</div>
+        </div>
+        <div className="row mb-3 d-flex justify-content-center">
+          <div className="col-3" style={{ width: "15%" }}>
+            <label className="form-label fw-bold">Quantity</label>
+          </div>
+          <div className="col-7">
+            <input
+              type="text"
+              className="form-control"
+              value={quantity}
+              onChange={handleQuantityChange}
+            />
+          </div>
+        </div>
+        <div className="row mb-3 d-flex justify-content-center">
+          <div className="col-3" style={{ width: "15%" }}>
+            <label className="form-label fw-bold">Request ID</label>
+          </div>
+          <div className="col-7">{userRequestDetail.requestId}</div>
+        </div>
+        <div className="row mb-3 d-flex justify-content-center">
+          <div className="col-3" style={{ width: "15%" }}>
+            <label className="form-label fw-bold">Order Date</label>
+          </div>
+          <div className="col-7">
+            <input
+              type="text"
+              className="form-control"
+              value={orderDate}
+              readOnly
+            />
+          </div>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Table striped bordered className="fs-5" style={{ width: "80%" }}>
+          <thead className="text-center">
+            <tr>
+              <th>Type Service</th>
+              <th>Received Date</th>
+              <th>Expired Date</th>
+              <th>Sample Size</th>
+              <th>Service Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index}>
+                <td>
+                  <select
+                    className="form-control"
+                    value={row.serviceId}
+                    onChange={(e) => handleServiceChange(index, e.target.value)}
+                  >
+                    <option value="">Select Service</option>
+                    {selection.map((service) => (
+                      <option key={service.serviceId} value={service.serviceId}>
+                        {service.serviceType}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input type="text" className="form-control" value={row.receivedDate} readOnly />
+                </td>
+                <td>
+                  <input type="text" className="form-control" value={row.expiredReceivedDate} readOnly />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={row.size}
+                    onChange={(e) => handleRowChange(index, "size", e.target.value)}
+                  />
+                  {/* Hiển thị thông báo lỗi size */}
+                  {index === 0 && sizeError && (
+                    <span className="text-danger">{sizeError}</span>
+                  )}
+                </td>
+                <td>
+                  <input type="text" className="form-control" value={row.unitPrice} readOnly />
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <td colSpan="4" className="text-end">
+                <strong>Total Price</strong>
+              </td>
+              <td>
+                <input type="text" className="form-control" value={totalPrice} readOnly />
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+      <div className="d-flex justify-content-end" style={{ width: "90%" }}>
+        <Button className="btn btn-success me-4" type="submit">
+          Accept
+        </Button>
+        <Button className="btn btn-primary" onClick={handleReview}>
+          Review
+        </Button>
+      </div>
+    </form>
   );
 };
 

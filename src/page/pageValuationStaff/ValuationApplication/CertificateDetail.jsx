@@ -8,8 +8,6 @@ import { Form, Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { API_BASE_URL } from "../../../utils/constants/url";
 
 export const CertificateDetail = () => {
-  // const location = useLocation();
-  // const { result } = location.state;
 
   const navigate = useNavigate();
   // image

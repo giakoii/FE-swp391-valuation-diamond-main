@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import formattedDateTime from "../../../utils/formattedDate/formattedDateTime";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
 
 export const UserRequestDetails1 = ({ userRequestDetail }) => {
   const navigate = useNavigate();
@@ -14,13 +15,21 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
   );
   const [isEditingDate, setIsEditingDate] = useState(false);
   const [errorMeetingDate, setErrorMeetingDate] = useState("");
-
+  dayjs.extend(utc);
+  
   // console.log de test
-  console.log(appointmentDate)
+  console.log('apppont', appointmentDate);
+  console.log('meeting', userRequestDetail.meetingDate)
   console.log(dayjs().format());
   console.log(dayjs(appointmentDate).format());
+  console.log('format', dayjs(appointmentDate).format("YYYY-MM-DDTHH:mm"));
+
+  console.log('not utc', dayjs(appointmentDate).format('DD/MM/YYYY, HH:mm'));
+
+  console.log('utc', dayjs(appointmentDate).utc().format('DD/MM/YYYY, HH:mm'));
   console.log(formattedDateTime(appointmentDate));
-  console.log(dayjs(appointmentDate).format() < dayjs().format())
+  console.log(new Date(appointmentDate));
+  console.log(dayjs(appointmentDate).format() < dayjs().format());
 
   const API = `${API_BASE_URL}/evaluation-request/update`;
 
@@ -42,12 +51,16 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
         },
         body: JSON.stringify({ meetingDate: dayjs(value).format('MM/DD/YYYY, HH:mm') }),
       });
-
+      if (!response.ok) {
+        throw new Error('Failed to update meeting date');
+      }
       const data = await response.json();
+      console.log('Ater update')
+      console.log('res',data);
 
       if (data) {
         toast.success("Update meeting date successful");
-        setAppointmentDate(value); // Update the state with the new date
+        setAppointmentDate(data.meetingDate); 
         setIsEditingDate(false);
       }
     } catch (error) {
@@ -136,8 +149,8 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
               ) : (
                 <div>
                   <span className="me-3">
-                    {appointmentDate
-                      ? formattedDateTime(appointmentDate)
+                    {appointmentDate 
+                      ? dayjs(appointmentDate).utc().format('DD/MM/YYYY, HH:mm')
                       : "Not set"}
                   </span>
                   <i className="bi bi-plus-circle"

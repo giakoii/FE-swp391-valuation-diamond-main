@@ -76,7 +76,7 @@ export const PersonalRequest = () => {
                             <Col mb={2}>
                                 <Stack>
                                     <div className='mb-1 fw-bold'>{request.service}</div>
-                                    <div className='mb-1'>Request Date: {formattedDate(request.requestDate)}</div>
+                                    <div className='mb-1'>Request Date: {formattedDateTime(request.requestDate)}</div>
                                     <div className='mb-1'>Status: <Status status={request.status} /> </div>
                                 </Stack>
                             </Col>
@@ -84,7 +84,7 @@ export const PersonalRequest = () => {
                                 <Stack>
                                     <Button style={{ backgroundColor: '#CCFBF0' }} onClick={() => viewMyRequest(request)}>
                                         <span className='text-dark me-1'>View</span>
-                                        <i class="bi bi-arrow-right"></i>
+                                        <i className="bi bi-arrow-right"></i>
                                     </Button>
                                 </Stack>
                             </Col>

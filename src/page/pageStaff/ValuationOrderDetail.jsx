@@ -29,6 +29,7 @@ export const ValuationOrderDetail = () => {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,6 @@ export const ValuationOrderDetail = () => {
         const data = await response.json();
         const sortedData = data.sort((a, b) => Date.parse(b.orderId.orderDate) - Date.parse(a.orderId.orderDate));
         setOrderDetails(sortedData);
-        console.log(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -119,7 +119,7 @@ export const ValuationOrderDetail = () => {
                 <Button onClick={() => handleCreateForm(product)} disabled={!product.isDiamond}>Create Certificate</Button>
               </td>
               <td>
-                {/* <img
+                <img
                   src="/src/assets/assetsStaff/editStatus.svg"
                   alt="Upload Icon"
                   height='20'
@@ -127,13 +127,8 @@ export const ValuationOrderDetail = () => {
                   onClick={() => {
                     navigate(`/valuation-staff/valuation-order/${product.orderDetailId}`, { state: { product } })
                   }}
-                /> */}
-                <i className="bi bi-pencil"
-                  onClick={() => {
-                    navigate(`/valuation-staff/valuation-order/${product.orderDetailId}`, { state: { product } })
-                  }}
-                  style={{height:20, width:20}}
-                ></i>
+                />
+
               </td>
             </tr>
           ))}

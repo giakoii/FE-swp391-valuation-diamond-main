@@ -242,12 +242,18 @@ export const CreateReceipt = () => {
   if (printing) {
     return (
       <div ref={componentRef} className="print-container">
+        
         <div className="d-flex justify-content-center">
-          <div className="flex-column" style={{ width: "50%" }}>
-            <p>Customer Name: {custName}</p>
+          
+          <div className="flex-column" style={{ width: "75%" }}>
+          <h2 style={{marginLeft:"200px"}}>DIAMOND VALUATION </h2>
+          <div  style={{marginLeft:"50px"}}>
+          <p>Customer Name: {custName}</p>
             <p>Phone: {phone}</p>
             <p>Quantity: {quantity}</p>
             <p>Order Date: {orderDate}</p>
+          </div>
+           
           </div>
         </div>
         <div className="print-content">
@@ -293,7 +299,7 @@ export const CreateReceipt = () => {
             </tbody>
           </Table>
         </div>
-        <div className="d-flex justify-content-end" style={{ width: "70%" }}>
+        <div className="d-flex justify-content-end" style={{ width: "70%"}}>
           <Button onClick={handlePrint}>Print</Button>
         </div>
       </div>

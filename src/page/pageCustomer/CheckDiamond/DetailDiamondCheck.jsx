@@ -62,20 +62,25 @@ const DetailDiamondCheck = () => {
         controlId="formAssessId"
         style={{
           marginBottom: "20px",
-          width: "25%",
+          width: "20%",
           display: "flex",
           alignItems: "center",
           marginTop: "20px",
         }}>
-        <Form.Label
+        <Form.Label 
           style={{ width: "50%" }} >
-          Assess ID
+          Assess ID:
         </Form.Label>
-        <Form.Control
+        <Form.Control className="fw-bold"
           type="text"
           readOnly
           value={diamond.assessId}
-          style={{ flex: "1" }}
+          style={{ textAlign: "center",
+            fontStyle: "italic",
+            border: "none",
+            borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
+            borderRadius: "0", // Đảm bảo không có viền cong
+            }}
           
         />
       </Form.Group></div>

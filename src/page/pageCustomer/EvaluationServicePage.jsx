@@ -25,16 +25,18 @@ function EvaluationServicePage() {
       }));
     }
   }, [user]);
+  
 
   const getCurrentDate = () => {
     const now = new Date();
+    now.setHours(now.getHours() + 7);
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
 
-    return `${month}/${year}/${day}, ${hours}:${minutes}`;
+    return `${month}/${day}/${year}, ${hours}:${minutes}`;
   };
 
   const handleOnChange = (e) => {
@@ -50,7 +52,7 @@ function EvaluationServicePage() {
 
     const requestData = {
       ...formRequest,
-      requestDate: getCurrentDate() // Set current date and time
+      requestDate: getCurrentDate() 
     };
     console.log(requestData);
     try {

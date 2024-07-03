@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 
 const Typevaluation = () => {
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    // Example fetch data function (replace with actual API call)
+    const fetchData = async () => {
+      try {
+        const response = await fetch("api_endpoint_url_here");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setApiData(data); // Assuming data structure matches the expected format
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row>
@@ -157,6 +177,32 @@ const Typevaluation = () => {
                   Not issuing certificates for stones with a size from 3.00 to 3.99mm.
                 </td>
               </tr>
+            </tbody>
+          </Table>
+
+          <h1 className="text-center" style={{ marginTop: "50px" }}>Service List</h1>
+          <Table striped bordered hover style={{ marginTop: "20px" }}>
+            <thead>
+              <tr  style={{textAlign:"center"}}>
+                <th>Service ID</th>
+                <th>Size From</th>
+                <th>Size To</th>
+                <th>Initial Price</th>
+                <th>Price Unit</th>
+                <th>Price List</th>
+              </tr>
+            </thead>
+            <tbody >
+              {apiData.map((item) => (
+                <tr key={item.serviceId}  style={{textAlign:"center"}}>
+                  <td >{item.serviceId}</td>
+                  <td>{item.sizeFrom}</td>
+                  <td>{item.sizeTo}</td>
+                  <td>{item.initPrice}</td>
+                  <td>{item.priceUnit}</td>
+                  <td>{item.priceList}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Col>

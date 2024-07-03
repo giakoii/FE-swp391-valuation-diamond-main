@@ -3,6 +3,8 @@ import { Container, Row, Col, Table } from "react-bootstrap";
 
 const Typevaluation = () => {
   const [apiData, setApiData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +25,20 @@ const Typevaluation = () => {
     fetchData();
   }, []);
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = apiData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row>
         <Col>
-          <h1 className="text-center">DIAMOND EVALUATION SERVICES CURRENTLY AVAILABLE AT DIAMOND VALUETION</h1>
+          <h1 className="text-center">
+            DIAMOND EVALUATION SERVICES CURRENTLY AVAILABLE AT DIAMOND VALUETION
+          </h1>
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr>
@@ -41,67 +52,79 @@ const Typevaluation = () => {
                 <td>1</td>
                 <td>Regular Evaluation</td>
                 <td>
-                  – The evaluation time depends on the time of submission. <br />
-                  – Unlimited quantity. Service fee according to regulations.
+                  – The evaluation time depends on the time of submission.{" "}
+                  <br />– Unlimited quantity. Service fee according to
+                  regulations.
                 </td>
               </tr>
               <tr>
                 <td>2</td>
                 <td>Fast Evaluation (3 hours)</td>
                 <td>
-                  – Evaluation completed within 3 working hours from the time of product receipt. <br />
-                  – Quantity depends on the time of submission. Service fee according to regulations.
+                  – Evaluation completed within 3 working hours from the time of
+                  product receipt.
+                  <br /> – Quantity depends on the time of submission. Service
+                  fee according to regulations.
                 </td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>Fast Evaluation (48 hours)</td>
                 <td>
-                  – Evaluation completed within 48 working hours from the time of product receipt. <br />
-                  – Quantity depends on the time of submission. Service fee according to regulations.
+                  – Evaluation completed within 48 working hours from the time
+                  of product receipt.
+                  <br /> – Quantity depends on the time of submission. Service
+                  fee according to regulations.
                 </td>
               </tr>
               <tr>
                 <td>4</td>
                 <td>Regular Sealing (Re-seal)</td>
                 <td>
-                  – The evaluation time depends on the time of submission. <br />
-                  – Unlimited quantity. Service fee according to regulations.
+                  – The evaluation time depends on the time of submission.{" "}
+                  <br />– Unlimited quantity. Service fee according to
+                  regulations.
                 </td>
               </tr>
               <tr>
                 <td>5</td>
                 <td>Fast Sealing (Re-seal in 3 hours)</td>
                 <td>
-                  – Sealing completed within 3 working hours from the time of product receipt. <br />
-                  – Quantity depends on the time of submission. Service fee according to regulations.
+                  – Sealing completed within 3 working hours from the time of
+                  product receipt. <br />– Quantity depends on the time of
+                  submission. Service fee according to regulations.
                 </td>
               </tr>
               <tr>
                 <td>6</td>
                 <td>Fast Sealing (Re-seal in 48 hours)</td>
                 <td>
-                  – Sealing completed within 48 working hours from the time of product receipt. <br />
-                  – Quantity depends on the time of submission. Service fee according to regulations.
+                  – Sealing completed within 48 working hours from the time of
+                  product receipt. <br />– Quantity depends on the time of
+                  submission. Service fee according to regulations.
                 </td>
               </tr>
               <tr>
                 <td>7</td>
                 <td>Reissue Evaluation Certificate</td>
-                <td>– Reissuing the evaluation certificate upon customer request.</td>
+                <td>
+                  – Reissuing the evaluation certificate upon customer request.
+                </td>
               </tr>
               <tr>
                 <td>8</td>
                 <td>Edge Number Engraving</td>
                 <td>
-                  – Engraving edge numbers on the stone upon request. <br />
-                  – Only engraving stones with a size (greater than 4.00mm).
+                  – Engraving edge numbers on the stone upon request. <br />–
+                  Only engraving stones with a size (greater than 4.00mm).
                 </td>
               </tr>
             </tbody>
           </Table>
 
-          <h1 className="text-center" style={{ marginTop: "50px" }}> DIAMOND EVALUATION STANDARDS</h1>
+          <h1 className="text-center" style={{ marginTop: "50px" }}>
+            DIAMOND EVALUATION STANDARDS
+          </h1>
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr>
@@ -134,13 +157,15 @@ const Typevaluation = () => {
               <tr>
                 <td>5</td>
                 <td>Clarity</td>
-                <td>Standard scale: FL, IF, VVS1-VVS2, VS1-VS2, SI1-SI2, I1-I2-I3.</td>
+                <td>
+                  Standard scale: FL, IF, VVS1-VVS2, VS1-VS2, SI1-SI2, I1-I2-I3.
+                </td>
               </tr>
               <tr>
                 <td>6</td>
                 <td>Cut</td>
                 <td>
-                  Standard scale: Excellent, Very Good, Good, Fair, Poor <br />
+                  Standard scale: Excellent, Very Good, Good, Fair, Poor <br />{" "}
                   Only grading stones with Round Brilliant cut.
                 </td>
               </tr>
@@ -153,7 +178,7 @@ const Typevaluation = () => {
                 <td>8</td>
                 <td>Polish, Symmetry</td>
                 <td>
-                  Standard scale: Excellent, Very Good, Good, Fair, Poor <br />
+                  Standard scale: Excellent, Very Good, Good, Fair, Poor <br />{" "}
                   Not grading stones with a size from 3.00 to 3.99mm.
                 </td>
               </tr>
@@ -161,8 +186,8 @@ const Typevaluation = () => {
                 <td>9</td>
                 <td>Fluorescence</td>
                 <td>
-                  Standard scale: None, Faint, Medium, Strong, Very Strong. <br />
-                  Not grading stones with a size from 3.00 to 3.99mm.
+                  Standard scale: None, Faint, Medium, Strong, Very Strong.{" "}
+                  <br /> Not grading stones with a size from 3.00 to 3.99mm.
                 </td>
               </tr>
               <tr>
@@ -174,18 +199,20 @@ const Typevaluation = () => {
                 <td>11</td>
                 <td>Diamond Grading Report</td>
                 <td>
-                  Issuing certificates for stones larger than 4.00mm. <br />
-                  Not issuing certificates for stones with a size from 3.00 to 3.99mm.
+                  Issuing certificates for stones larger than 4.00mm. <br /> Not
+                  issuing certificates for stones with a size from 3.00 to
+                  3.99mm.
                 </td>
               </tr>
             </tbody>
           </Table>
 
-          <h1 className="text-center" style={{ marginTop: "50px" }}>Service List</h1>
+          <h1 className="text-center" style={{ marginTop: "50px" }}>
+            Service List
+          </h1>
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr style={{ textAlign: "center" }}>
-               
                 <th>Size From</th>
                 <th>Size To</th>
                 <th>Initial Price</th>
@@ -194,8 +221,8 @@ const Typevaluation = () => {
               </tr>
             </thead>
             <tbody>
-              {apiData.map((item) => (
-                <tr key={item.sizeFrom} style={{ textAlign: "center" }}>
+              {currentItems.map((item, index) => (
+                <tr key={index} style={{ textAlign: "center" }}>
                   <td>{item.sizeFrom}</td>
                   <td>{item.sizeTo}</td>
                   <td>{item.initPrice}</td>
@@ -205,6 +232,41 @@ const Typevaluation = () => {
               ))}
             </tbody>
           </Table>
+
+          {/* Pagination */}
+          <div className="pagination">
+            <button
+              className="btn btn-primary"
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+
+            {/* Display page numbers */}
+            {Array.from(
+              { length: Math.ceil(apiData.length / itemsPerPage) },
+              (_, index) => (
+                <button
+                  key={index + 1}
+                  className={`btn ${
+                    currentPage === index + 1 ? "btn-primary" : "btn-secondary"
+                  }`}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+
+            <button
+              className="btn btn-primary"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastItem >= apiData.length}
+            >
+              Next
+            </button>
+          </div>
         </Col>
       </Row>
     </Container>

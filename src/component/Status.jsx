@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Status = ({ status }) => {
     const styleStatus = {
-        color:  (status === 'Requested') ? '#7C9099' :
+        color:  (status === 'Requesting') ? '#7C9099' :
                 (status === 'Accepted' || status === 'Finished') ? 'green' :
                 (status === 'Canceled') ? 'red' :
                 (status === 'Assigned') ? '#00BCD4' :

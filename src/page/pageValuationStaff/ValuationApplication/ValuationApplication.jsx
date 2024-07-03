@@ -10,10 +10,12 @@ import { useForm } from "react-hook-form";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import updateById from "../../../utils/updateAPI/updateById";
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
 
 
 // ROLE: VALUATION_STAFF
 export const ValuationApplication = () => {
+  dayjs.extend(utc)
   const navigate = useNavigate();
   const { orderDetailId } = useParams()
   const [priceMarket, setPriceMarket] = useState({})
@@ -117,7 +119,17 @@ export const ValuationApplication = () => {
       const response = await fetch(
         `${API_BASE_URL}/evaluation_results/getEvaluationResultsByOrderDetailId/${orderDetailId}`
       );
-      const data = await response.json();
+      if (!response.ok) {
+        return false;
+      }
+      // Check if the response body is empty
+      const text = await response.text();
+      if (!text) {
+        return false;
+      }
+      const data = JSON.parse(text);
+      console.log(data);
+  
       if (data?.orderDetailId?.orderDetailId === orderDetailId) {
         return true;
       }
@@ -146,7 +158,7 @@ export const ValuationApplication = () => {
         },
         {
           label: "Cancel",
-          onClick: () => { },
+          onClick: () => {},
         },
       ],
     });
@@ -158,7 +170,7 @@ export const ValuationApplication = () => {
       caratWeight: parseFloat(data.caratWeight),
       price: parseFloat(data.price),
       img: orderDetail.img,
-      createDate: dayjs().format()
+      createDate: dayjs().utc(true).format()
     };
     try {
       const response = await fetch(

@@ -11,15 +11,15 @@ export const OTPConfirm = ({ userId }) => {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(300); 
     const navigate = useNavigate();
 
     useEffect(() => {
         if (timeLeft === 0) {
             setError('Time is up. Please request a new OTP.');
             setTimeout(() => {
-                navigate('/change-password');
-            }, 3000); // 3 seconds delay before redirect
+                navigate('/login');
+            }, 3000); 
         }
         const intervalId = setInterval(() => {
             setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));

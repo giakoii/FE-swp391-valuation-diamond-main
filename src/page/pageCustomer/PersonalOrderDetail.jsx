@@ -48,6 +48,7 @@ export const PersonalOrderDetail = () => {
                 const data = await response.json();
                 if (data != null) {
                     setOrder(data);
+                    
                     setIsOrder(true);
                 }
             } catch (error) {
@@ -61,13 +62,14 @@ export const PersonalOrderDetail = () => {
             setLoading(false);
         };
     }, [orderId]);
+    
 
-
+   
     // update order status by order id
     // confirm finish
     const APIUpdate = `${API_BASE_URL}/order_request/updateStatus`;
     const handleOnFinished = async (value) => {
-        if ((order?.status !== "Completed" || order?.status !== "Finished")) {
+        if ((order?.status !== "Completed" && order?.status !== "Finished")) {
             toast.error("Your order is In-progress")
             return;
         }
@@ -121,7 +123,7 @@ export const PersonalOrderDetail = () => {
         return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
     }
     return (
-        <div>
+        <div style={{minHeight:700}} >
             <ToastContainer />
             <div className=" mx-4">
                 <i className="bi bi-arrow-90deg-left"
@@ -131,7 +133,7 @@ export const PersonalOrderDetail = () => {
                     style={{ cursor: "pointer" }}
                 ></i>
             </div>
-            <div style={{ minHeight: "400px" }}>
+            <div style={{ minHeight: "400px" }} className='my-5'>
                 <Container>
                     {/* List of order */}
                     <Row >

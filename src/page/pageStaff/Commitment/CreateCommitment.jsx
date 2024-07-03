@@ -15,10 +15,11 @@ const CreateCommitment = () => {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const { user } = useAuth();
-  const dateNow = dayjs();
+  const dateNow = dayjs().utc(true).format();
   const [orderInfo, setOrderInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(dateNow)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,7 +76,16 @@ const CreateCommitment = () => {
       const response = await fetch(
         `${API_BASE_URL}/committed_Paper/getCommittedPaperByOrderId/${orderId}`
       );
-      const data = await response.json();
+      if (!response.ok) {
+        return false;
+      }
+      // Check if the response body is empty
+      const text = await response.text();
+      if (!text) {
+        return false;
+      }
+      const data = JSON.parse(text);
+      console.log(data);
       if (data?.orderId?.orderId === orderId) {
         return true;
       }
@@ -97,15 +107,11 @@ const CreateCommitment = () => {
       setErrorCivilId("Civil Id must be numeric and contain exactly 12 digits");
       return;
     }
-
-
     const exists = await checkExistId(orderId);
-
     if (exists) {
-      toast.error("Order ID already exists. Cannot create duplicate order.");
+      toast.error("Order ID already exists. Cannot create duplicate order .");
       return;
     }
-
     try {
       const response = await fetch(`${API_BASE_URL}/committed_Paper/create`, {
         method: "POST",

@@ -62,18 +62,36 @@ const CheckDiamond = () => {
         </Col>
 
         <div className="text-center" style={{ width: "50%", marginBottom: "200px", marginTop: "50px" }}>
-          <InputGroup className="mb-3">
-            <FormControl
-              placeholder="Enter Diamond Assess ID"
-              aria-label="Diamond Assess ID"
-              aria-describedby="basic-addon2"
-              value={assess_id}
-              onChange={(e) => setAssessId(e.target.value)}
-            />
-            <Button variant="primary" className="ms-2" onClick={handleSearch} style={{ }}> 
-              Run Check
-            </Button>
-          </InputGroup>
+        <div>
+      <style>
+        {`
+          .custom-button {
+            background-color: #007bff; /* Màu xanh ban đầu */
+            border-color: #007bff;    /* Màu viền ban đầu */
+          }
+          .custom-button:hover {
+            background-color: green;  /* Màu xanh lá khi hover */
+            border-color: green;      /* Màu viền xanh lá khi hover */
+          }
+        `}
+      </style>
+      <InputGroup className="mb-3">
+        <FormControl
+          placeholder="Enter Diamond Assess ID"
+          aria-label="Diamond Assess ID"
+          aria-describedby="basic-addon2"
+          value={assess_id}
+          onChange={(e) => setAssessId(e.target.value)}
+        />
+        <Button
+          variant="primary"
+          className="ms-2 custom-button"
+          onClick={handleSearch}
+        >
+          Run Check
+        </Button>
+      </InputGroup>
+    </div>
           {error && (
             <Alert 
               variant="danger" 

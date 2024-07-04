@@ -327,9 +327,9 @@ const DetailDiamondCheck = () => {
             text-align: center;
           }
           .custom-button {
-            background-color: white;
-            border-color: black;
-            color: black;
+            background-color: blue;
+            border-color: blue;
+            color: white;
           }
           .custom-button:hover {
             background-color: green;

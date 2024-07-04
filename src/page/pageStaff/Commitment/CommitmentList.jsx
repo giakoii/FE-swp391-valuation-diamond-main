@@ -3,6 +3,7 @@ import { Table, Button, Container, Row, Col, Form, Spinner, Alert } from 'react-
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import formattedDate from '../../../utils/formattedDate/formattedDate';
+import formattedDateTime from '../../../utils/formattedDate/formattedDateTime';
 import { Pagination } from '../../../component/Pagination/Pagination';
 import { API_BASE_URL } from '../../../utils/constants/url';
 

@@ -125,7 +125,7 @@ export const ViewReciptList = () => {
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Date</th>
+              <th>Created Date</th>
               <th>Product Quantity</th>
               <th>Status</th>
               <th>Action</th>

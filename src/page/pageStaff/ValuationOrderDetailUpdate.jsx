@@ -191,7 +191,7 @@ export const ValuationOrderDetailUpdate = () => {
                 <div className="text-center">
                   <label htmlFor="upload-img" style={{ cursor: "pointer" }}>
                     <img
-                      src="/src/assets/assetsStaff/upload.svg"
+                      src="/assets/assetsStaff/upload.svg"
                       alt="Upload Icon"
                       height="40px"
                       width="40px"

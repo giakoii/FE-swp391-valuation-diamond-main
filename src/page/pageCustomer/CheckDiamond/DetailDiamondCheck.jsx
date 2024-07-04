@@ -8,7 +8,6 @@ const DetailDiamondCheck = () => {
   const [diamond, setDiamond] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
   const today = new Date();
   const formattedDate = today.toISOString().split("T")[0];
 
@@ -256,7 +255,7 @@ const DetailDiamondCheck = () => {
                 </Col>
                 <Col md={4}>
                   <Image
-                    src="/src/assets/assetsCustomer/diamond.png"
+                    src="/assets/assetsCustomer/diamond.png"
                     fluid
                     style={{ borderRadius: "4px", marginTop: "75px" }}
                   />

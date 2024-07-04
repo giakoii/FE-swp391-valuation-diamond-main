@@ -69,7 +69,7 @@ export const Profile = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid >
       <img className="mx-3" src="/assets/assetsCustomer/back.svg" width='30px' height='30px' alt="back" onClick={backList} />
 
       <Row>
@@ -82,7 +82,7 @@ export const Profile = () => {
             className="d-flex justify-content-center align-item-center"
           />
         </Col>
-        <Col md={6}>
+        <Col md={6}  style={{ width: "800px ", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }}>
           <Row>
             <Col md={2}>
               <img
@@ -93,7 +93,7 @@ export const Profile = () => {
                 className=''
               />
             </Col>
-            <Col>
+            <Col >
               <h1 className="my-4">Customer Profile</h1>
             </Col>
           </Row>

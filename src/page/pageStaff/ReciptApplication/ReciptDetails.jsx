@@ -41,6 +41,10 @@ export const ReceiptDetails = () => {
   }
 
   const createCommitment = async () => {
+    if(orderDetails[0]?.orderId?.status === 'In-Progress'){
+      toast.error('Your order have not completed')
+      return ;
+    }
     navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
   };
 
@@ -171,7 +175,7 @@ export const ReceiptDetails = () => {
                 <td>
                   <Button
                     onClick={() => viewCertificate(product.orderDetailId)}
-                    disabled={product.status !== "Finished"}
+                    disabled={product.status !== "Finished" || !product.isDiamond }
                   >
                     View
                   </Button>

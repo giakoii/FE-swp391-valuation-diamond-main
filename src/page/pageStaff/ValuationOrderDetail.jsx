@@ -120,7 +120,7 @@ export const ValuationOrderDetail = () => {
               </td>
               <td>
                 <img
-                  src="/src/assets/assetsStaff/editStatus.svg"
+                  src="/assets/assetsStaff/editStatus.svg"
                   alt="Upload Icon"
                   height='20'
                   width='20'

@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
-import 'dayjs/locale/en';
+import utc from 'dayjs/plugin/utc';
+
+
 function formattedDateTime(date) {
-  const formattedDateTime =  dayjs(date).format('DD/MM/YYYY, HH:mm');
+  dayjs.extend(utc)
+  const formattedDateTime =  dayjs(date).utc().format('DD/MM/YYYY, HH:mm');
   return formattedDateTime;
 }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import useAuth from '../../utils/hook/useAuth';
 
-import {format} from 'date-fns'
 function EvaluationServicePage() {
   const { user } = useAuth();
   const [formRequest, setFormRequest] = useState({
@@ -12,7 +11,7 @@ function EvaluationServicePage() {
     requestEmail: '',
     requestDescription: '',
     userId: '',
-    requestDate: ''
+    requestDate: '' // This will hold the formatted date
   });
 
   useEffect(() => {
@@ -26,6 +25,19 @@ function EvaluationServicePage() {
       }));
     }
   }, [user]);
+  
+
+  const getCurrentDate = () => {
+    const now = new Date();
+    now.setHours(now.getHours() + 7);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+    return `${month}/${day}/${year}, ${hours}:${minutes}`;
+  };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -37,8 +49,11 @@ function EvaluationServicePage() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const requestDate = format(new Date(), 'MM/dd/yyyy, HH:mm'); 
-    const requestData = { ...formRequest, requestDate };
+
+    const requestData = {
+      ...formRequest,
+      requestDate: getCurrentDate() 
+    };
     console.log(requestData);
     try {
       const response = await fetch('https://valuation.techtheworld.id.vn/evaluation-request/create', {
@@ -47,7 +62,6 @@ function EvaluationServicePage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData)
-        
       });
 
       if (!response.ok) {
@@ -56,7 +70,7 @@ function EvaluationServicePage() {
 
       const result = await response.json();
       console.log('Success:', result);
-      
+
       Swal.fire({
         title: "Success!",
         text: "Your request has been sent successfully.",
@@ -74,7 +88,6 @@ function EvaluationServicePage() {
       });
     }
   };
-
   return (
     <div className="form-container justify-content-center align-items-center">
       <div className='justify-content-center d-flex my-2 p-4'>

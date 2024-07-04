@@ -56,92 +56,112 @@ const DetailDiamondCheck = () => {
       >
         If our lives were without diamonds, it would be very tedious
       </h1>
-      <div className="d-flex justify-content-center"> 
+      <div className="d-flex justify-content-center">
         <Form.Group
-        controlId="formAssessId"
-        style={{
-          marginBottom: "20px",
-          width: "20%",
-          display: "flex",
-          alignItems: "center",
-          marginTop: "20px",
-        }}>
-        <Form.Label 
-          style={{ width: "50%" }} >
-          Assess ID:
-        </Form.Label>
-        <Form.Control className="fw-bold"
-          type="text"
-          readOnly
-          value={diamond.assessId}
-          style={{ textAlign: "center",
-            fontStyle: "italic",
-            border: "none",
-            borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
-            borderRadius: "0", // Đảm bảo không có viền cong
+          controlId="formAssessId"
+          style={{
+            marginBottom: "20px",
+            width: "20%",
+            display: "flex",
+            alignItems: "center",
+            marginTop: "20px",
+            justifyContent: "space-between",
+          }}
+        >
+          <Form.Label
+            style={{
+              marginBottom: "0",
+              marginRight: "5px", // Giảm khoảng cách giữa Label và Input
+              whiteSpace: "nowrap", // Đảm bảo chữ không bị xuống dòng
             }}
-          
-        />
-      </Form.Group></div>
-      
+          >
+            Assess ID:
+          </Form.Label>
+          <Form.Control
+            className="fw-bold"
+            type="text"
+            readOnly
+            value={diamond.assessId}
+            style={{
+              marginRight: "100px",
+              textAlign: "center",
+              fontStyle: "italic",
+              border: "none",
+              borderBottom: "0px solid #ced4da",
+              borderRadius: "0",
+              flex: "1", // Đảm bảo Input chiếm phần còn lại của hàng ngang
+              marginLeft: "5px", // Giảm khoảng cách giữa Label và Input
+            }}
+          />
+        </Form.Group>
+      </div>
 
       <Col md="8" className="text-center">
         <Card style={{ marginBottom: "50px", marginTop: "50px" }}>
           <Card.Body>
-            <Form  >
+            <Form>
               <Row>
-                <Col md={8}>
-                  <Row >  
+                <Col md={8} style={{ marginTop: "60px" }}>
+                  <Row>
                     <Col md={4}>
                       <Form.Group
                         controlId="formAssessOrigin"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Assess Origin</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Assess Origin
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.assessOrigin}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
                         controlId="formAssessMeasurement"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Assess Measurement</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Assess Measurement
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.assessMeasurement}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
                         controlId="formFluorescence"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Fluorescence</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Fluorescence
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.fluorescence}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                     </Col>
@@ -155,46 +175,53 @@ const DetailDiamondCheck = () => {
                           type="text"
                           readOnly
                           value={diamond.assessCut}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
                         controlId="formAssessShapeCut"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Assess Shape Cut</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Assess Shape Cut
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.assessShapeCut}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
                         controlId="formAssessColor"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Assess Color</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Assess Color
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.assessColor}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                     </Col>
@@ -203,17 +230,20 @@ const DetailDiamondCheck = () => {
                         controlId="formAssessClarity"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Form.Label className="fw-bold">Assess Clarity</Form.Label>
+                        <Form.Label className="fw-bold">
+                          Assess Clarity
+                        </Form.Label>
                         <Form.Control
                           type="text"
                           readOnly
                           value={diamond.assessClarity}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
@@ -225,12 +255,13 @@ const DetailDiamondCheck = () => {
                           type="text"
                           readOnly
                           value={diamond.proportions}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                       <Form.Group
@@ -242,12 +273,13 @@ const DetailDiamondCheck = () => {
                           type="text"
                           readOnly
                           value={diamond.symmetry}
-                          style={{ textAlign: "center",
+                          style={{
+                            textAlign: "center",
                             fontStyle: "italic",
                             border: "none",
                             borderBottom: "0px solid #ced4da", // Thiết lập màu và kiểu đường viền bạn muốn
                             borderRadius: "0", // Đảm bảo không có viền cong
-                            }}
+                          }}
                         />
                       </Form.Group>
                     </Col>
@@ -287,11 +319,34 @@ const DetailDiamondCheck = () => {
         </Card>
       </Col>
 
-      <Col md="8" className="text-center" style={{ marginBottom: "50px" }}>
-        <Button onClick={() => navigate("/checkdiamond")} variant="primary" style={{backgroundColor:"green"}}>
-          Check Another Diamond
-        </Button>
-      </Col>
+      <div className="d-flex justify-content-center">
+        <style>
+          {`
+          .button-container {
+            margin-bottom: 50px;
+            text-align: center;
+          }
+          .custom-button {
+            background-color: white;
+            border-color: black;
+            color: black;
+          }
+          .custom-button:hover {
+            background-color: green;
+            border-color: green;
+          }
+        `}
+        </style>
+        <Col md="8" className="button-container">
+          <Button
+            onClick={() => navigate("/checkdiamond")}
+            variant="primary"
+            className="custom-button"
+          >
+            Check Another Diamond
+          </Button>
+        </Col>
+      </div>
     </Row>
   );
 };

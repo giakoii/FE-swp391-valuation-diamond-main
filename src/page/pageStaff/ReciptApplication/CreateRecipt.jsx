@@ -5,6 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useLocation } from "react-router-dom";
+import useAuth from "../../../utils/hook/useAuth";
 
 export const CreateReceipt = () => {
   const [selection, setSelection] = useState([]);
@@ -18,6 +19,8 @@ export const CreateReceipt = () => {
   const location = useLocation();
   const { userRequestDetail } = location.state;
   const componentRef = useRef();
+  const { user } = useAuth();
+  
   const printStyles = `
   @media print {
     .print-container {
@@ -183,7 +186,7 @@ export const CreateReceipt = () => {
     const formattedDate = formatDate(now);
 
     const dataToSend = {
-      userId: "customer10",
+      userId: user.userId,
       customerName: userRequestDetail.guestName,
       requestId: userRequestDetail.requestId,
       phone: userRequestDetail.phoneNumber,

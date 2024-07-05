@@ -429,7 +429,7 @@ export const ManageStaff = () => {
                                   className='w-50 mx-3'
                                   required >
                                 <option value=''>Select Role</option>
-                                <option value='evaluation_staff'>Evaluation Staff</option>
+                                <option value='valuation_staff'>Evaluation Staff</option>
                                 <option value='consultant_staff'>Consultant Staff</option>    
 
                     </Form.Select>

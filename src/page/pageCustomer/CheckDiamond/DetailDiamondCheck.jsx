@@ -15,8 +15,7 @@ const DetailDiamondCheck = () => {
     const fetchDiamondDetails = async () => {
       try {
         const response = await fetch(
-          `https://valuation.techtheworld.id.vn/diamond_assessment/getDiamondAssessmentById/${assess_id}`
-        );
+          `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`);
         if (!response.ok) {
           throw new Error("Diamond not found");
         }

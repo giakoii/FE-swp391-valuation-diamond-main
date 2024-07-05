@@ -63,7 +63,7 @@ export const ManageCustomer = () => {
     };
     console.log(formSendAddNewCustomer);
     try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/createStaff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

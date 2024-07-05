@@ -1,27 +1,20 @@
 .home { 
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: minmax(180px, auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: minmax(220px, auto);
 }
 .box {
-    padding:  20px;
-    border-radius: 10px ;
-    border: 1px solid ;
-    border-color: aliceblue;
-
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid aliceblue;
 }
-.box1 {
-    grid-column: span 2;
-    grid-row: 1 / 2;
+.box1, .box3 {
+    grid-column: span 1;
+    grid-row: 1;
 }
-
-.box3 {
-    grid-column: 3 / span 2;
-    grid-row: 1 / 2; 
-}
-
 .box4 {
-    grid-column: span 4;
-    grid-row: 2 / 3; 
+    grid-column: span 2;
+    grid-row: 2;
+    height: 31rem; /* Adjust as needed */
 }

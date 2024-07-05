@@ -10,7 +10,10 @@ export const validatePassword = (password) => {
   const trimmedPassword = password.trim();
   return trimmedPassword.length >= 8 && trimmedPassword.length <= 20;
 };
-
+export const validateNewPassword = (newPassword) => {
+  const trimmedPassword = newPassword.trim(); 
+  return trimmedPassword.length >= 8 && trimmedPassword.length <= 20;
+};
 export const validateFirstname = (firstname) => {
   const trimmedFirstname = firstname.trim();
   const namePattern = /^[A-Za-z]+$/; // Only alphabetic characters
@@ -104,3 +107,17 @@ export const formattedDate2 = (date2) => {
   const shortDateFormat = dayjs(date2).format("YYYY-MM-DD");
   return shortDateFormat;
 };
+export const validChangePasswordForm =(password, newPassword, confirmNewPassWord) => {
+    if(!validatePassword(password)) { 
+      showAlert('Error!', 'Password must be between 8 and 20 characters.', 'error');
+      return false;
+    }
+    if(!validateNewPassword(newPassword)) {
+      showAlert('Error!', 'New Password must be between 8 and 20 characters.', 'error');
+    }
+    if (newPassword !== confirmNewPassWord) {
+      showAlert('Error!', 'Confirm New Password failed.', 'error');
+      return false;
+    }
+  return true;
+}

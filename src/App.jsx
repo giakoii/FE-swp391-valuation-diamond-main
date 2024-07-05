@@ -32,6 +32,7 @@ import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
 import TypeValuation from './page/pageCustomer/Typevaluation.jsx';
+import {Profile} from './page/pageCustomer/Profile.jsx'
 // import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
@@ -110,6 +111,7 @@ function App() {
           {/* <Route path="otp-confirmation" element={<OTPConfirm />} /> */}
           <Route path="calculate" element={<Calculate />} />
           <Route path="checkDiamond" element={<CheckDiamond />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />
           <Route path="policy" element={<ServicePolicy />} />
           <Route path="typevaluation" element={<TypeValuation />} />
@@ -165,6 +167,7 @@ function App() {
             </RoleBasedGuard>
           </AuthGuard>
         }>
+          
           <Route path="dashboard" element={<DashBoard />} />
           <Route path="managecustomer" element={<ManageCustomer />} />
           <Route path="managestaff" element={<ManageStaff />} />

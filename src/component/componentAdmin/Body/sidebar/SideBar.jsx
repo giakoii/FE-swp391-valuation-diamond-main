@@ -36,13 +36,13 @@ const AdminSideBar = () => {
       <Nav className="flex-column w-100 p-2 menu fw-bold">
         <NavLink className='nav-link admin mt-2 mx-2 py-2' to="/admin/dashboard">
           <img
-            src='/assets/assetsAdmin/housedoor.svg'
+            src='/assets/assetsAdmin/graph.svg'
             width='30'
             height='30'
             className='mx-3'
             alt='housedoor'
           />
-          HomePage
+          DashBoard
         </NavLink>
         <div className='nav-link admin mx-2 my-3' onClick={toggleManageAccount} style={{ cursor: 'pointer' }}>
           <img

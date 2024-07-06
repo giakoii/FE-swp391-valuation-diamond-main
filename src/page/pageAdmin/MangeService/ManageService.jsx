@@ -161,7 +161,7 @@ export const ManageService = () => {
             if (result.isConfirmed) {
                 const fetchDeleteData = async() => {
                     try {
-                        await fetch(`/api/service/${serviceId}`, {
+                        await fetch(`https://valuation.techtheworld.id.vn/service/delete/${serviceId}`, {
                             method: 'DELETE',
                         });
                         setViewService(prevState => prevState.filter(service => service.serviceId !== serviceId));

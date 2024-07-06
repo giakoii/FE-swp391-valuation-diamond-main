@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './ManageCustomer.css';
 import { Modal, Button, Form, Pagination, Row, Col } from 'react-bootstrap';
-import { validateForm, showAlert,validateEditForm} from '../../../utils/validation/valAdd';
-import  formattedDate  from '../../../utils/formattedDate/formattedDate.js'
-import {Swal} from 'sweetalert2'
+import { validateForm, showAlert, validateEditForm } from '../../../utils/validation/valAdd';
+import formattedDate from '../../../utils/formattedDate/formattedDate.js';
+import Swal from 'sweetalert2';
+
 export const ManageCustomer = () => {
   const [dataCust, setDataCust] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -63,7 +64,7 @@ export const ManageCustomer = () => {
     };
     console.log(formSendAddNewCustomer);
     try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/createStaff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ export const ManageCustomer = () => {
     }
   };
 
-  // Fetch cutomer data
+  // Fetch customer data
   useEffect(() => {
     const fetchDataStaff = async () => {
       try {
@@ -102,12 +103,12 @@ export const ManageCustomer = () => {
     fetchDataStaff();
   }, []);
 
-  // Show sutomer information
+  // Show customer information
   const handleShowCustInfor = async (userId) => {
     try {
       const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/getAUser/${userId}`);
-      const cutomer = await response.json();
-      setFormContainCustById(cutomer);
+      const customer = await response.json();
+      setFormContainCustById(customer);
       setShowFormInfor(true);
     } catch (error) {
       console.log('Error:', error);
@@ -119,10 +120,10 @@ export const ManageCustomer = () => {
     setFormContainCustById(null);
   };
 
-  // Show edit Cust form
-  const handleShowEditCust = async (CustId) => {
+  // Show edit customer form
+  const handleShowEditCust = async (custId) => {
     try {
-      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/getAUser/${CustId}`);
+      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/getAUser/${custId}`);
       const customer = await response.json();
       setFormEditCust(customer);
       setOriginalData(customer); // Store the original data
@@ -138,12 +139,12 @@ export const ManageCustomer = () => {
     setOriginalData(null);
   };
 
-  // Handle edit Cust form submit
+  // Handle edit customer form submit
   const handleEditOnSubmit = async (e) => {
     e.preventDefault();
     if (!formEditCust) return;
     const passwordHavedTrim = formEditCust.password.trim();
-    if(!validateEditForm(passwordHavedTrim,formEditCust.firstName,formEditCust.lastName,formEditCust.phoneNumber,formEditCust.address)){
+    if (!validateEditForm(passwordHavedTrim, formEditCust.firstName, formEditCust.lastName, formEditCust.phoneNumber, formEditCust.address)) {
       return;
     }
   
@@ -193,14 +194,15 @@ export const ManageCustomer = () => {
         });
   
         if (response.ok) {
-          setDataCust(dataCust.filter(cust => cust.userId !== userId));
-          setFilteredSelection(filteredSelection.filter(cust => cust.userId !== userId));
-          showAlert('Deleted!', 'Staff has been deleted.', 'success');
+          setDataCust(prevData => prevData.filter(cust => cust.userId !== userId));
+          setFilteredSelection(prevData => prevData.filter(cust => cust.userId !== userId));
+          Swal.fire('Deleted!', 'Customer has been deleted.', 'success');
         } else {
-          showAlert('Error!', 'Delete Failed !!!!!!', 'error');
+          Swal.fire('Error!', 'Delete failed.', 'error');
         }
       } catch (error) {
-        console.log('Error:', error);
+        console.error('Error:', error);
+        Swal.fire('Error!', 'An error occurred while deleting the customer.', 'error');
       }
     }
   };

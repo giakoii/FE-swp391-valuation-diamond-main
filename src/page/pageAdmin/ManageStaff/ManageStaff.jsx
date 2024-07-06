@@ -3,7 +3,7 @@ import './ManageStaff.css';
 import { Modal, Button, Form, Pagination, Row, Col } from 'react-bootstrap';
 import { validateForm, showAlert,validateEditForm,formattedDate2} from '../../../utils/validation/valAdd';
 import  formattedDate  from '../../../utils/formattedDate/formattedDate.js'
-import {Swal} from 'sweetalert2'
+import Swal from 'sweetalert2';
 export const ManageStaff = () => {
   const [dataStaff, setDataStaff] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -63,7 +63,7 @@ export const ManageStaff = () => {
     };
     console.log(formSendAddNewStaff);
     try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/createStaff', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -195,12 +195,13 @@ export const ManageStaff = () => {
         if (response.ok) {
           setDataStaff(dataStaff.filter(staff => staff.userId !== userId));
           setFilteredSelection(filteredSelection.filter(staff => staff.userId !== userId));
-          showAlert('Deleted!', 'Staff has been deleted.', 'success');
+          Swal.fire('Deleted!', 'Staff has been deleted.', 'success');
         } else {
-          showAlert('Error!', 'Delete Failed !!!!!!', 'error');
+          Swal.fire('Error!', 'Delete Failed !!!!!!', 'error');
         }
       } catch (error) {
-        console.log('Error:', error);
+        console.error('Error:', error);
+        Swal.fire('Error!', 'An error occurred while deleting the staff.', 'error');
       }
     }
   };
@@ -429,7 +430,7 @@ export const ManageStaff = () => {
                                   className='w-50 mx-3'
                                   required >
                                 <option value=''>Select Role</option>
-                                <option value='evaluation_staff'>Evaluation Staff</option>
+                                <option value='valuation_staff'>Evaluation Staff</option>
                                 <option value='consultant_staff'>Consultant Staff</option>    
 
                     </Form.Select>

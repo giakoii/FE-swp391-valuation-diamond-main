@@ -13,8 +13,8 @@ function AdminApp() {
       <div>
         <Header />
       </div>
-      <div className='d-flex' style={{ backgroundColor: 'white' }}>
-        <div className='w-25'>
+      <div className='d-flex' style={{ backgroundColor: 'white',height: '100vh' }}>
+        <div className='w-25 '>
           <AdminSideBar />
         </div>
         <div

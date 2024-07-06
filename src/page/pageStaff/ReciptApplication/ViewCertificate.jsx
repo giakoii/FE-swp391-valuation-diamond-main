@@ -241,14 +241,6 @@ export const ViewCertificate = () => {
                 </Form>
             ) : (
                 <div>
-                    <img
-                        src="/assets/assetsStaff/back.svg"
-                        alt="go back"
-                        className='mt-3'
-                        height="20"
-                        width="20"
-                        onClick={() => setIsPrint(false)}
-                    />
                     <GeneratePDF result={certificate} />
                 </div>
             )}

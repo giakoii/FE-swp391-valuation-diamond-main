@@ -103,13 +103,14 @@ export const UserRequest = () => {
       if (!response.ok) {
         throw new Error("Failed to update status");
       }
-      toast.success("Update status successfully");
+      
       const updatedRequests = userRequest.map((request) =>
         request.requestId === requestId ? { ...request, status: editStatus } : request
       );
       setUserRequest(updatedRequests);
       setFilteredRequests(updatedRequests);
       setEditRowId(null);
+      toast.success("Update status successfully");
      
     } catch (error) {
       console.error("Error updating status:", error);

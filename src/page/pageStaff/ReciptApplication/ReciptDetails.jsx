@@ -108,10 +108,10 @@ export const ReceiptDetails = () => {
       <Container>
         <div>
           <img
-            src="/src/assets/assetsStaff/back.svg"
+            src="/assets/assetsStaff/back.svg"
             alt=""
             onClick={() => {
-              navigate("/staff/view-receipt");
+              navigate(-1);
             }}
           />
         </div>

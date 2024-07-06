@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ManageCustomer.css';
 import { Modal, Button, Form, Pagination, Row, Col } from 'react-bootstrap';
-import { validateForm, showAlert, validateEditForm } from '../../../utils/validation/valAdd';
+import { validateForm, showAlert, validateEditForm ,validatePasswordChange} from '../../../utils/validation/valAdd';
 import formattedDate from '../../../utils/formattedDate/formattedDate.js';
 import Swal from 'sweetalert2';
 
@@ -21,7 +21,8 @@ export const ManageCustomer = () => {
   const [formEditCust, setFormEditCust] = useState(null);
   const [originalData, setOriginalData] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
-
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordChange, setPasswordChange] = useState({ password: '', confirmPassword: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [filteredSelection, setFilteredSelection] = useState([]);
@@ -204,6 +205,48 @@ export const ManageCustomer = () => {
         console.error('Error:', error);
         Swal.fire('Error!', 'An error occurred while deleting the customer.', 'error');
       }
+    }
+  };
+  //
+  const handleOpenPasswordModal = () => {
+    setShowEditForm(false); // Đóng modal chỉnh sửa
+    setShowPasswordModal(true); // Mở modal đổi mật khẩu
+  };
+  const handleClosePasswordModal = () => {
+    setShowPasswordModal(false);
+    setShowEditForm(true); // Mở lại modal chỉnh sửa nếu cần
+  };
+  const handlePasswordChangeOnChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordChange({
+      ...passwordChange,
+      [name]: value,
+    });
+  };
+  const handlePasswordChangeSubmit = async (e) => {
+    e.preventDefault();
+    if (!validatePasswordChange(passwordChange.password, passwordChange.confirmPassword)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/updateUser/${formEditCust.userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: passwordChange.password }),
+      });
+
+      if (response.ok) {
+        showAlert('Success!', 'Password changed successfully.', 'success');
+        setShowPasswordModal(false);
+        setPasswordChange({ password: '', confirmPassword: '' });
+      } else {
+        showAlert('Failed!', 'Password Chang Failed !!! ', 'error');
+      }
+    } catch (error) {
+      console.log('Error:', error);
     }
   };
   //------------------------------------
@@ -530,19 +573,8 @@ export const ManageCustomer = () => {
                   </div>
                 </div>
                 
-                <div className='form-group col-md-7 my-3 '>
-                  <label htmlFor='password' className='mx-1'>Password:</label>
-                  <input
-                    id='password'
-                    type='password'
-                    name='password'
-                    value={formEditCust.password}
-                    className=' formmx-2 px-1'
-                    onChange={handleEditOnChange}
-                    style={{ width: "70%", borderRadius: "5px" }}
-                    required
-                  />
-                </div>
+               
+               
                 <div className='form-group col-md-7 my-5'>
                   <label htmlFor='email' className='mx-2'>Email:</label>
                   <input
@@ -585,13 +617,63 @@ export const ManageCustomer = () => {
                
               
                 <div className='form-button text-center d-flex justify-content-end'>
+                <button type="button"className='p-2 mx-2'style={{backgroundColor: "#CCFBF0" }} onClick={(e) => {e.preventDefault(); handleOpenPasswordModal();}}>
+                      Change Password
+                    </button>
                   <button type="submit" className='p-2 mx-2' style={{ width: "70px", backgroundColor: "#CCFBF0" }}>Save</button>
                 </div>
               </Form>
             </Modal.Body>
           </Modal>
         )}
-        
+           <Modal show={showPasswordModal} onHide={handleClosePasswordModal}>
+            <Modal.Header>
+              <Modal.Title>
+                 <img
+              src='/assets/assetsAdmin/logo.png'
+              width='100'
+              height='100'
+              alt='Logo'
+              className='mx-4'
+            />
+           Update Change Password  </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">New Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter new password"
+                value={passwordChange.password}
+                onChange={handlePasswordChangeOnChange}
+                required
+              />
+            </div>
+          
+            <div className="mb-3">
+              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm new password"
+                value={passwordChange.confirmPassword}
+                onChange={handlePasswordChangeOnChange}
+                required
+              />
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClosePasswordModal}>Close</Button>
+          <Button variant="primary" onClick={handlePasswordChangeSubmit}>Change Password</Button>
+        </Modal.Footer>
+          </Modal>
       </div>
     );
   };

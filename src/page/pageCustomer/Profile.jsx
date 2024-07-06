@@ -12,7 +12,7 @@ export const Profile = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState({
     userId: user.userId ,
-    password : '',
+    oldPassword : '',
     newPassword:'',
     confirmNewPassword:'',
 
@@ -34,7 +34,7 @@ export const Profile = () => {
   const handleOnSubmit = async (event) => {
     event.preventDefault();
         
-    const passwordHavedTrim = data.password.trim();
+    const passwordHavedTrim = data.oldPassword.trim();
     const newPasswordHavedTrim = data.newPassword.trim();
 
     if (!validChangePasswordForm(passwordHavedTrim,newPasswordHavedTrim,data.confirmNewPassword)) {
@@ -43,7 +43,7 @@ export const Profile = () => {
 
     const formSendData  = {
       userId: user.userId,
-      password: passwordHavedTrim,
+      oldPassword: passwordHavedTrim,
       newPassword:newPasswordHavedTrim,
       
     };
@@ -124,12 +124,12 @@ export const Profile = () => {
         <Modal.Body>
           <form>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Current Password</label>
+              <label htmlFor="oldPassword" className="form-label">Current Password</label>
               <input
-                type="password"
+                type="oldPassword"
                 className="form-control"
-                id="password"
-                name="password"
+                id="oldPassword"
+                name="oldPassword"
                 placeholder="Enter current password"
                 value={data.password}
                 onChange={handleOnChange}

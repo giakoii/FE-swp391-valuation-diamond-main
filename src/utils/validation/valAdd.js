@@ -74,11 +74,8 @@ export const validateForm = (username, password, confirmPassword, firstname, las
   return true;
 };
 
-export const validateEditForm = (password, firstname, lastname, phoneNumber, address) => {
-  if (!validatePassword(password)) {
-    showAlert('Error!', 'Password must be between 8 and 20 characters.', 'error');
-    return false;
-  }
+export const validateEditForm = (firstname, lastname, phoneNumber, address) => {
+
 
   if (!validateFirstname(firstname)) {
     showAlert('Error!', 'First name must be between 1 and 20 characters and contain only letters.', 'error');
@@ -119,5 +116,16 @@ export const validChangePasswordForm =(password, newPassword, confirmNewPassWord
       showAlert('Error!', 'Confirm New Password failed.', 'error');
       return false;
     }
+  return true;
+}
+export const validatePasswordChange = (password ,confirmPassWord) => {
+  if(!validatePassword(password)) { 
+    showAlert('Error!', 'Password must be between 8 and 20 characters.', 'error');
+    return false;
+  }
+  if (password !== confirmPassWord) {
+    showAlert('Error!', 'Confirm Password failed.', 'error');
+    return false;
+  }
   return true;
 }

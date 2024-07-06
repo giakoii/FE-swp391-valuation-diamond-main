@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import useAuth from '../../utils/hook/useAuth';
+
+dayjs.extend(utc); // Kích hoạt plugin utc
 
 function EvaluationServicePage() {
   const { user } = useAuth();
@@ -26,17 +30,8 @@ function EvaluationServicePage() {
     }
   }, [user]);
   
-
   const getCurrentDate = () => {
-    const now = new Date();
-    now.setHours(now.getHours() + 7);
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-
-    return `${month}/${day}/${year}, ${hours}:${minutes}`;
+    return dayjs().utc().format('MM/DD/YYYY, HH:mm');
   };
 
   const handleOnChange = (e) => {
@@ -88,6 +83,7 @@ function EvaluationServicePage() {
       });
     }
   };
+
   return (
     <div className="form-container justify-content-center align-items-center">
       <div className='justify-content-center d-flex my-2 p-4'>

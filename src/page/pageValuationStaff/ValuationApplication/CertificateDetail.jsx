@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Form, Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { API_BASE_URL } from "../../../utils/constants/url";
+import updateById from "../../../utils/updateAPI/updateById";
 
 export const CertificateDetail = () => {
 
@@ -145,6 +146,11 @@ export const CertificateDetail = () => {
     }
 
   };
+
+  // update image sample id
+
+
+
   // update result
   const updateResult = async () => {
     let imageUrl = resultDefault.img;
@@ -170,7 +176,6 @@ export const CertificateDetail = () => {
       price: parseFloat(resultDefault.price),
       img: imageUrl
     };
-
     try {
       const response = await fetch(
         `${API_BASE_URL}/evaluation_results/updateEvaluationResult/${resultDefault.evaluationResultId}`,
@@ -183,9 +188,17 @@ export const CertificateDetail = () => {
         }
       );
       const data = await response.json();
-      if (data) {
+      const updateResponse = await updateById(
+        `${API_BASE_URL}/order_detail_request/updateAllOD`,
+        resultDefault.orderDetailId.orderDetailId,
+        'img',
+        data.img
+      );
+
+      if (updateResponse) {
         toast.success("Update successfully");
-        // navigate("/valuation-staff/certificate-list");
+      } else {
+        throw new Error('Image update failed');
       }
     } catch (error) {
       console.log(error);
@@ -201,7 +214,7 @@ export const CertificateDetail = () => {
     if (name === "diamondOrigin") {
       setMarketPrice((currentState) => ({
         ...currentState,
-        isLabGrown: value === 'Lab Grown'
+        diamondOrigin: 'Lab Grown' ? 'Lab' : 'Natural'
       }));
     } else if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
@@ -230,6 +243,7 @@ export const CertificateDetail = () => {
     data.append("file", imgUpload);
     data.append("upload_preset", "diamondValuation");
     data.append("cloud_name", "dz2dv8lk4");
+    data.append("secure", "true");
     try {
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dz2dv8lk4/image/upload",
@@ -239,7 +253,7 @@ export const CertificateDetail = () => {
         }
       );
       const cloudData = await res.json();
-      return cloudData.url;
+      return cloudData.secure_url;
     } catch (error) {
       console.log(error);
       toast.error("Error uploading image");
@@ -250,7 +264,7 @@ export const CertificateDetail = () => {
   // view market price
   const viewMarketPrice = () => {
     const queryParams = new URLSearchParams(marketPrice).toString();
-    if(validateForm()){
+    if (validateForm()) {
       const fetchData = async () => {
         try {
           const response = await fetch(
@@ -258,18 +272,18 @@ export const CertificateDetail = () => {
           );
           const data = await response.json();
           setPriceMarket(data);
-  
+
           console.log(data)
         } catch (error) {
           setError(error);
         } finally {
-  
+
         }
       };
       fetchData();
-  
+
     }
-    
+
   }
 
   return (

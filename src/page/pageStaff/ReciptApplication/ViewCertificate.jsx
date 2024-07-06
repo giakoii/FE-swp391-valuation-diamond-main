@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../../utils/constants/url';
 
 export const ViewCertificate = () => {
@@ -13,6 +14,7 @@ export const ViewCertificate = () => {
     const { orderDetailId } = useParams();
     const [certificate, setCertificate] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,8 +34,8 @@ export const ViewCertificate = () => {
 
     if (isLoading) {
         return <div className="text-center my-4"><Spinner animation="border" /></div>;
-      }
-      
+    }
+
     const showConfirmPrint = (e) => {
         e.preventDefault();
         confirmAlert({
@@ -57,7 +59,18 @@ export const ViewCertificate = () => {
 
     return (
         <Container>
-            <ToastContainer />
+
+            <ToastContainer />                    
+            <img
+                src="/assets/assetsStaff/back.svg"
+                alt="go back"
+                className='mt-3'
+                height="20"
+                width="20"
+                onClick={() => {
+                    navigate(-1)
+                } }
+            />
             {!isPrint ? (
                 <Form>
                     <Row className="mb-4">

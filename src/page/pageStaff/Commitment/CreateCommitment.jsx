@@ -15,7 +15,7 @@ const CreateCommitment = () => {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const { user } = useAuth();
-  const dateNow = dayjs().utc(true).format();
+  const dateNow = dayjs().format();
   const [orderInfo, setOrderInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -154,7 +154,7 @@ const CreateCommitment = () => {
                 <Row className="d-flex">
                   <Col md={4}>
                     <img
-                      src="/src/assets/assetsCustomer/logo.png"
+                      src="/assets/assetsCustomer/logo.png"
                       alt="logo"
                       width="60%"
                       height="100%"

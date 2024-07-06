@@ -16,7 +16,6 @@ import { API_BASE_URL } from "../../../utils/constants/url";
 export const UserRequest = () => {
   const [userRequest, setUserRequest] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
-
   const [currentDetail, setCurrentDetail] = useState(null);
   const [isViewDetail, setIsViewDetail] = useState(false);
 
@@ -54,8 +53,42 @@ export const UserRequest = () => {
     fetchData();
   }, []);
 
+  //get order by request id
+  const APIOrderById = `${API_BASE_URL}/order_request/getOrderByRequestId`;
+  const checkExistId = async (requestId) => {
+    try {
+      const response = await fetch(
+        `${APIOrderById}/${requestId}`
+      );
+      if (!response.ok) {
+        return false;
+      }
+      // Check if the response body is empty
+      const text = await response.text();
+      if (!text) {
+        return false;
+      }
+      const data = JSON.parse(text);
+      console.log(data);
+      if (data[0]?.requestId?.requestId === requestId) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error checking ID existence:", error);
+      return false;
+    }
+  };
+
   // Update status
+
+
   const handleOnChangeStatus = async (requestId) => {
+    const exists = await checkExistId(requestId);
+    if (exists) {
+      toast.error("You have had an order, so you cannot cancel at this time");
+      return;
+    }
     try {
       const response = await fetch(
         `${API_BASE_URL}/evaluation-request/update/${requestId}`,
@@ -70,6 +103,7 @@ export const UserRequest = () => {
       if (!response.ok) {
         throw new Error("Failed to update status");
       }
+      
       const updatedRequests = userRequest.map((request) =>
         request.requestId === requestId ? { ...request, status: editStatus } : request
       );
@@ -77,6 +111,7 @@ export const UserRequest = () => {
       setFilteredRequests(updatedRequests);
       setEditRowId(null);
       toast.success("Update status successfully");
+     
     } catch (error) {
       console.error("Error updating status:", error);
       toast.error("Failed to update status");

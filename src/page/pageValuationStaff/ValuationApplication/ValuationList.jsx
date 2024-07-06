@@ -28,8 +28,10 @@ export const ValuationList = () => {
       try {
         const response = await fetch(`${API_BASE_URL}/evaluation_results/getEvaluationResults`);
         const data = await response.json();
-        setValuationRequest(data);
-        setFilteredSelection(data)
+        const sortedData = data.sort((a, b) => Date.parse(b.createDate) - Date.parse(a.createDate));
+        setValuationRequest(sortedData);
+        setFilteredSelection(sortedData)
+       
         setLoading(true)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -87,7 +89,7 @@ export const ValuationList = () => {
                 <th>Valuation ID</th>
                 <th>Sample ID</th>
                 <th>Customer Name</th>
-                <th>Date</th>
+                <th>Created Date</th>
                 <th>Valuation Staff</th>
                 <th>Print</th>
               </tr>
@@ -98,7 +100,7 @@ export const ValuationList = () => {
                   <td>{result.evaluationResultId}</td>
                   <td>{result.orderDetailId.orderDetailId}</td>
                   <td>{result.orderDetailId.orderId.customerName}</td>
-                  <td>{formattedDate(result.orderDetailId.expiredReceivedDate)}</td>
+                  <td>{formattedDate(result.createDate)}</td>
                   <td>{result.userId.firstName + ' ' + result.userId.lastName}</td>
                   <td>
                     <Button

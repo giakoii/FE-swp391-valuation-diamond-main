@@ -170,7 +170,7 @@ export const ValuationApplication = () => {
       caratWeight: parseFloat(data.caratWeight),
       price: parseFloat(data.price),
       img: orderDetail.img,
-      createDate: dayjs().utc(true).format()
+      createDate: dayjs().format()
     };
     try {
       const response = await fetch(

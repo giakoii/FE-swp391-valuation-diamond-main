@@ -149,7 +149,7 @@ const CommitmentPDF = ({ commitmentResult }) => {
             </View>
           </View>
 
-          {/* Signatures Section */}
+     
         </View>
       </Page>
     </Document>

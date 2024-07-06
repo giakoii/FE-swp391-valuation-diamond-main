@@ -25,7 +25,6 @@ export const ReceiptDetails = () => {
           `${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`
         );
         const data = await response.json();
-        console.log(data)
         setOrderDetails(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -109,10 +108,10 @@ export const ReceiptDetails = () => {
       <Container>
         <div>
           <img
-            src="/src/assets/assetsStaff/back.svg"
+            src="/assets/assetsStaff/back.svg"
             alt=""
             onClick={() => {
-              navigate("/staff/view-receipt");
+              navigate(-1);
             }}
           />
         </div>

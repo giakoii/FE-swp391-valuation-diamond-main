@@ -32,6 +32,7 @@ export const ValuationOrderDetailUpdate = () => {
     data.append("file", imageUpload);
     data.append("upload_preset", "diamondValuation");
     data.append("cloud_name", "dz2dv8lk4");
+    data.append("secure", "true");
     try {
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dz2dv8lk4/image/upload",
@@ -41,7 +42,7 @@ export const ValuationOrderDetailUpdate = () => {
         }
       );
       const cloudData = await res.json();
-      return cloudData.url;
+      return cloudData.secure_url;
     } catch (error) {
       console.log(error);
       toast.error("Error uploading image");

@@ -150,7 +150,7 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
                 <div>
                   <span className="me-3">
                     {appointmentDate 
-                      ? dayjs(appointmentDate).utc().format('DD/MM/YYYY, HH:mm')
+                      ? dayjs(appointmentDate).format('DD/MM/YYYY, HH:mm')
                       : "Not set"}
                   </span>
                   <i className="bi bi-plus-circle"

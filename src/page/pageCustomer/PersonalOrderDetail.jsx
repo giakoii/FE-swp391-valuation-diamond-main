@@ -63,62 +63,6 @@ export const PersonalOrderDetail = () => {
         };
     }, [orderId]);
     
-
-   
-    // update order status by order id
-    // confirm finish
-    const APIUpdate = `${API_BASE_URL}/order_request/updateStatus`;
-    const handleOnFinished = async (value) => {
-        if ((order?.status !== "Completed" && order?.status !== "Finished")) {
-            toast.error("Your order is In-progress")
-            return;
-        }
-        if ((order?.status == "Sealed")) {
-            toast.error("Your order is Sealed")
-            return;
-        }
-        try {
-            const response = await fetch(`${APIUpdate}/${orderId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ status: value }),
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setOrder((currentState) => ({
-                    ...currentState, status: data.status
-                }))
-
-                toast.success('Received');
-            } else {
-                throw new Error('Failed to update status');
-            }
-        } catch (error) {
-            console.error('Error updating status:', error);
-            toast.error('Error updating status. Please try again.');
-
-
-        }
-    };
-
-    const showReceivedOrderConfirmation = () => {
-        confirmAlert({
-            title: 'Confirm to received certificated and sample',
-            message: 'Are you sure you want to cancel this request?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => handleOnFinished('Finished')
-                },
-                {
-                    label: 'No',
-                    onClick: () => { }
-                }
-            ]
-        });
-    };
     if (loading) {
         return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
     }
@@ -142,7 +86,7 @@ export const PersonalOrderDetail = () => {
                                 {/* content */}
                                 <div className='my-3'>
                                     <h3 style={{ backgroundColor: "#CCFBF0", padding: "10px 10px " }}>
-                                        Information of your sample
+                                        Your sample
                                     </h3>
                                 </div>
                                 {/* list order details */}
@@ -189,7 +133,7 @@ export const PersonalOrderDetail = () => {
                             <div >
                                 <div className='mt-3'>
                                     <h3 style={{ backgroundColor: "#CCFBF0", padding: "10px 10px " }}>
-                                        Information of your Order
+                                        Your Order
                                     </h3>
 
                                 </div>
@@ -234,16 +178,7 @@ export const PersonalOrderDetail = () => {
                                 </div>
                             </div>
                             {/* Button */}
-                            <div className='d-grid mt-4'>
-                                <Button
-                                    className='p-2 border border-none rounded text-dark'
-                                    style={{ backgroundColor: "#CCFBF0" }}
-                                    onClick={showReceivedOrderConfirmation}
-                                    disabled={order.status === 'Finished' || order.status === 'Sealed'}
-                                >
-                                    Finished
-                                </Button>
-                            </div>
+                            
                         </Col>
                     </Row>
 

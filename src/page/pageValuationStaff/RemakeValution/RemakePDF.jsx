@@ -31,16 +31,14 @@ export const RemakePDF = ({ result }) => {
     text: {
       fontSize: 12,
       marginBottom: 5,
-      display: 'flex',
+      flexDirection: 'row',
       justifyContent: 'space-between',
     },
     label: {
-      fontWeight: 'bold',
-      marginRight: 5,
+      marginRight:100
     },
     value: {
-      marginLeft: 'auto',
-      textAlign: 'right'
+
     },
     wrap: {
       flexDirection: 'row',
@@ -81,38 +79,42 @@ export const RemakePDF = ({ result }) => {
             <View style={styles.section}>
               <Text style={styles.header}>Diamond Valuation Report</Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Diamond Origin:            </Text>
-                <Text style={styles.value}>{result.diamondOrigin}</Text>
+                <View>
+                  <Text style={styles.label}>Diamond Origin:</Text>
+                </View>
+                <View>
+                  <Text style={styles.value}>{result.diamondOrigin}</Text>
+                </View>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Measurements:              </Text>
+                <Text style={styles.label}>Measurements:</Text>
                 <Text style={styles.value}>{result.measurements}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Shape Cut:                 </Text>
+                <Text style={styles.label}>Shape Cut:</Text>
                 <Text style={styles.value}>{result.shapeCut}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Description:               </Text>
+                <Text style={styles.label}>Description:</Text>
                 <Text style={styles.value}>{result.description}</Text>
               </Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.header}>Grading Results</Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Carat Weight:              </Text>
+                <Text style={styles.label}>Carat Weight:</Text>
                 <Text style={styles.value}>{result.caratWeight}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Color Grade:               </Text>
+                <Text style={styles.label}>Color Grade:</Text>
                 <Text style={styles.value}>{result.color}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Clarity Grade:             </Text>
+                <Text style={styles.label}>Clarity Grade:</Text>
                 <Text style={styles.value}>{result.clarity}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Cut Grade:                 </Text>
+                <Text style={styles.label}>Cut Grade:</Text>
                 <Text style={styles.value}>{result.cut}</Text>
               </Text>
             </View>
@@ -127,15 +129,15 @@ export const RemakePDF = ({ result }) => {
                 <Text style={styles.value}>{result.symmetry}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Fluorescence:               </Text>
+                <Text style={styles.label}>Fluorescence:</Text>
                 <Text style={styles.value}>{result.fluorescence}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Proportion:                 </Text>
+                <Text style={styles.label}>Proportion:</Text>
                 <Text style={styles.value}>{result.proportions}</Text>
               </Text>
               <Text style={styles.text}>
-                <Text style={styles.label}>Estimate Price:             </Text>
+                <Text style={styles.label}>Estimate Price:</Text>
                 <Text style={styles.value}>{result.price}</Text>
               </Text>
             </View>

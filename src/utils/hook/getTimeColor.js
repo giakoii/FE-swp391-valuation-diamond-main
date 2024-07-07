@@ -10,7 +10,7 @@ function getColorTime(orderDate, receivedDate) {
     } else if (takenTime <= totalTime / 2) {
         return '#ACE6AE'; // Green 
     } else {
-        return '#FFE77A'; // 
+        return '#FFE77A'; // yellow
     }
 }
 export default getColorTime;

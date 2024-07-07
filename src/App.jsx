@@ -126,7 +126,6 @@ function App() {
           </AuthGuard>
         }>
           <Route index element={<UserRequest />} />
-          {/* <Route path="home" element={<HomeStaff />} /> */}
           <Route path="user-request" element={<UserRequest />} />
           <Route path="view-receipt" element={<ViewReciptList />} />
           <Route path="view-receipt/:orderId" element={<ReceiptDetails />} />

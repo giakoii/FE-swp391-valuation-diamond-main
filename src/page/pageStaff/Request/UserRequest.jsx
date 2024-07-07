@@ -83,10 +83,11 @@ export const UserRequest = () => {
   // Update status
 
 
-  const handleOnChangeStatus = async (requestId) => {
-    const exists = await checkExistId(requestId);
+  const handleOnChangeStatus = async (user) => {
+    const exists = await checkExistId(user.requestId);
     if (exists) {
-      toast.error("You have had an order, so you cannot cancel at this time");
+      toast.error("You have had an order, so you cannot update status at this time");
+      setEditRowId(null);
       return;
     }
     try {
@@ -207,7 +208,7 @@ export const UserRequest = () => {
                           <option value="Canceled">Canceled</option>
                         </Form.Select>
                         <Button
-                          onClick={() => handleOnChangeStatus(user.requestId)}
+                          onClick={() => handleOnChangeStatus(user)}
                         >
                           Save
                         </Button>

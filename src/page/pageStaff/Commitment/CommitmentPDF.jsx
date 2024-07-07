@@ -140,11 +140,9 @@ const CommitmentPDF = ({ commitmentResult }) => {
             <View style={styles.wrap}>
               <View style={styles.wrapLeft}>
                 <Text style={styles.text}>Manager</Text>
-                {/* You can add a space or placeholder for the manager's signature */}
               </View>
               <View style={styles.wrapRight}>
                 <Text style={styles.text}>Customer</Text>
-                {/* You can add a space or placeholder for the customer's signature */}
               </View>
             </View>
           </View>

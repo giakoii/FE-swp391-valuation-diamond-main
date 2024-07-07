@@ -218,6 +218,17 @@ export const ManageService = () => {
       
         const { sizeFrom, sizeTo } = formAddNewServicePriceList;
       
+        // Validate sizeFrom and sizeTo are integers
+        if (!Number.isInteger(parseFloat(sizeFrom)) || !Number.isInteger(parseFloat(sizeTo))) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Size From and Size To must be integers.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+          return;
+        }
+      
         // Validate sizeTo > sizeFrom
         if (parseInt(sizeTo) <= parseInt(sizeFrom)) {
           Swal.fire({
@@ -262,65 +273,61 @@ export const ManageService = () => {
           console.error('Error Save New Price List: ' + error);
         }
       };
-
     // Handle edit price list
-    const handleEditPriceList = (priceList, field, value) => {
-        if (value < 0) {
-            Swal.fire({
-                title: 'Error!',
-                text: `${field} must be a positive number.`,
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-            return;
-        }
-        setEditPriceList(prevState => ({
-            ...prevState,
-            [priceList]: {
-                ...prevState[priceList],
-                [field]: value,
-            },
-        }));
-    };
-
     const handleSaveEditPriceList = async (priceListId) => {
         const editedPriceList = editPriceList[priceListId];
         if (!editedPriceList) return;
+      
+        // Validate sizeFrom and sizeTo are integers
+        if (!Number.isInteger(parseFloat(editedPriceList.sizeFrom)) || !Number.isInteger(parseFloat(editedPriceList.sizeTo))) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Size From and Size To must be integers.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+          return;
+        }
+      
+        // Validate sizeFrom < sizeTo
         if (parseFloat(editedPriceList.sizeFrom) >= parseFloat(editedPriceList.sizeTo)) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Size From must be less than Size To.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-            return;
+          Swal.fire({
+            title: 'Error!',
+            text: 'Size From must be less than Size To.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+          return;
         }
+      
         try {
-            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/updateServicePriceListById/${priceListId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(editedPriceList),
+          const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/updateServicePriceListById/${priceListId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(editedPriceList),
+          });
+      
+          if (response.ok) {
+            setServicePriceList(prevState =>
+              prevState.map(priceList =>
+                priceList.servicePriceId === priceListId ? { ...priceList, ...editedPriceList } : priceList
+              )
+            );
+            setEditPriceRowId(null);
+            Swal.fire({
+              title: 'Success!',
+              text: 'Price List updated successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK',
             });
-            console.log(editedPriceList);   
-
-            if (response.ok) {
-                setServicePriceList(prevState => prevState.map(priceList =>
-                    priceList.servicePriceId === priceListId ? { ...priceList, ...editedPriceList } : priceList
-                ));
-                setEditPriceRowId(null);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Price List updated successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                });
-            }
+          }
         } catch (error) {
-            console.error("Error updating price list: " + error);
+          console.error("Error updating price list: " + error);
         }
-    };
+      };
+      
     // Delete price list item
     const handleDeletePriceList = (priceList) => {
         Swal.fire({

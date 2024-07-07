@@ -145,7 +145,7 @@ export const ManageCustomer = () => {
     e.preventDefault();
     if (!formEditCust) return;
     const passwordHavedTrim = formEditCust.password.trim();
-    if (!validateEditForm( formEditCust.firstName, formEditCust.lastName, formEditCust.phoneNumber, formEditCust.address)) {
+    if (!validateEditForm(passwordHavedTrim, formEditCust.firstName, formEditCust.lastName, formEditCust.phoneNumber, formEditCust.address)) {
       return;
     }
   

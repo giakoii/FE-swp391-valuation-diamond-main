@@ -49,7 +49,7 @@ export const Profile = () => {
     };
     console.log(formSendData);
     try {
-      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/create', {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

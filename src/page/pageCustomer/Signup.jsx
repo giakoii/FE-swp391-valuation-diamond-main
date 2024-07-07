@@ -75,7 +75,7 @@ function Signup() {
       if (response.ok) {
         setShowOtpModal(true);
       } else if (response.status === 400) { 
-        showAlert('Error!', 'Username is already existed.', 'error');
+        showAlert('Error!', 'Username or Email are already existed.', 'error');
       } else {
         showAlert('Error!', 'Failed to create account. Please try again.', 'error');
       }

@@ -126,7 +126,7 @@ export const Profile = () => {
             <div className="mb-3">
               <label htmlFor="oldPassword" className="form-label">Current Password</label>
               <input
-                type="oldPassword"
+                type="password"
                 className="form-control"
                 id="oldPassword"
                 name="oldPassword"

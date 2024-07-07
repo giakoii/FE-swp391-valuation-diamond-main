@@ -92,7 +92,7 @@ export const UserRequest = () => {
     }
     try {
       const response = await fetch(
-        `${API_BASE_URL}/evaluation-request/update/${requestId}`,
+        `${API_BASE_URL}/evaluation-request/update/${user.requestId}`,
         {
           method: "PUT",
           headers: {
@@ -106,7 +106,7 @@ export const UserRequest = () => {
       }
       
       const updatedRequests = userRequest.map((request) =>
-        request.requestId === requestId ? { ...request, status: editStatus } : request
+        request.requestId === user.requestId ? { ...request, status: editStatus } : request
       );
       setUserRequest(updatedRequests);
       setFilteredRequests(updatedRequests);

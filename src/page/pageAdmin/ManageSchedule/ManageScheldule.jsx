@@ -71,7 +71,7 @@ export const ManageSchedule = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ orderDetailId, evaluationStaffId, status: 'assigned' }),
+        body: JSON.stringify({ orderDetailId, evaluationStaffId, status: 'Assigned' }),
       });
       const data = await response.json();
       console.log(data);

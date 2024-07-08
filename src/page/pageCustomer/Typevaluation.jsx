@@ -179,7 +179,7 @@ const Typevaluation = () => {
                 <td>Polish, Symmetry</td>
                 <td>
                   Standard scale: Excellent, Very Good, Good, Fair, Poor <br />{" "}
-                  Not grading stones with a size from 3.00 to 3.99mm.
+                  Not grading stones with a size from les than 2.0
                 </td>
               </tr>
               <tr>
@@ -187,7 +187,7 @@ const Typevaluation = () => {
                 <td>Fluorescence</td>
                 <td>
                   Standard scale: None, Faint, Medium, Strong, Very Strong.{" "}
-                  <br /> Not grading stones with a size from 3.00 to 3.99mm.
+                  <br /> Not grading stones with a size les than 2.0
                 </td>
               </tr>
               <tr>
@@ -234,11 +234,13 @@ const Typevaluation = () => {
           </Table>
 
           {/* Pagination */}
+          <div className="d-flex justify-content-center">
           <div className="pagination">
             <button
               className="btn btn-primary"
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              style={{ backgroundColor: "green" }}
             >
               Previous
             </button>
@@ -251,7 +253,7 @@ const Typevaluation = () => {
                   key={index + 1}
                   className={`btn ${
                     currentPage === index + 1 ? "btn-primary" : "btn-secondary"
-                  }`}
+                  } text-dark bg-white`}
                   onClick={() => paginate(index + 1)}
                 >
                   {index + 1}
@@ -263,10 +265,14 @@ const Typevaluation = () => {
               className="btn btn-primary"
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastItem >= apiData.length}
+              style={{ backgroundColor: "green" }}
             >
               Next
             </button>
           </div>
+
+          </div>
+          
         </Col>
       </Row>
     </Container>

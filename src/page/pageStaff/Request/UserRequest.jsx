@@ -159,7 +159,7 @@ export const UserRequest = () => {
       <ToastContainer />
       {!isViewDetail ? (
         <>
-          <h2 className="text-center my-4">User Request</h2>
+          <h2 className="text-center my-4">USER REQUEST</h2>
           <div style={{ width: "80%", margin: "0 auto" }}>
             <Form className="mb-3">
               <Row>
@@ -183,7 +183,7 @@ export const UserRequest = () => {
             <thead style={{ backgroundColor: "#E2FBF5" }}>
               <tr>
                 <th>Request ID</th>
-                <th>Guest Name</th>
+                <th>Customer Name</th>
                 <th>Send Date</th>
                 <th>Status</th>
                 <th>View Details</th>

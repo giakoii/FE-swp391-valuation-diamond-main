@@ -332,17 +332,17 @@ return (
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Customer Name</label>
               </div>
-              <div className="col-7">{userRequestDetail.guestName}</div>
+              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.guestName}</div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Phone</label>
               </div>
-              <div className="col-7">{userRequestDetail.phoneNumber}</div>
+              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.phoneNumber}</div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Quantity</label>
+                <label className="form-label fw-bold" style={{ fontStyle: 'italic' }}>Quantity</label>
               </div>
               <div className="col-7">
                 <input
@@ -355,15 +355,15 @@ return (
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Request Your ID</label>
+                <label className="form-label fw-bold" >Request Your ID</label>
               </div>
-              <div className="col-7">{userRequestDetail.requestId}</div>
+              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.requestId}</div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Order Date</label>
               </div>
-              <div className="col-7">
+              <div className="col-7" style={{ fontStyle: 'italic' }}>
                 <input
                   type="text"
                   className="form-control"

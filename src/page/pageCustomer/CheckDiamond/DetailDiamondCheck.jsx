@@ -64,7 +64,7 @@ const DetailDiamondCheck = () => {
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
-            justifyContent: "space-between",
+           
           }}
         >
           <Form.Label
@@ -76,28 +76,15 @@ const DetailDiamondCheck = () => {
           >
             Assess ID:
           </Form.Label>
-          <Form.Control
-            className="fw-bold"
-            type="text"
-            readOnly
-            value={diamond.assessId}
-            style={{
-              marginRight: "100px",
-              textAlign: "center",
-              fontStyle: "italic",
-              border: "none",
-              borderBottom: "0px solid #ced4da",
-              borderRadius: "0",
-              flex: "1", // Đảm bảo Input chiếm phần còn lại của hàng ngang
-              marginLeft: "5px", // Giảm khoảng cách giữa Label và Input
-            }}
-          />
+          <div className="text-left">      
+          <div>{diamond.assessId}</div>
+            </div>
         </Form.Group>
       </div>
 
       <Col md="8" className="text-center">
         <Card style={{ marginBottom: "50px", marginTop: "50px" }}>
-          <Card.Body>
+          <Card.Body style={{width:"100%"}}>
             <Form>
               <Row>
                 <Col md={8} style={{ marginTop: "60px" }}>
@@ -285,14 +272,16 @@ const DetailDiamondCheck = () => {
                   </Row>
                 </Col>
                 <Col md={4}>
-                  <Image
-                    src="/assets/assetsCustomer/diamond.png"
-                    fluid
-                    style={{ borderRadius: "4px", marginTop: "75px" }}
-                  />
-                  <div className="text-center" style={{ marginTop: "20px" }}>
-                    Diamond Perfect
-                  </div>
+                <Form.Group
+                        controlId="formAssessMeasurement"
+                        style={{ marginBottom: "20px" }} >
+                          <img
+                          src={diamond.imageUrl}
+                          alt="Diamond"
+                          width="300px"
+                          height="300px"
+                      />
+                 </Form.Group>
                 </Col>
               </Row>
             </Form>

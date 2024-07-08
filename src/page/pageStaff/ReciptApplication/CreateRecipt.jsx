@@ -8,6 +8,7 @@ import "toastify-js/src/toastify.css";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../utils/hook/useAuth";
 import diamondLogo from "/src/assets/assetsCustomer/logo.png";
+import { useNavigate } from "react-router-dom";
 
 export const CreateReceipt = () => {
   const [selection, setSelection] = useState([]);
@@ -22,6 +23,7 @@ export const CreateReceipt = () => {
   const { userRequestDetail } = location.state;
   const componentRef = useRef();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   
 
@@ -228,6 +230,10 @@ export const CreateReceipt = () => {
     content: () => componentRef.current,
   });
 
+  const handleBack = ()=>{
+    navigate(0)
+  }
+
   const printStyles = `
   @media print {
     .print-container {
@@ -256,6 +262,7 @@ return (
     {reviewMode ? (
       <div style={{ width: "90%", marginLeft: "100px" }}>
         <h2 className="d-flex justify-content-center">Review</h2>
+        <Button style={{backgroundColor:"green"}} onClick={handleBack}>Back</Button>
         <div ref={componentRef} className="print-container">
           <div className="d-flex">
             <img
@@ -273,7 +280,7 @@ return (
           </div>
           <div className="d-flex justify-content-center">
             <div className="flex-column" style={{ width: "70%" }}>
-              <div>
+              <div style={{ fontWeight: 'bold' }}>
                 <p>Customer Name: {userRequestDetail.guestName}</p>
                 <p>Phone: {userRequestDetail.phoneNumber}</p>
                 <p>Quantity: {quantity}</p>
@@ -312,14 +319,15 @@ return (
             </Table>
           </div>
         </div>
-        <div className="d-flex justify-content-end" style={{ width: "90%" }}>
-          <Button style={{backgroundColor:"green"}} onClick={handlePrint}>Print</Button>
+        < div className="d-flex justify-content-end" style={{ width: "100%" }}>
+          <Button style={{backgroundColor:"blue"}} onClick={handlePrint}>Print</Button>      
         </div>
+
       </div>
       ) : (
         <form onSubmit={handleOnSubmit}>
           <div className="row mb-5">
-            <h2 className="p-2 text-center">Order</h2>
+            <h2 className="p-2 text-center">Order Service</h2>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Customer Name</label>

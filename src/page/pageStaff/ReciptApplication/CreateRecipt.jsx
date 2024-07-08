@@ -347,7 +347,7 @@ return (
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold">Request ID</label>
+                <label className="form-label fw-bold">Request Your ID</label>
               </div>
               <div className="col-7">{userRequestDetail.requestId}</div>
             </div>
@@ -439,7 +439,7 @@ return (
                 ))}
                 <tr>
                   <td colSpan="4" className="text-end">
-                    <strong>Total Price</strong>
+                    <strong>Total Prices</strong>
                   </td>
                   <td>
                     <input

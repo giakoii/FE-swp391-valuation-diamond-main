@@ -313,7 +313,7 @@ return (
           </div>
         </div>
         <div className="d-flex justify-content-end" style={{ width: "90%" }}>
-          <Button onClick={handlePrint}>Print</Button>
+          <Button style={{backgroundColor:"green"}} onClick={handlePrint}>Print</Button>
         </div>
       </div>
       ) : (

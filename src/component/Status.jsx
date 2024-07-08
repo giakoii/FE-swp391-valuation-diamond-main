@@ -8,11 +8,10 @@ export const Status = ({ status }) => {
                 (status === 'Assigned') ? '#00BCD4' :
                 (status === 'Sealed') ? '#9900EF' :
                 (status === 'Completed') ? 'orange' :
-                (status === 'In-Process') ? '#2196F3' : 'black',
+                (status === 'In-Progress') ? '#2196F3' : 'black',
         border: 'solid',
         borderRadius: '15px',
         padding:'2px 8px'
-        
     }
     return <span style={styleStatus}>{status}</span>;
 }

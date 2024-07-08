@@ -139,7 +139,7 @@ export const ViewReciptList = () => {
                 <td>{item.diamondQuantity}</td>
                 <td><Status status={item.status} /></td>
                 <td>
-                  <Button variant="info" onClick={() => viewDetail(item)}>
+                  <Button style={{backgroundColor:"green", color:"white"}} variant="info" onClick={() => viewDetail(item)}>
                     View Detail
                   </Button>
                 </td>

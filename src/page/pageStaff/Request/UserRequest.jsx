@@ -39,7 +39,9 @@ export const UserRequest = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        const sortedData = data.sort((a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate));
+        const sortedData = data.sort(
+          (a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate)
+        );
         setUserRequest(sortedData);
         setFilteredRequests(sortedData);
       } catch (error) {
@@ -57,9 +59,7 @@ export const UserRequest = () => {
   const APIOrderById = `${API_BASE_URL}/order_request/getOrderByRequestId`;
   const checkExistId = async (requestId) => {
     try {
-      const response = await fetch(
-        `${APIOrderById}/${requestId}`
-      );
+      const response = await fetch(`${APIOrderById}/${requestId}`);
       if (!response.ok) {
         return false;
       }
@@ -82,11 +82,12 @@ export const UserRequest = () => {
 
   // Update status
 
-
   const handleOnChangeStatus = async (user) => {
     const exists = await checkExistId(user.requestId);
     if (exists) {
-      toast.error("You have had an order, so you cannot update status at this time");
+      toast.error(
+        "You have had an order, so you cannot update status at this time"
+      );
       setEditRowId(null);
       return;
     }
@@ -104,15 +105,16 @@ export const UserRequest = () => {
       if (!response.ok) {
         throw new Error("Failed to update status");
       }
-      
+
       const updatedRequests = userRequest.map((request) =>
-        request.requestId === user.requestId ? { ...request, status: editStatus } : request
+        request.requestId === user.requestId
+          ? { ...request, status: editStatus }
+          : request
       );
       setUserRequest(updatedRequests);
       setFilteredRequests(updatedRequests);
       setEditRowId(null);
       toast.success("Update status successfully");
-     
     } catch (error) {
       console.error("Error updating status:", error);
       toast.error("Failed to update status");
@@ -159,7 +161,7 @@ export const UserRequest = () => {
       <ToastContainer />
       {!isViewDetail ? (
         <>
-          <h2 className="text-center my-4">User Request</h2>
+          <h2 className="text-center my-4">USER REQUEST</h2>
           <div style={{ width: "80%", margin: "0 auto" }}>
             <Form className="mb-3">
               <Row>
@@ -179,11 +181,11 @@ export const UserRequest = () => {
               </Row>
             </Form>
           </div>
-          <Table striped bordered>
+          <Table striped bordered style={{ textAlign: "center" }}>
             <thead style={{ backgroundColor: "#E2FBF5" }}>
               <tr>
                 <th>Request ID</th>
-                <th>Guest Name</th>
+                <th>Customer Name</th>
                 <th>Send Date</th>
                 <th>Status</th>
                 <th>View Details</th>
@@ -207,9 +209,7 @@ export const UserRequest = () => {
                           <option value="Accepted">Accepted</option>
                           <option value="Canceled">Canceled</option>
                         </Form.Select>
-                        <Button
-                          onClick={() => handleOnChangeStatus(user)}
-                        >
+                        <Button onClick={() => handleOnChangeStatus(user)}>
                           Save
                         </Button>
                       </>
@@ -218,7 +218,8 @@ export const UserRequest = () => {
                         <div>
                           <Status status={user.status} />
                         </div>
-                        <i className="bi bi-pencil"
+                        <i
+                          className="bi bi-pencil"
                           style={{ height: 20, width: 20 }}
                           onClick={() => {
                             setEditRowId(user.requestId);
@@ -229,13 +230,15 @@ export const UserRequest = () => {
                     )}
                   </td>
                   <td>
-                    <Button
-                      onClick={() => viewDetails(user)}
-                      className="btn text-dark"
-                      style={{ backgroundColor: "#7CF4DE" }}
-                    >
-                      View Details
-                    </Button>
+                    <div>
+                      <Button
+                        onClick={() => viewDetails(user)}
+                        className=""
+                        style={{ backgroundColor: "blue", color:'white' }}
+                      >
+                        View Details
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -250,7 +253,8 @@ export const UserRequest = () => {
       ) : (
         currentDetail && (
           <div>
-            <i className="bi bi-arrow-90deg-left mt-3"
+            <i
+              className="bi bi-arrow-90deg-left mt-3"
               onClick={() => setIsViewDetail(false)}
               style={{ cursor: "pointer", height: 40, width: 40 }}
             ></i>

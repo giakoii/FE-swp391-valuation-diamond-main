@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import formattedDateTime from '../../../utils/formattedDate/formattedDateTime';
 import './ManageSchedule.css';
 import { Pagination } from 'react-bootstrap';
+import {Status} from '../../../component/Status.jsx'
 
 export const ManageSchedule = () => {
   const [dataManage, setDataManage] = useState([]);
@@ -137,7 +138,7 @@ export const ManageSchedule = () => {
                 <td>{data.orderDetailId}</td>
                 <td>{formattedDateTime(data.orderId.orderDate)}</td>
                 <td>{data.serviceId.serviceType}</td>
-                <td>{data.status}</td>
+                <td><Status status={data.status} /></td>
                 <td>
                   <Form.Select
                     onChange={(e) => handleOnChangeValuationStaff(data.orderDetailId, e.target.value)}

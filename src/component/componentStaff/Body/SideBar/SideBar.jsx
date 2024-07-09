@@ -20,7 +20,7 @@ export const SideBar = () => {
             </Form>
             <Nav className="flex-column w-100 p-2 menu fw-bold">
                 <NavLink className='nav-link' to="/staff/user-request">Receive User Requests</NavLink>
-                <NavLink className='nav-link' to="/staff/view-receipt">View All Recipt</NavLink>
+                <NavLink className='nav-link' to="/staff/view-receipt">View All Order</NavLink>
                 <NavLink className='nav-link' to="/staff/commitment-list">Commitment Page List</NavLink>
                 <NavLink className='nav-link' to="/staff/valuation-result-list">Remake Valuation Result</NavLink>
             </Nav>

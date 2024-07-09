@@ -11,14 +11,14 @@ export const ChartBox = ({ icon, title, dataKey, chartData }) => {
             src={icon}
             height='20px'
             width='20px'
-            alt="people"
+            alt="icon"
           />
           <span>{title}</span>
         </div>
         <h1>LATEST 6 MONTH</h1>
       </div>
       <div className='chartInfo'>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />

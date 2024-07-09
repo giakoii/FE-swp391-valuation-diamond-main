@@ -24,6 +24,7 @@ const CheckDiamond = () => {
         icon: 'error',
         title: 'Diamond not found !!!',
         text: 'Please try again',
+        
       });
     }
   };

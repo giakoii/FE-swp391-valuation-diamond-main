@@ -36,12 +36,12 @@ function Header() {
           className="me-5 fw-bold justify-content-end"
         >
           <Nav variant="underline">
-            <h2>
+           
               <NavLink to="/" className="nav-link">
                 Home
               </NavLink>
-            </h2>
-            <h2>
+          
+          
               <NavDropdown title="Evaluation Service" id="nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/calculate">
                   Calculate
@@ -59,18 +59,16 @@ function Header() {
                   Type of Valuation
                 </NavDropdown.Item>
               </NavDropdown>
-            </h2>
-            <h2>
+            
               <NavLink to="/checkdiamond" className="nav-link">
                 {" "}
                 Diamond Check
               </NavLink>
-            </h2>
-            <h2>
+            
               <NavLink to="/contact" className="nav-link">
                 Contact
               </NavLink>
-            </h2>
+            
 
             {user ? (
               <NavDropdown

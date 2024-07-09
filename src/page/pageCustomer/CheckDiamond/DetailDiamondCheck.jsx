@@ -198,6 +198,7 @@ const DetailDiamondCheck = () => {
                         controlId="formAssessShapeCut"
                         style={{ marginBottom: "20px" }}
                       >
+                        
                         <Form.Label>
                           <span className="text-muted"> Assess Shape Cut</span>
                          </Form.Label>

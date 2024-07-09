@@ -496,9 +496,9 @@
                     </div>
                 </div>
                 {viewService.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((dataService) => (
-                    <div key={dataService.serviceId} className="service-card my-4 border hover">
+                    <div key={dataService.serviceId} className="service-card my-4 border hover ">
                         <div className="row">
-                            <p className='col-md-2'> {dataService.serviceId}</p>
+                            <p className='col-md-2 my-3'> {dataService.serviceId}</p>
                             <div className='col-md-2'>
                                 {editRowId === dataService.serviceId ? (
                                     <>
@@ -510,7 +510,7 @@
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div>{dataService.serviceType}</div>
+                                        <div className="my-3">{dataService.serviceType}</div>
                                     </div>
                                 )}
                             </div>
@@ -525,7 +525,7 @@
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div>{dataService.serviceDescription}</div>
+                                        <div className="my-2">{dataService.serviceDescription}</div>
                                     </div>
                                 )}
                             </div>
@@ -535,19 +535,19 @@
                                         <Form.Select value={editServiceStatus}
                                             onChange={(e) => setEditServiceStatus(e.target.value)}>
                                             <option value=""> Select Status</option>
-                                            <option value="Stop"> Stop</option>
-                                            <option value="Using"> Using</option>
+                                            <option value="Enable"> Enable</option>
+                                            <option value="Disable"> Disable</option>
                                         </Form.Select>
                                         <Button onClick={() => handleOnServiceStatusChange(dataService.serviceId)}>Save</Button>
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div><Status status={dataService.status} /></div>
+                                        <div className="my-4"><Status status={dataService.status} /></div>
                                     </div>
                                 )}
                             </div>
                             <div className='col-md-2 d-flex justify-content-center'>
-                                <Button className="h-50 my-4" onClick={() => handleViewServicePriceList(dataService.serviceId)}> View Service Price List</Button>
+                                <Button className="h-50 my-4 p-1" onClick={() => handleViewServicePriceList(dataService.serviceId)}> View Service Price List</Button>
                             </div>
                             <div className="col-md-1 d-flex justify-content-between">
                                 
@@ -562,14 +562,14 @@
                                         setEditServiceDescription(dataService.serviceDescription);
                                         setEditServiceStatus(dataService.status);
                                     }}
-                                    className='my-3 mx-3'
+                                    className='my-4 mx-3'
                                 />
                                 
                                     <img
                                         src='/assets/assetsAdmin/trash.svg'
                                         width='20'
                                         height='20'
-                                        className='my-3'
+                                        className='my-4'
                                         onClick={() => handleDeleteService(dataService.serviceId)}
                                         alt='Delete'
                                     />

@@ -105,7 +105,7 @@ export const Profile = () => {
 
     try {
       const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/updateUser/${user.userId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -126,7 +126,7 @@ export const Profile = () => {
     <Container fluid >
       <img className="mx-3" src="/assets/assetsCustomer/back.svg" width='30px' height='30px' alt="back" onClick={backList} />
 
-      <Row>
+      <Row className="my-4">
         <Col md={6} className="d-flex justify-content-center">
           <img
             src="https://www.beelancer.vn/storage/2022/10/casemiro-365x405.jpg"
@@ -136,7 +136,7 @@ export const Profile = () => {
             className="d-flex justify-content-center align-item-center"
           />
         </Col>
-        <Col md={6}  style={{ width: "800px ", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }}>
+        <Col md={6}  style={{ width: "800px ", boxShadow: "rgb(0 0 0 / 16%) 1px 1px 10px" }} >
           <Row>
             <Col md={2}>
               <img

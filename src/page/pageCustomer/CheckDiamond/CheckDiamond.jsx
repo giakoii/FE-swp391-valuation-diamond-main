@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, FormControl, InputGroup, Container, Row, Col, Alert } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Container, Row, Col } from "react-bootstrap";
+import Swal from 'sweetalert2';
 import diamondLogo from "/src/assets/assetsCustomer/diamond.png"; // Replace with the actual path to your image
 
 const CheckDiamond = () => {
   const [assess_id, setAssessId] = useState("");
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSearch = async () => {
@@ -17,33 +17,28 @@ const CheckDiamond = () => {
       const data = await response.json();
       // Nếu thành công, điều hướng đến trang inforcheck và có thể xử lý dữ liệu nếu cần thiết
       console.log("Received data:", data);
-      setError(null);
       navigate(`/inforcheck/${assess_id}`);
     } catch (err) {
-      // Nếu lỗi xảy ra, hiển thị thông báo lỗi
-      setError("Diamond not found");
+      // Nếu lỗi xảy ra, hiển thị thông báo lỗi dùng SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Diamond not found !!!',
+        text: 'Please try again',
+      });
     }
   };
-
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
 
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
         {/* Left Column: Text Content */}
-        <Col md="6" >
-          <div className="text-center mb-4" style={{ marginTop: "200px"}}>
-            <h1 className="text-muted fs-4 mb-3">
-              <div  style={{color:"blue"}}> Check any diamond price & quality </div>          
+        <Col md="6">
+          <div className="text-center mb-4" style={{ marginTop: "200px" }}>
+            <h1 style={{ textAlign: "left" }}>
+              <h1>Check any diamond's</h1>
+              <h1 style={{ color: "blue" }}>price & quality </h1>
             </h1>
-            <p className="text-muted fs-6">
+            <p style={{ textAlign: "left" }}>
               Transact with confidence — get fair price, cut score, visual
               carat and more for free
             </p>
@@ -62,50 +57,36 @@ const CheckDiamond = () => {
         </Col>
 
         <div className="text-center" style={{ width: "50%", marginBottom: "200px", marginTop: "50px" }}>
-        <div>
-      <style>
-        {`
-          .custom-button {
-            background-color: #007bff; /* Màu xanh ban đầu */
-            border-color: #007bff;    /* Màu viền ban đầu */
-          }
-          .custom-button:hover {
-            background-color: green;  /* Màu xanh lá khi hover */
-            border-color: green;      /* Màu viền xanh lá khi hover */
-          }
-        `}
-      </style>
-      <InputGroup className="mb-3">
-        <FormControl
-          placeholder="Enter Diamond Assess ID"
-          aria-label="Diamond Assess ID"
-          aria-describedby="basic-addon2"
-          value={assess_id}
-          onChange={(e) => setAssessId(e.target.value)}
-        />
-        <Button
-          variant="primary"
-          className="ms-2 custom-button"
-          onClick={handleSearch}
-        >
-          Run Check
-        </Button>
-      </InputGroup>
-    </div>
-          {error && (
-            <Alert 
-              variant="danger" 
-              dismissible 
-              onClose={() => setError(null)} 
-              style={{ 
-                marginTop: "10px",
-                fontSize: "1.2em",
-                fontWeight: "bold"
-              }}
-            >
-              {error}
-            </Alert>
-          )}
+          <div>
+            <style>
+              {`
+                .custom-button {
+                  background-color: #007bff; /* Màu xanh ban đầu */
+                  border-color: #007bff;    /* Màu viền ban đầu */
+                }
+                .custom-button:hover {
+                  background-color: green;  /* Màu xanh lá khi hover */
+                  border-color: green;      /* Màu viền xanh lá khi hover */
+                }
+              `}
+            </style>
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Enter Diamond Assess ID"
+                aria-label="Diamond Assess ID"
+                aria-describedby="basic-addon2"
+                value={assess_id}
+                onChange={(e) => setAssessId(e.target.value)}
+              />
+              <Button
+                variant="primary"
+                className="ms-2 custom-button"
+                onClick={handleSearch}
+              >
+                Run for Check
+              </Button>
+            </InputGroup>
+          </div>
         </div>
       </Row>
     </Container>

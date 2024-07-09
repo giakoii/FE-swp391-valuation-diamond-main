@@ -42,15 +42,15 @@ const Typevaluation = () => {
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr>
-                <th>No.</th>
-                <th>SERVICE TYPE</th>
-                <th>CONTENT</th>
+                <th  style={{ textAlign: 'center' }}>No.</th>
+                <th  style={{ textAlign: 'center' }}>SERVICE TYPE</th>
+                <th  style={{ textAlign: 'center' }}>CONTENT</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>Regular Evaluation</td>
+                <td  style={{ textAlign: 'center' }}>1</td>
+                <td >Regular Evaluation</td>
                 <td>
                   – The evaluation time depends on the time of submission.{" "}
                   <br />– Unlimited quantity. Service fee according to
@@ -58,8 +58,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>2</td>
-                <td>Fast Evaluation (3 hours)</td>
+                <td  style={{ textAlign: 'center' }}>2</td>
+                <td >Fast Evaluation (3 hours)</td>
                 <td>
                   – Evaluation completed within 3 working hours from the time of
                   product receipt.
@@ -68,8 +68,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>3</td>
-                <td>Fast Evaluation (48 hours)</td>
+                <td style={{ textAlign: 'center' }}>3</td>
+                <td >Fast Evaluation (48 hours)</td>
                 <td>
                   – Evaluation completed within 48 working hours from the time
                   of product receipt.
@@ -78,8 +78,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>4</td>
-                <td>Regular Sealing (Re-seal)</td>
+                <td style={{ textAlign: 'center' }}>4</td>
+                <td >Regular Sealing (Re-seal)</td>
                 <td>
                   – The evaluation time depends on the time of submission.{" "}
                   <br />– Unlimited quantity. Service fee according to
@@ -87,8 +87,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>5</td>
-                <td>Fast Sealing (Re-seal in 3 hours)</td>
+                <td style={{ textAlign: 'center' }}>5</td>
+                <td >Fast Sealing (Re-seal in 3 hours)</td>
                 <td>
                   – Sealing completed within 3 working hours from the time of
                   product receipt. <br />– Quantity depends on the time of
@@ -96,7 +96,7 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>6</td>
+                <td style={{ textAlign: 'center' }}>6</td>
                 <td>Fast Sealing (Re-seal in 48 hours)</td>
                 <td>
                   – Sealing completed within 48 working hours from the time of
@@ -105,14 +105,14 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>7</td>
+                <td style={{ textAlign: 'center' }}>7</td>
                 <td>Reissue Evaluation Certificate</td>
                 <td>
                   – Reissuing the evaluation certificate upon customer request.
                 </td>
               </tr>
               <tr>
-                <td>8</td>
+                <td style={{ textAlign: 'center' }}>8</td>
                 <td>Edge Number Engraving</td>
                 <td>
                   – Engraving edge numbers on the stone upon request. <br />–

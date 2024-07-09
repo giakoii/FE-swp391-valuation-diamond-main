@@ -535,8 +535,8 @@
                                         <Form.Select value={editServiceStatus}
                                             onChange={(e) => setEditServiceStatus(e.target.value)}>
                                             <option value=""> Select Status</option>
-                                            <option value="Stop"> Stop</option>
-                                            <option value="Using"> Using</option>
+                                            <option value="Enable"> Enable</option>
+                                            <option value="Disable"> Disable</option>
                                         </Form.Select>
                                         <Button onClick={() => handleOnServiceStatusChange(dataService.serviceId)}>Save</Button>
                                     </>

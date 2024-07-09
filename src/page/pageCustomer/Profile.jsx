@@ -105,7 +105,7 @@ export const Profile = () => {
 
     try {
       const response = await fetch(`https://valuation.techtheworld.id.vn/user_request/updateUser/${user.userId}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },

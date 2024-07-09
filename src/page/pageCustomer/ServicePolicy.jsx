@@ -6,11 +6,11 @@ const ServicePolicy = () => {
     <div style={{ textAlign: "justify" }}>
       <Row>
         <Col md="8" style={{ marginBottom: "50px" }}>
-          <h1 className="" style={{ marginTop: "50px", marginBottom: "50px", marginLeft:"700px" }}>
+          <h1 className="" style={{ marginTop: "50px", marginBottom: "50px", marginLeft:"700px" ,  fontStyle: 'italic'}}>
             Service Policy
           </h1>
           <div style={{ paddingLeft: "50px", paddingRight: "50px" }}>
-            <h2 className="text-center" style={{marginBottom:"25px"}}> 1. GENERAL RULES</h2>
+            <h2 className="text-center" style={{marginBottom:"25px",  fontStyle: 'italic'}}> 1. GENERAL RULES</h2>
             <div>
             
             <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.1</span>
@@ -63,22 +63,26 @@ const ServicePolicy = () => {
               Inspect and have solutions according to the Company's regulations.
             </div>
             <div>
-              1.8. In case the appraisal has problems or needs to be changed,
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.8</span>
+               In case the appraisal has problems or needs to be changed,
               DIAMOND VALUATION will call to inform and discuss with the Customer in spirit
               Cooperate and respect each other to come up with the best solution.
             </div>
             <div>
-              1.9. DIAMOND VALUATION performs the Inspection independently and has the right to
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.9</span>
+              DIAMOND VALUATION performs the Inspection independently and has the right to
               Refuse the Inspection request when the Customer does not provide sufficient information
               information on the INSPECTION REQUEST FORM or deemed unwarranted
               technical and professional factors.
             </div>
             <div>
-              1.10. DIAMOND VALUATION's Inspection Paper is not a Warranty Paper
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.10</span>
+              DIAMOND VALUATION's Inspection Paper is not a Warranty Paper
               Warranty, no valuation Appraisal form attached.
             </div>
             <div>
-              1.11. DIAMOND VALUATION does not represent or guarantee the Certificate
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.11</span>
+             DIAMOND VALUATION does not represent or guarantee the Certificate
               appraisal because the appraisal certificate only honestly describes the characteristics and functions
               Technical specifications of the Inspection Form after it has been inspected
               in accordance with DIAMOND VALUATION's existing standards and equipment at the time
@@ -89,13 +93,15 @@ const ServicePolicy = () => {
               of Sample that was previously not detected by DIAMOND VALUATION.
             </div>
             <div>
-              1.12. DIAMOND VALUATION will not be liable for any loss
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.12</span>
+             DIAMOND VALUATION will not be liable for any loss
               disputes, damages, including Customer's damages, arise
               from errors on the Inspection Paper and in the circulation of the Paper
               Inspection.
             </div>
             <div style={{ marginBottom: "50px" }}>
-              1.13. Re-sealing Regulations · DIAMOND VALUATION will conduct the Sealing
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.13</span>
+              Re-sealing Regulations · DIAMOND VALUATION will conduct the Sealing
               Re-seal the Inspection Forms when the correct parameters have been determined
               art. In case there are discrepancies or errors in the technical specifications
               errors arise during the use of the Sample from the Customer (cracks,
@@ -113,7 +119,7 @@ const ServicePolicy = () => {
               DIAMOND VALUATION will absolutely not accept future complaints in this case
               responsibility.
             </div>
-            <h2 className="text-center">2. CUSTOMER COMMITMENT</h2>
+            <h2 className="text-center" style={{ fontStyle: 'italic' }}>2. CUSTOMER COMMITMENT</h2>
             <div style={{ marginBottom: "50px" }}>
               Customers are responsible for checking the correct quantity of Inspection Samples and quality
               Seal quality, quantity and quality of Inspection Paper (if any)
@@ -121,7 +127,7 @@ const ServicePolicy = () => {
               regarding the above issues when leaving the counter will not
               be solved.
             </div>
-            <h2 className="text-center">3. DIAMOND VALUATION'S COMMITMENT</h2>
+            <h2 className="text-center" style={{ fontStyle: 'italic' }}>3. DIAMOND VALUATION'S COMMITMENT</h2>
             <div>
               DIAMOND VALUATION is committed to properly implementing the content of the appraisal
               Agreement with the Customer based on knowledge, technical capacity,
@@ -136,7 +142,7 @@ const ServicePolicy = () => {
           </div>
         </Col>
         <Col md={4}>
-          <h2 className="" style={{ marginTop: "200px",marginBottom:"50px", textAlign: "center" }}>
+          <h2 className="" style={{ marginTop: "200px",marginBottom:"50px", textAlign: "center" , fontStyle: 'italic'}}>
             Clear Policy - Loyal Customers
           </h2>
           <Image
@@ -149,10 +155,10 @@ const ServicePolicy = () => {
               display: "block",
               marginLeft: "auto",
               marginRight: "auto",
-               marginBottom:"300px"
+               marginBottom:"100px"
             }}
           />
-          <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center" }}>
+          <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center", fontStyle: 'italic' }}>
             Diamond Valuation Life Valuation
           </h2>
           <Image
@@ -165,10 +171,10 @@ const ServicePolicy = () => {
               display: "block",
               marginLeft: "auto",
               marginRight: "auto",
-              marginBottom:"300px"
+              marginBottom:"100px"
             }}
           />
-          <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center" }}>
+          <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center", fontStyle: 'italic'}}>
           Quality Comes with Prestige
           </h2>
           <Image

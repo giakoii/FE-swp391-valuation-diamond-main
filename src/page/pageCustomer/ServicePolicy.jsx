@@ -10,9 +10,11 @@ const ServicePolicy = () => {
             Service Policy
           </h1>
           <div style={{ paddingLeft: "50px", paddingRight: "50px" }}>
-            <h2 className="text-center"> 1. GENERAL RULES</h2>
+            <h2 className="text-center" style={{marginBottom:"25px"}}> 1. GENERAL RULES</h2>
             <div>
-              1.1. Customers must provide complete and accurate information
+            
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.1</span>
+              Customers must provide complete and accurate information
               INSPECTION REQUEST FORM. DIAMOND VALUATION will be based on LOVE VOUCHER
               DEMAND INSPECTION proceeds to create an INSPECTION RECEIPT. Information:
               Customer name, address, phone number, email (if any), request
@@ -21,33 +23,39 @@ const ServicePolicy = () => {
               enclosed with old Seal or Inspection Certificate).
             </div>
             <div>
-              1.2. DIAMOND VALLUATION is not liable for accuracy
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.2</span>
+               DIAMOND VALLUATION is not liable for accuracy
               authenticate the information provided by the Customer.
             </div>
             <div>
-              1.3. INSPECTION RECEIPT is considered an INSPECTION SERVICE CONTRACT
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.3</span>
+               INSPECTION RECEIPT is considered an INSPECTION SERVICE CONTRACT
               between DIAMOND VALUATION and Customer. The Board of Directors is printed in two copies,
               One copy is kept by DIAMOND and one copy is kept by the Customer.
             </div>
             <div>
-              1.4. In case the Customer wishes to change the Family Service Agreement, he or she must call
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.4</span>
+               In case the Customer wishes to change the Family Service Agreement, he or she must call
               Notify DIAMOND VALUATION within 6 hours of receipt
               Send Samples (not applicable for Express Inspection requests). After time
               Customers will not be allowed to change any of the above content
               HDDVGP.
             </div>
             <div>
-              1.5. The Steering Committee only confirms the correct QUANTITY of Inspection Samples. The information
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.5</span>
+              The Steering Committee only confirms the correct QUANTITY of Inspection Samples. The information
               about weight, size, color, cut shape..., Model name due
               Provided by customers, ...for reference and identification purposes only.
             </div>
             <div>
-              1.6. DIAMOND VALUATION does not determine the actual nature of Model Giam
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.6</span>
+               DIAMOND VALUATION does not determine the actual nature of Model Giam
               Determine what type of stone it is, natural, synthetic, treated or not
               time of receiving the Inspection Form.
             </div>
             <div>
-              1.7. BNGD is only valid for 30 days from the date of sending the Form
+            <span style={{ fontWeight: 'bold', marginRight:"10px" }}>1.7</span>
+              BNGD is only valid for 30 days from the date of sending the Form
               Inspection. After 30 days, if the Customer still has not received the results.
               If during this time the Customer still does not come to pick up or
               When the BNGD has no value and DIAMOND VALUATION cannot contact the Customer

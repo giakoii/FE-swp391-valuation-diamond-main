@@ -107,10 +107,6 @@ export const ValuationOrderDetail = () => {
               <td>{product.size}</td>
               <td>
                 <div className="text-center">{product.isDiamond ? "Diamond" : "Not a diamond"}</div>
-                {/* <div style={{ alignItems: "center" }}>
-                    {(product.isDiamond === null || product.isDiamond === "") ? "Unknown" : (product.isDiamond ? "Diamond" : "Not a diamond")}
-                  </div> */}
-
               </td>
               <td>
                 <div><Status status={product.status} /></div>

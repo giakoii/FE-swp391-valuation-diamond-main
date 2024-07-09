@@ -5,14 +5,14 @@ import formattedDate from '../../../utils/formattedDate/formattedDate';
 import { Pagination } from '../../../component/Pagination/Pagination';
 import { RemakeGenerate } from '../RemakeValution/RemakeGenerate';
 import { API_BASE_URL } from '../../../utils/constants/url';
-// ROLE: CONSULTANT_STAFF
+//ROLE: CONSULTANT_STAFF
 export const ValuationList = () => {
   const [valuationResult, setValuationRequest] = useState([]);
   const [isPrint, setIsPrint] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
   const [filteredSelection, setFilteredSelection] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  // pagination
+  //pagination
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
@@ -20,7 +20,7 @@ export const ValuationList = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage
   const currentCertificate = filteredSelection.slice(indexOfFirstPost, indexOfLastPost);
-  // change paginate
+  //change paginate
   const paginate = (number) => setCurrentPage(number);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const ValuationList = () => {
         const sortedData = data.sort((a, b) => Date.parse(b.createDate) - Date.parse(a.createDate));
         setValuationRequest(sortedData);
         setFilteredSelection(sortedData)
-       
+
         setLoading(true)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -45,7 +45,8 @@ export const ValuationList = () => {
   }
 
   const handleSearch = () => {
-    const filteredData = valuationResult.filter(item => item.evaluationResultId.toString().includes(searchTerm)
+    const filteredData = valuationResult.filter(item => item.evaluationResultId.toString().includes(searchTerm) ||
+      item.orderDetailId.orderDetailId.toString().includes(searchTerm)
     );
     setFilteredSelection(filteredData);
   }
@@ -53,12 +54,10 @@ export const ValuationList = () => {
     setSelectedResult(result);
     setIsPrint(true);
   };
-
   const handleGoBack = () => {
     setIsPrint(false);
     setSelectedResult(null);
   };
-
   return (
     <Container>
       {!isPrint ? (
@@ -132,7 +131,7 @@ export const ValuationList = () => {
           <Row className="mt-3">
             <Col>
               <Button variant="secondary" onClick={handleGoBack}>
-              <i className="bi bi-arrow-90deg-left"></i>
+                <i className="bi bi-arrow-90deg-left"></i>
               </Button>
             </Col>
           </Row>

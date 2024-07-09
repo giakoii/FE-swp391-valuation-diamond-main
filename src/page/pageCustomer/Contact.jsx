@@ -27,21 +27,21 @@ const Contact = () => {
       </Row>
       <Row className="mb-4" style={{ textAlign: "center" }}>
         <Col md={3}>
-          <h5>Address</h5>
+          <h5 style={{ fontStyle: 'italic' }}>Address</h5>
           <p>
           Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh, Vietnam
           </p>
         </Col>
         <Col md={3}>
-          <h5>Phone</h5>
+          <h5 style={{ fontStyle: 'italic' }}>Phone</h5>
           <p>(+84) 766 942 380</p>
         </Col>
         <Col md={3}>
-          <h5>Email</h5>
+          <h5 style={{ fontStyle: 'italic' }}>Email</h5>
           <p>diamondValuation@gmail.com</p>
         </Col>
         <Col md={3}>
-          <h5>Manager</h5>
+          <h5 style={{ fontStyle: 'italic' }}>Manager</h5>
           <p>Nguyen Anh Minh</p>
         </Col>
       </Row>

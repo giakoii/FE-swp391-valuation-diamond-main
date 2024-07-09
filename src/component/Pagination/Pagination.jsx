@@ -8,7 +8,6 @@ export const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     }
     // Set a default active page
     const [activePage, setActivePage] = useState(1);
-
     const handlePageClick = (number) => {
         setActivePage(number);
         paginate(number);

@@ -15,7 +15,8 @@ const DetailDiamondCheck = () => {
     const fetchDiamondDetails = async () => {
       try {
         const response = await fetch(
-          `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`);
+          `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`
+        );
         if (!response.ok) {
           throw new Error("Diamond not found");
         }
@@ -60,11 +61,11 @@ const DetailDiamondCheck = () => {
           controlId="formAssessId"
           style={{
             marginBottom: "20px",
+            marginLeft: "50px",
             width: "20%",
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
-           
           }}
         >
           <Form.Label
@@ -76,17 +77,38 @@ const DetailDiamondCheck = () => {
           >
             Assess ID:
           </Form.Label>
-          <div className="text-left">      
-          <div>{diamond.assessId}</div>
+          <div className="text-left">
+            <div
+              style={{
+                marginLeft: "50px",
+                fontStyle: "italic",
+                fontWeight: "bold",
+              }}
+            >
+              {diamond.assessId}
             </div>
+          </div>
         </Form.Group>
       </div>
 
       <Col md="8" className="text-center">
-        <Card style={{ marginBottom: "50px", marginTop: "50px" }}>
-          <Card.Body style={{width:"100%"}}>
+        <Card style={{ marginBottom: "25px", marginTop: "50px" }}>
+          <div>
             <Form>
               <Row>
+                <Col md={4}>
+                  <Form.Group
+                    controlId="formAssessMeasurement"
+                    style={{ marginBottom: "20px" }}
+                  >
+                    <img
+                      src={diamond.imageUrl}
+                      alt="Diamond"
+                      width="300px"
+                      height="300px"
+                    />
+                  </Form.Group>
+                </Col>
                 <Col md={8} style={{ marginTop: "60px" }}>
                   <Row>
                     <Col md={4}>
@@ -271,21 +293,9 @@ const DetailDiamondCheck = () => {
                     </Col>
                   </Row>
                 </Col>
-                <Col md={4}>
-                <Form.Group
-                        controlId="formAssessMeasurement"
-                        style={{ marginBottom: "20px" }} >
-                          <img
-                          src={diamond.imageUrl}
-                          alt="Diamond"
-                          width="300px"
-                          height="300px"
-                      />
-                 </Form.Group>
-                </Col>
               </Row>
             </Form>
-          </Card.Body>
+          </div>
           <h1
             className="text-center"
             style={{ margintop: "20px", marginBottom: "10px" }}

@@ -31,7 +31,7 @@ import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx"
 import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
-import TypeValuation from './page/pageCustomer/Typevaluation.jsx';
+import Typevaluation from './page/pageCustomer/TypeValuation/Typevaluation.jsx';
 import {Profile} from './page/pageCustomer/Profile.jsx'
 // import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
@@ -114,7 +114,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />
           <Route path="policy" element={<ServicePolicy />} />
-          <Route path="typevaluation" element={<TypeValuation />} />
+          <Route path="typevaluation" element={<Typevaluation />} />
         </Route>
 
         {/* ROLE: CONSULTANT_STAFF */}

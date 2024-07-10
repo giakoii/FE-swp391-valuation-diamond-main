@@ -1,0 +1,10 @@
+/* styles.css */
+.service-type-header,
+.service-list-header {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center; /* Center text alignment */
+  margin-bottom: 20px; /* Space below the header */
+}

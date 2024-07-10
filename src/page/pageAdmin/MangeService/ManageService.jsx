@@ -101,6 +101,7 @@
                             },
                             body: JSON.stringify({ status: editServiceStatus }),
                         });
+                        console.log( editServiceStatus);
                         setViewService(prevState => prevState.map(service => 
                             service.serviceId === serviceId ? { ...service, status: editServiceStatus } : service
                         ));
@@ -535,8 +536,8 @@
                                         <Form.Select value={editServiceStatus}
                                             onChange={(e) => setEditServiceStatus(e.target.value)}>
                                             <option value=""> Select Status</option>
-                                            <option value="Enable"> Enable</option>
-                                            <option value="Disable"> Disable</option>
+                                            <option value="ENABLE"> Enable</option>
+                                            <option value="DISABLE"> Disable</option>
                                         </Form.Select>
                                         <Button onClick={() => handleOnServiceStatusChange(dataService.serviceId)}>Save</Button>
                                     </>

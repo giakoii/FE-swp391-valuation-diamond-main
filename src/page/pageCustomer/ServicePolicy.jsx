@@ -163,17 +163,17 @@ const ServicePolicy = () => {
           </h2>
           
           <Image
-            src="/assets/assetsCustomer/diamond.png"
+            src="/assets/assetsCustomer/diamondbackgournd.png"
             fluid
-            style={{
-              borderRadius: "4px",
-              marginTop: "10px",
-              width: "50%",
-              display: "block",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginBottom:"100px"
-            }}
+            style={{ 
+              borderRadius: "4px", 
+              marginTop: "10px", 
+              width: "50%", 
+              display: "block", 
+              marginLeft: "auto", 
+               marginRight: "auto",
+               marginBottom:"100px"
+             }}
           />
           <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center", fontStyle: 'italic'}}>
           Quality Comes with Prestige

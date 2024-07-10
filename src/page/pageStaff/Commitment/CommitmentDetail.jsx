@@ -178,10 +178,6 @@ const CommitmentDetail = () => {
             width="20"
             onClick={() => setIsPrint(false)}
           />
-          {/* <i className="bi bi-arrow-90deg-left"
-            onClick={() => setIsPrint(false)}
-            style={{ cursor: "pointer", height: 20, width: 20 }}
-          ></i> */}
           <CommitmentGenerate commitmentResult={commitmentDetail} />
         </div>
       )}

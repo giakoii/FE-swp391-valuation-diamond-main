@@ -38,6 +38,12 @@ export const ViewCertificate = () => {
 
     const showConfirmPrint = (e) => {
         e.preventDefault();
+        console.log('Certificate:', certificate); 
+        if (certificate === null) {
+            toast.error('Fail to print: certificate is not completed');
+            return;
+        }
+
         confirmAlert({
             title: 'Confirm to print',
             message: 'Click ok to print the valuation result',
@@ -59,7 +65,6 @@ export const ViewCertificate = () => {
 
     return (
         <Container>
-
             <ToastContainer />                    
             <img
                 src="/assets/assetsStaff/back.svg"

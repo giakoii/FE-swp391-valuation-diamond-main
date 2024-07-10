@@ -70,7 +70,6 @@ const CreateCommitment = () => {
     }
   };
 
-  // Check if the commitment ID by order ID exists
   const checkExistId = async (orderId) => {
     try {
       const response = await fetch(

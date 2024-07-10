@@ -219,4 +219,4 @@ export const ViewReciptList = () => {
   );
 };
 
-export default ViewReciptList;
+export default ViewReciptList; 

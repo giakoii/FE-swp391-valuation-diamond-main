@@ -16,21 +16,6 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
   const [isEditingDate, setIsEditingDate] = useState(false);
   const [errorMeetingDate, setErrorMeetingDate] = useState("");
   dayjs.extend(utc);
-  
-  // console.log de test
-  console.log('apppont', appointmentDate);
-  console.log('meeting', userRequestDetail.meetingDate)
-  console.log(dayjs().format());
-  console.log(dayjs(appointmentDate).format());
-  console.log('format', dayjs(appointmentDate).format("YYYY-MM-DDTHH:mm"));
-
-  console.log('not utc', dayjs(appointmentDate).format('DD/MM/YYYY, HH:mm'));
-
-  console.log('utc', dayjs(appointmentDate).utc().format('DD/MM/YYYY, HH:mm'));
-  console.log(formattedDateTime(appointmentDate));
-  console.log(new Date(appointmentDate));
-  console.log(dayjs(appointmentDate).format() < dayjs().format());
-
   const API = `${API_BASE_URL}/evaluation-request/update`;
 
   const handleAddDate = async (value) => {

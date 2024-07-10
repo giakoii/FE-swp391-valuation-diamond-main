@@ -45,8 +45,8 @@ export const ValuationList = () => {
   }
 
   const handleSearch = () => {
-    const filteredData = valuationResult.filter(item => item.evaluationResultId.toString().includes(searchTerm) ||
-      item.orderDetailId.orderDetailId.toString().includes(searchTerm)
+    const filteredData = valuationResult.filter(item => item.evaluationResultId.toString().trim().includes(searchTerm.trim()) ||
+      item.orderDetailId.orderDetailId.toString().trim().includes(searchTerm.trim())
     );
     setFilteredSelection(filteredData);
   }

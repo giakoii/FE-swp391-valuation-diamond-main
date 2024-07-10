@@ -131,7 +131,23 @@ export const ViewReciptList = () => {
               />
             </Col>
             <Col xs="auto">
-              <Button variant="primary" onClick={handleSearch}>
+              <Button variant="primary" 
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                transition: "background-color 0.3s ease, color 0.3s ease", // Hiệu ứng chuyển đổi màu
+                border: "none", // Xóa đường viền
+              }}
+              
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = "green"; // Màu nền khi hover
+                e.target.style.color = "white"; // Màu chữ khi hover
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = "blue"; // Reset màu nền khi không hover
+                e.target.style.color = "white"; // Reset màu chữ khi không hover
+              }}
+              onClick={handleSearch}>
                 Search
               </Button>
             </Col>

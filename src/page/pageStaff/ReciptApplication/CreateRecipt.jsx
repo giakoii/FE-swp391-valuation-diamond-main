@@ -271,6 +271,24 @@ export const CreateReceipt = () => {
     // Optionally, reset only necessary states
     setReviewMode(false); // Exit review mode
   };
+
+  const handleReviewMode = () => {
+    // Check if any size is less than or equal to 2
+    const errors = rows.map((row) => (row.size <= 2 ? "Size must be more than 2" : ""));
+    setSizeErrors(errors);
+ 
+    // Proceed to review mode only if all sizes are valid
+    if (!errors.some(error => error)) {
+      setReviewMode(true);
+    } else {
+      // Display error using SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Size need more than 2',
+        text: 'Please correct the size errors before proceeding.',
+      });
+    }
+    };
   
 
 
@@ -392,7 +410,7 @@ return (
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold" style={{ fontStyle: 'italic' }}>Quantity</label>
+                <label className="form-label fw-bold">Quantity</label>
               </div>
               <div className="col-7">
                 <input
@@ -516,11 +534,7 @@ return (
               Accept
             </Button>
             
-            <Button
-              className="btn btn-primary"
-              onClick={() => setReviewMode(true)} >
-              Review
-            </Button>
+            <Button onClick={handleReviewMode}>Review</Button>
           </div>
           
         </form>

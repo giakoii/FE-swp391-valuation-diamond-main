@@ -24,6 +24,8 @@ export const CreateReceipt = () => {
   const componentRef = useRef();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [sizeErrors, setSizeErrors] = useState([]);
+
 
   
 
@@ -66,22 +68,18 @@ export const CreateReceipt = () => {
 
   const handleRowChange = async (index, field, value) => {
     const numericValue = value.replace(/^0+(?=\d)|[^.\d]/g, "");
-
+  
     const updatedRows = rows.map((row, rowIndex) =>
       rowIndex === index ? { ...row, [field]: numericValue } : row
     );
     setRows(updatedRows);
-
-    if (field === "size" && numericValue <= 2) {
-      const newErrors = [...errors];
-      newErrors[index] = "Size must be more than 2";
-      setErrors(newErrors);
-    } else {
-      const newErrors = [...errors];
-      newErrors[index] = "";
-      setErrors(newErrors);
+  
+    if (field === "size") {
+      const newErrors = [...sizeErrors];
+      newErrors[index] = numericValue <= 2 ? "Size must be more than 2" : "";
+      setSizeErrors(newErrors);
     }
-
+  
     if (field === "size" && updatedRows[index].serviceId && numericValue) {
       const unitPrice = await fetchUnitPrice(
         updatedRows[index].serviceId,
@@ -91,6 +89,10 @@ export const CreateReceipt = () => {
       updateDatesAndPrices(index, updatedRows);
     }
   };
+  
+  
+
+
 
   const handleServiceChange = async (index, serviceId) => {
     const updatedRows = rows.map((row, rowIndex) =>
@@ -189,6 +191,15 @@ export const CreateReceipt = () => {
       });
       return;
     }
+    if (rows.some((row, index) => !row.serviceId || row.size <= 2)) {
+      // Display error using SweetAlert 2
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please ensure all sizes are more than 2.",
+      });
+      return;
+    }
 
     // Nếu các điều kiện hợp lệ, tiến hành submit form
     const now = new Date();
@@ -255,16 +266,12 @@ export const CreateReceipt = () => {
   });
 
   const handleBack = () => {
-    navigate(0); // Navigate back to the previous page
-
-    // Reset only necessary states
-   
+    navigate(1); // Navigate back to the previous page
+  
+    // Optionally, reset only necessary states
+    setReviewMode(false); // Exit review mode
   };
-    // Function to exit review mode
-   const exitReviewMode = () => {
-      setReviewMode(false);
-      // Reset other necessary states
-    };
+  
 
 
   const printStyles = `
@@ -466,18 +473,18 @@ return (
                       />
                     </td>
                     <td>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={row.size}
-                        onChange={(e) =>
-                          handleRowChange(index, "size", e.target.value)
-                        }
-                      />
-                      {errors[index] && (
-                        <span className="text-danger">{errors[index]}</span>
-                      )}
-                    </td>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={row.size}
+                  onChange={(e) =>
+                    handleRowChange(index, "size", e.target.value)
+                  }
+                />
+                {errors[index] && (
+                  <span className="text-danger">{errors[index]}</span>
+                )}
+              </td>
                     <td>
                       <input
                         type="text"

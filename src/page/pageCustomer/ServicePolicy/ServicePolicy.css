@@ -1,0 +1,33 @@
+.service-policy-background {
+    background-image: url('/assets/assetsCustomer/diamond.jpg'); /* Đường dẫn tới ảnh nền */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white; /* Điều chỉnh màu chữ nếu cần */
+    padding: 20px;
+    border-radius: 10px;
+    height: 25vh; /* Chiều cao 25% chiều cao màn hình */
+    width: 100vw; /* Chiều rộng toàn màn hình */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Để đảm bảo phần tử phủ toàn bộ chiều rộng */
+  }
+  
+  .service-policy-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ */
+    backdrop-filter: blur(1px); /* Làm mờ nền */
+    z-index: 1;
+  }
+  
+  .service-policy-background h1 {
+    position: relative;
+    z-index: 2;
+  }
+  

@@ -48,7 +48,7 @@ import CommitmentDetail from "./page/pageStaff/Commitment/CommitmentDetail.jsx";
 import { CustomerGuard } from "./guards/CustomerGuard.jsx";
 import CheckDiamond from './page/pageCustomer/CheckDiamond/CheckDiamond.jsx';
 import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCheck.jsx';
-import ServicePolicy from './page/pageCustomer/ServicePolicy.jsx';
+import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
 
 

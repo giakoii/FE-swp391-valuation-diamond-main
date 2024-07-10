@@ -3,12 +3,12 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Col, Row } from "react-bootstrap";
 import { useReactToPrint } from "react-to-print";
-import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../utils/hook/useAuth";
 import diamondLogo from "/src/assets/assetsCustomer/logo.png";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export const CreateReceipt = () => {
   const [selection, setSelection] = useState([]);
@@ -179,6 +179,18 @@ export const CreateReceipt = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
+    // Kiểm tra các trường có giá trị không hợp lệ
+    if (!quantity || rows.some(row => !row.serviceId || !row.size)) {
+      // Hiển thị thông báo lỗi sử dụng SweetAlert 2
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields: Quantity, Service Type, and Size.',
+      });
+      return;
+    }
+
+    // Nếu các điều kiện hợp lệ, tiến hành submit form
     const now = new Date();
     const formattedDate = formatDate(now);
 
@@ -214,15 +226,27 @@ export const CreateReceipt = () => {
       const result = await response.json();
       console.log("Data successfully saved:", result);
 
-      Toastify({
-        text: "Successfully",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "green",
-      }).showToast();
+      // Hiển thị thông báo thành công sử dụng SweetAlert 2
+      Swal.fire({
+        icon: 'success',
+        title: 'Successfully',
+        text: 'Data successfully saved!',
+      }).then((result) => {
+        // Không thay đổi reviewMode khi bấm OK
+        if (result.isConfirmed) {
+          // Tắt thông báo và không làm gì
+        }
+      });
+
     } catch (error) {
       console.error("Error saving data:", error);
+
+      // Hiển thị thông báo lỗi sử dụng SweetAlert 2
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to save data. Please try again.',
+      });
     }
   };
 
@@ -230,9 +254,18 @@ export const CreateReceipt = () => {
     content: () => componentRef.current,
   });
 
-  const handleBack = ()=>{
-    navigate(0)
-  }
+  const handleBack = () => {
+    navigate(0); // Navigate back to the previous page
+
+    // Reset only necessary states
+   
+  };
+    // Function to exit review mode
+   const exitReviewMode = () => {
+      setReviewMode(false);
+      // Reset other necessary states
+    };
+
 
   const printStyles = `
   @media print {
@@ -262,8 +295,18 @@ return (
     {reviewMode ? (
       <div style={{ width: "90%", marginLeft: "100px" }}>
         <h2 className="d-flex justify-content-center">Review</h2>
-        <Button style={{backgroundColor:"green"}} onClick={handleBack}>Back</Button>
+
+        <Button
+      style={{ backgroundColor: "blue", transition: "background-color 0.3s" }}
+      onClick={handleBack}
+      onMouseEnter={(e) => e.target.style.backgroundColor = "green"}
+      onMouseLeave={(e) => e.target.style.backgroundColor = "blue"}
+    >
+      Back to Order
+    </Button>
+
         <div ref={componentRef} className="print-container">
+
           <div className="d-flex">
             <img
               src={diamondLogo}
@@ -465,6 +508,7 @@ return (
             <Button className="btn btn-success me-4" type="submit">
               Accept
             </Button>
+            
             <Button
               className="btn btn-primary"
               onClick={() => setReviewMode(true)} >

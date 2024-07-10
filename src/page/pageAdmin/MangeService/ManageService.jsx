@@ -1,238 +1,271 @@
-import { useEffect, useState } from "react";
-import { Button, Container, Form, Modal, Pagination, Table } from "react-bootstrap";
-import './ManageService.css'
-import Swal from "sweetalert2";
-
-export const ManageService = () => { 
-    const [viewService, setViewService] = useState([]);
-    const [showAddService, setShowAddService] = useState(false);
-    const [showPriceList, setShowPriceList] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
-    const [editRowId, setEditRowId] = useState(null);
-    const [editServiceType, setEditServiceType] = useState('');
-    const [editServiceStatus, setEditServiceStatus] = useState('');
-    const [editServiceDescription, setEditServiceDescription] = useState('');
-    const [formAddService, setFormAddService] = useState({
-        serviceType:'',
-        serviceDescription:'',
-    });
-    const [formAddNewServicePriceList,setformAddNewServicePriceList] = useState({
-        sizeFrom : '',
-        sizeTo:'',
-        initPrice:'',
-        priceUnit:'',
-        serviceId:'',
-});
-    const [servicePriceList, setServicePriceList] = useState([]);
-    const [selectedServiceId, setSelectedServiceId] = useState(null);
-    const [editPriceRowId, setEditPriceRowId] = useState(null);
-    const [editPriceList, setEditPriceList] = useState({});
-
-    const handleShow = () => setShowAddService(true);
-    const handleClose = () => setShowAddService(false);
-    const handlePriceListClose = () => setShowPriceList(false);
-
-    // Fetch service data 
-    useEffect(() => {
-        const fetchDataService = async() => { 
-            try { 
-                const response = await fetch('https://valuation.techtheworld.id.vn/service/getServices');
-                const data = await response.json(); 
-                setViewService(data);
-            } catch(error) {
-                console.error("Error getting service: " + error );
-            }
-        };
-        fetchDataService();
-    }, []);
-
-    // Update service type
-    const handleOnServiceTypeChange = (serviceId) => {
-        const fetchUpdateData = async() => {
-            try {
-                await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                    },
-                    body: JSON.stringify({ serviceType: editServiceType }),
-                });
-                setViewService(prevState => prevState.map(service => 
-                    service.serviceId === serviceId ? { ...service, serviceType: editServiceType } : service
-                ));
-                setEditRowId(null); 
-            } catch(error) {
-                console.error("Error updating service type: " + error);
-            }
-        };
-        fetchUpdateData();
-    };
-
-    //Update Status
-    const handleOnServiceStatusChange = (serviceId) => {
-        const fetchUpdateData = async() => {
-            try {
-                await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                    },
-                    body: JSON.stringify({ status: editServiceStatus }),
-                });
-                setViewService(prevState => prevState.map(service => 
-                    service.serviceId === serviceId ? { ...service, status: editServiceStatus } : service
-                ));
-                setEditRowId(null); 
-            } catch(error) {
-                console.error("Error updating service type: " + error);
-            }
-        };
-        fetchUpdateData();
-    };
-    // Update service description
-    const handleOnServiceDescriptionChange = (serviceId) => {
-        const fetchUpdateData = async() => {
-            try {
-                await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json', 
-                    },
-                    body: JSON.stringify({ serviceDescription: editServiceDescription }),
-                });
-                setViewService(prevState => prevState.map(service => 
-                    service.serviceId === serviceId ? { ...service, serviceDescription: editServiceDescription } : service
-                ));
-                setEditRowId(null); 
-            } catch(error) {
-                console.error("Error updating service description: " + error);
-            }
-        };
-        fetchUpdateData();
-    };
-
-    // Handle change in add service form
-    const handleOnChangeAddService = (e) => { 
-        const { name, value } = e.target;
-        setFormAddService({
-            ...formAddService,
-            [name] : value ,
-        });
-    };
-
-    // Add new service
-    const handleAddNewService = async(e) => {
-        e.preventDefault();
-        try { 
-            const response = await fetch('https://valuation.techtheworld.id.vn/service/create', {
-                method : 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body : JSON.stringify(formAddService),
+        import { useEffect, useState } from "react";
+        import { Button, Container, Form, Modal, Pagination, Table } from "react-bootstrap";
+        import './ManageService.css'
+        import Swal from "sweetalert2";
+        import {Status} from '../../../component/Status.jsx'
+        export const ManageService = () => { 
+            const [viewService, setViewService] = useState([]);
+            const [showAddService, setShowAddService] = useState(false);
+            const [showPriceList, setShowPriceList] = useState(false);
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage] = useState(4);
+            const [editRowId, setEditRowId] = useState(null);
+            const [editServiceType, setEditServiceType] = useState('');
+            const [editServiceStatus, setEditServiceStatus] = useState('');
+            const [editServiceDescription, setEditServiceDescription] = useState('');
+            const [formAddService, setFormAddService] = useState({
+                serviceType:'',
+                serviceDescription:'',
             });
-            if (response.ok) {
-                const newDataServiceAdd = await response.json();
-                setViewService([...viewService, newDataServiceAdd]);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Add new Service successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                });
-                handleClose();
-            }
-        } catch(error) {
-            console.error('Error saving new service: ' + error);
-        }
-    };
-    // price LIst is exist
-    const checkServicePriceListEmpty = async (serviceId) => {
-        try {
-            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePriceListByServiceId/${serviceId}`);
-            const priceList = await response.json();
-            return priceList.length === 0;
-        } catch (error) {
-            console.error("Error checking service price list: " + error);
-            return false;
-        }
-    };
-    // Delete service
-    const handleDeleteService = async(serviceId) => {
-        const isPriceListEmpty = await checkServicePriceListEmpty(serviceId);
-    
-    if (!isPriceListEmpty) {
-        Swal.fire({
-            title: 'Error!',
-            text: 'Cannot delete service with existing price lists. Please delete all associated price lists first.',
-            icon: 'error',
-            confirmButtonText: 'OK',
+            const [formAddNewServicePriceList,setformAddNewServicePriceList] = useState({
+                sizeFrom : '',
+                sizeTo:'',
+                initPrice:'',
+                priceUnit:'',
+                serviceId:'',
         });
-        return;
-    }
+            const [servicePriceList, setServicePriceList] = useState([]);
+            const [selectedServiceId, setSelectedServiceId] = useState(null);
+            const [editPriceRowId, setEditPriceRowId] = useState(null);
+            const [editPriceList, setEditPriceList] = useState({});
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to delete this service?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const fetchDeleteData = async() => {
-                    try {
-                        await fetch(`https://valuation.techtheworld.id.vn/service/delete/${serviceId}`, {
-                            method: 'DELETE',
-                        });
-                        setViewService(prevState => prevState.filter(service => service.serviceId !== serviceId));
-                        Swal.fire({
-                            title: 'Deleted!',
-                            text: 'Service has been deleted.',
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                        });
+            const handleShow = () => setShowAddService(true);
+            const handleClose = () => setShowAddService(false);
+            const handlePriceListClose = () => setShowPriceList(false);
+
+            // Fetch service data 
+            useEffect(() => {
+                const fetchDataService = async() => { 
+                    try { 
+                        const response = await fetch('https://valuation.techtheworld.id.vn/service/getServices');
+                        const data = await response.json(); 
+                        setViewService(data);
                     } catch(error) {
-                        console.error("Error deleting service: " + error);
+                        console.error("Error getting service: " + error );
                     }
                 };
-                fetchDeleteData();
-            }
-        });
-    };
+                fetchDataService();
+            }, []);
+            useEffect(() => {
+                const fetchServicePriceList = async () => {
+                    if (selectedServiceId) {
+                        try {
+                            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePriceListByServiceId/${selectedServiceId}`);
+                            const data = await response.json();
+                            setServicePriceList(data);
+                            setShowPriceList(true); // Show the price list once fetched
+                        } catch (error) {
+                            console.error("Error fetching service price list: " + error);
+                        }
+                    }
+                };
+        
+                fetchServicePriceList();
+            }, [selectedServiceId]);
+        
+            // Function to handle selecting a service and fetching its price list
+            const handleViewServicePriceList = async (serviceId) => {
+                setSelectedServiceId(serviceId);
+            };
 
-    // Fetch service price list by service ID
-    const handleViewServicePriceList = async(serviceId) => {
-        setSelectedServiceId(serviceId);
-        try {
-            const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePriceListByServiceId/${serviceId}`);
-            const data = await response.json();
-            setServicePriceList(data);
-            setShowPriceList(true);
-        } catch(error) {
-            console.error("Error fetching service price list: " + error);
-        }
-    };
-    const [showFormAddNewPriceList, setShowFormAddNewPriceList] = useState(false);
-    const showModalFormAddNewPriceList = () => setShowFormAddNewPriceList(true);
-    const closeFormAddNewPriceList = () =>setShowFormAddNewPriceList(false);
-    const handleSaveNewPriceList = (e) => {
-        const { name, value } = e.target;
-        if (value < 0) {
+            // Update service type
+            const handleOnServiceTypeChange = (serviceId) => {
+                const fetchUpdateData = async() => {
+                    try {
+                        await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json', 
+                            },
+                            body: JSON.stringify({ serviceType: editServiceType }),
+                        });
+                        setViewService(prevState => prevState.map(service => 
+                            service.serviceId === serviceId ? { ...service, serviceType: editServiceType } : service
+                        ));
+                        setEditRowId(null); 
+                    } catch(error) {
+                        console.error("Error updating service type: " + error);
+                    }
+                };
+                fetchUpdateData();
+            };
+
+            //Update Status
+            const handleOnServiceStatusChange = (serviceId) => {
+                const fetchUpdateData = async() => {
+                    try {
+                        await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json', 
+                            },
+                            body: JSON.stringify({ status: editServiceStatus }),
+                        });
+                        console.log( editServiceStatus);
+                        setViewService(prevState => prevState.map(service => 
+                            service.serviceId === serviceId ? { ...service, status: editServiceStatus } : service
+                        ));
+                        setEditRowId(null); 
+                    } catch(error) {
+                        console.error("Error updating service type: " + error);
+                    }
+                };
+                fetchUpdateData();
+            };
+            // Update service description
+            const handleOnServiceDescriptionChange = (serviceId) => {
+                const fetchUpdateData = async() => {
+                    try {
+                        await fetch(`https://valuation.techtheworld.id.vn/service/update/${serviceId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json', 
+                            },
+                            body: JSON.stringify({ serviceDescription: editServiceDescription }),
+                        });
+                        setViewService(prevState => prevState.map(service => 
+                            service.serviceId === serviceId ? { ...service, serviceDescription: editServiceDescription } : service
+                        ));
+                        setEditRowId(null); 
+                    } catch(error) {
+                        console.error("Error updating service description: " + error);
+                    }
+                };
+                fetchUpdateData();
+            };
+
+        // Handle change in add service form
+        const handleOnChangeAddService = (e) => { 
+            const { name, value } = e.target;
+            setFormAddService({
+                ...formAddService,
+                [name] : value ,
+            });
+        };
+
+        // Add new service
+        const handleAddNewService = async (e) => {
+            e.preventDefault();
+            
+            // Check if any field is empty
+            if (!formAddService.serviceType.trim() || !formAddService.serviceDescription.trim()) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Service Type and Service Description cannot be empty.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                return;
+            }
+        
+            try { 
+                const response = await fetch('https://valuation.techtheworld.id.vn/service/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formAddService),
+                });
+                if (response.ok) {
+                    const newDataServiceAdd = await response.json();
+                    setViewService([...viewService, newDataServiceAdd]);
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Add new Service successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    });
+                    handleClose();
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to add new service. Please try again later.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                console.error('Error saving new service: ' + error);
+            }
+        };
+        // price LIst is exist
+        const checkServicePriceListEmpty = async (serviceId) => {
+            try {
+                const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePriceListByServiceId/${serviceId}`);
+                const priceList = await response.json();
+                return priceList.length === 0;
+            } catch (error) {
+                console.error("Error checking service price list: " + error);
+                return false;
+            }
+        };
+        // Delete service
+        const handleDeleteService = async(serviceId) => {
+            const isPriceListEmpty = await checkServicePriceListEmpty(serviceId);
+        
+        if (!isPriceListEmpty) {
             Swal.fire({
                 title: 'Error!',
-                text: `${name} must be a positive number.`,
+                text: 'Cannot delete service with existing price lists. Please delete all associated price lists first.',
                 icon: 'error',
                 confirmButtonText: 'OK',
             });
             return;
         }
-        setformAddNewServicePriceList({
-            ...formAddNewServicePriceList,
-            [name]: value,
-        });
-    };
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete this service?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const fetchDeleteData = async() => {
+                        try {
+                            await fetch(`https://valuation.techtheworld.id.vn/service/delete/${serviceId}`, {
+                                method: 'DELETE',
+                            });
+                            setViewService(prevState => prevState.filter(service => service.serviceId !== serviceId));
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: 'Service has been deleted.',
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                            });
+                        } catch(error) {
+                            console.error("Error deleting service: " + error);
+                        }
+                    };
+                    fetchDeleteData();
+                }
+            });
+        };
+
+        // Fetch service price list by service ID
+
+    
+     
+        const [showFormAddNewPriceList, setShowFormAddNewPriceList] = useState(false);
+        const showModalFormAddNewPriceList = () => setShowFormAddNewPriceList(true);
+        const closeFormAddNewPriceList = () =>setShowFormAddNewPriceList(false);
+        const handleSaveNewPriceList = (e) => {
+            const { name, value } = e.target;
+            if (value < 0) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `${name} must be a positive number.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                return;
+            }
+            setformAddNewServicePriceList({
+                ...formAddNewServicePriceList,
+                [name]: value,
+            });
+        };
 
     // Handle submit for saving new price list
     const handleSubmitSaveNewPriceList = async (e) => {
@@ -296,71 +329,90 @@ export const ManageService = () => {
         }
       };
         //update PriceList
-        const handleEditPriceList = (priceListId, field, value) => {
-            setEditPriceList((prev) => ({
-              ...prev,
-              [priceListId]: {
-                ...prev[priceListId],
-                [field]: value,
-              },
+        const handleEditPriceList = (priceList, field, value) => {
+            if (value < 0) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `${field} must be a positive number.`,
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                return;
+            }
+            setEditPriceList(prevState => ({
+                ...prevState,
+                [priceList]: {
+                    ...prevState[priceList],
+                    [field]: value,
+                },
             }));
-          };
+        };
 
       
-          const handleSaveEditPriceList = async (priceListId) => {
+          
+        const handleSaveEditPriceList = async (priceListId) => {
             const editedPriceList = editPriceList[priceListId];
             if (!editedPriceList) return;
-        
+    
             // Validate sizeFrom and sizeTo are integers
             if (!Number.isInteger(parseFloat(editedPriceList.sizeFrom)) || !Number.isInteger(parseFloat(editedPriceList.sizeTo))) {
-              Swal.fire({
-                title: 'Error!',
-                text: 'Size From and Size To must be integers.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-              });
-              return;
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Size From and Size To must be integers.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+                return;
             }
-        
+    
             // Validate sizeFrom < sizeTo
             if (parseFloat(editedPriceList.sizeFrom) >= parseFloat(editedPriceList.sizeTo)) {
-              Swal.fire({
-                title: 'Error!',
-                text: 'Size From must be less than Size To.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-              });
-              return;
-            }
-        
-            try {
-              const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/updateServicePriceListById/${priceListId}`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(editedPriceList),
-              });
-        
-              if (response.ok) {
-                setServicePriceList((prevState) =>
-                  prevState.map((priceList) =>
-                    priceList.servicePriceId === priceListId ? { ...priceList, ...editedPriceList } : priceList
-                  )
-                );
-                setEditPriceRowId(null); // Đặt editPriceRowId về null sau khi lưu thành công
                 Swal.fire({
-                  title: 'Success!',
-                  text: 'Price List updated successfully.',
-                  icon: 'success',
-                  confirmButtonText: 'OK',
+                    title: 'Error!',
+                    text: 'Size From must be less than Size To.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
                 });
-              }
-            } catch (error) {
-              console.error('Error updating price list: ' + error);
+                return;
             }
-          };
-      
+    
+            try {
+                const response = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/updateServicePriceListById/${priceListId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editedPriceList),
+                });
+    
+                if (response.ok) {
+                    // Refetch service price list after update
+                    const refetchResponse = await fetch(`https://valuation.techtheworld.id.vn/service_price_list/getServicePriceListByServiceId/${selectedServiceId}`);
+                    const newData = await refetchResponse.json();
+                    setServicePriceList(newData);
+    
+                    setEditPriceRowId(null);
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Price List updated successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
+                    throw new Error('Failed to update Price List.');
+                }
+            } catch (error) {
+                console.error("Error updating price list: " + error);
+                // Handle fetch or other errors
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to update Price List. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            }
+        };
+
     // Delete price list item
     const handleDeletePriceList = (priceList) => {
         Swal.fire({
@@ -444,14 +496,14 @@ export const ManageService = () => {
                         <p className='col-md-1'></p>
                     </div>
                 </div>
-                {currentPosts.map((dataService) => (
-                    <div key={dataService.serviceId} className="service-card my-4 border hover">
+                {viewService.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((dataService) => (
+                    <div key={dataService.serviceId} className="service-card my-4 border hover ">
                         <div className="row">
-                            <p className='col-md-2'> {dataService.serviceId}</p>
+                            <p className='col-md-2 my-3'> {dataService.serviceId}</p>
                             <div className='col-md-2'>
-                                {editRowId === dataService.serviceId && editServiceType !== '' ? (
+                                {editRowId === dataService.serviceId ? (
                                     <>
-                                        <Form.Control type="text" 
+                                        <Form.Control type="text"
                                             value={editServiceType}
                                             onChange={(e) => setEditServiceType(e.target.value)}
                                         />
@@ -459,24 +511,14 @@ export const ManageService = () => {
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div>{dataService.serviceType}</div>
-                                        <img
-                                            src="/assets/assetsStaff/editStatus.svg"
-                                            alt="Edit"
-                                            height="20"
-                                            width="20"
-                                            onClick={() => {
-                                                setEditRowId(dataService.serviceId);
-                                                setEditServiceType(dataService.serviceType);
-                                            }}
-                                        />
+                                        <div className="my-3">{dataService.serviceType}</div>
                                     </div>
-                                )} 
+                                )}
                             </div>
                             <div className='col-md-3'>
-                                {editRowId === dataService.serviceId && editServiceDescription !== '' ? (
+                                {editRowId === dataService.serviceId ? (
                                     <>
-                                        <Form.Control type="text" 
+                                        <Form.Control type="text"
                                             value={editServiceDescription}
                                             onChange={(e) => setEditServiceDescription(e.target.value)}
                                         />
@@ -484,63 +526,56 @@ export const ManageService = () => {
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div>{dataService.serviceDescription}</div>
-                                        <img
-                                            src="/assets/assetsStaff/editStatus.svg"
-                                            alt="Edit"
-                                            height="20"
-                                            width="20"
-                                            onClick={() => {
-                                                setEditRowId(dataService.serviceId);
-                                                setEditServiceDescription(dataService.serviceDescription);
-                                            }}
-                                        />
+                                        <div className="my-2">{dataService.serviceDescription}</div>
                                     </div>
-                                )} 
-                            </div> 
-                            <div className="col-md-2"> 
-                            {editRowId === dataService.serviceId && editServiceStatus !== '' ? (
+                                )}
+                            </div>
+                            <div className="col-md-2">
+                                {editRowId === dataService.serviceId ? (
                                     <>
                                         <Form.Select value={editServiceStatus}
-                                        onChange={(e) => setEditServiceStatus(e.target.value)}>
+                                            onChange={(e) => setEditServiceStatus(e.target.value)}>
                                             <option value=""> Select Status</option>
-                                            <option value="Stop"> Stop</option>
-                                            <option value="Using"> Using</option>
-
+                                            <option value="ENABLE"> Enable</option>
+                                            <option value="DISABLE"> Disable</option>
                                         </Form.Select>
-                                        <Button onClick={() => handleOnServiceDescriptionChange(dataService.serviceId)}>Save</Button>
+                                        <Button onClick={() => handleOnServiceStatusChange(dataService.serviceId)}>Save</Button>
                                     </>
                                 ) : (
                                     <div className='d-flex justify-content-between'>
-                                        <div>{dataService.status}</div>
-                                        <img
-                                            src="/assets/assetsStaff/editStatus.svg"
-                                            alt="Edit"
-                                            height="20"
-                                            width="20"
-                                            onClick={() => {
-                                                setEditRowId(dataService.serviceId);
-                                                setEditServiceStatus(dataService.status);
-                                            }}
-                                        />
+                                        <div className="my-4"><Status status={dataService.status} /></div>
                                     </div>
-                                )} 
-
-
+                                )}
                             </div>
                             <div className='col-md-2 d-flex justify-content-center'>
-                                <Button className="h-50 my-4" onClick={() => handleViewServicePriceList(dataService.serviceId)}> View Service Price List</Button>
+                                <Button className="h-50 my-4 p-1" onClick={() => handleViewServicePriceList(dataService.serviceId)}> View Service Price List</Button>
                             </div>
-                            <div className="col-md-1">
-                                <Button className="nav-link" onClick={() => handleDeleteService(dataService.serviceId)}>
+                            <div className="col-md-1 d-flex justify-content-between">
+                                
+                                <img
+                                    src="/assets/assetsStaff/editStatus.svg"
+                                    alt="Edit"
+                                    height="20"
+                                    width="20"
+                                    onClick={() => {
+                                        setEditRowId(dataService.serviceId);
+                                        setEditServiceType(dataService.serviceType);
+                                        setEditServiceDescription(dataService.serviceDescription);
+                                        setEditServiceStatus(dataService.status);
+                                    }}
+                                    className='my-4 mx-3'
+                                />
+                                
                                     <img
                                         src='/assets/assetsAdmin/trash.svg'
                                         width='20'
                                         height='20'
-                                        className='my-3'
+                                        className='my-4'
+                                        onClick={() => handleDeleteService(dataService.serviceId)}
                                         alt='Delete'
                                     />
-                                </Button>
+                                
+                                
                             </div>
                         </div>
                     </div>

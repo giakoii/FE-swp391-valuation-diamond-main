@@ -31,7 +31,7 @@ function EvaluationServicePage() {
   }, [user]);
   
   const getCurrentDate = () => {
-    return dayjs().utc().format('MM/DD/YYYY, HH:mm');
+    return dayjs().utc(true).format('MM/DD/YYYY, HH:mm');
   };
 
   const handleOnChange = (e) => {

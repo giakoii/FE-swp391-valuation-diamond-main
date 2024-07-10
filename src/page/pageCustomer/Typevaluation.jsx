@@ -42,15 +42,15 @@ const Typevaluation = () => {
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr>
-                <th>No.</th>
-                <th>SERVICE TYPE</th>
-                <th>CONTENT</th>
+                <th  style={{ textAlign: 'center' }}>No.</th>
+                <th  style={{ textAlign: 'center' }}>SERVICE TYPE</th>
+                <th  style={{ textAlign: 'center' }}>CONTENT</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>Regular Evaluation</td>
+                <td  style={{ textAlign: 'center' }}>1</td>
+                <td >Regular Evaluation</td>
                 <td>
                   – The evaluation time depends on the time of submission.{" "}
                   <br />– Unlimited quantity. Service fee according to
@@ -58,8 +58,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>2</td>
-                <td>Fast Evaluation (3 hours)</td>
+                <td  style={{ textAlign: 'center' }}>2</td>
+                <td >Fast Evaluation (3 hours)</td>
                 <td>
                   – Evaluation completed within 3 working hours from the time of
                   product receipt.
@@ -68,8 +68,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>3</td>
-                <td>Fast Evaluation (48 hours)</td>
+                <td style={{ textAlign: 'center' }}>3</td>
+                <td >Fast Evaluation (48 hours)</td>
                 <td>
                   – Evaluation completed within 48 working hours from the time
                   of product receipt.
@@ -78,8 +78,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>4</td>
-                <td>Regular Sealing (Re-seal)</td>
+                <td style={{ textAlign: 'center' }}>4</td>
+                <td >Regular Sealing (Re-seal)</td>
                 <td>
                   – The evaluation time depends on the time of submission.{" "}
                   <br />– Unlimited quantity. Service fee according to
@@ -87,8 +87,8 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>5</td>
-                <td>Fast Sealing (Re-seal in 3 hours)</td>
+                <td style={{ textAlign: 'center' }}>5</td>
+                <td >Fast Sealing (Re-seal in 3 hours)</td>
                 <td>
                   – Sealing completed within 3 working hours from the time of
                   product receipt. <br />– Quantity depends on the time of
@@ -96,7 +96,7 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>6</td>
+                <td style={{ textAlign: 'center' }}>6</td>
                 <td>Fast Sealing (Re-seal in 48 hours)</td>
                 <td>
                   – Sealing completed within 48 working hours from the time of
@@ -105,14 +105,14 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>7</td>
+                <td style={{ textAlign: 'center' }}>7</td>
                 <td>Reissue Evaluation Certificate</td>
                 <td>
                   – Reissuing the evaluation certificate upon customer request.
                 </td>
               </tr>
               <tr>
-                <td>8</td>
+                <td style={{ textAlign: 'center' }}>8</td>
                 <td>Edge Number Engraving</td>
                 <td>
                   – Engraving edge numbers on the stone upon request. <br />–
@@ -128,41 +128,41 @@ const Typevaluation = () => {
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr>
-                <th>No.</th>
-                <th>EVALUATION STANDARD</th>
-                <th>CONTENT</th>
+                <th style={{ textAlign: 'center' }}>No.</th>
+                <th style={{ textAlign: 'center' }}>EVALUATION STANDARD</th>
+                <th style={{ textAlign: 'center' }}>CONTENT</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
+                <td style={{ textAlign: 'center' }}>1</td>
                 <td>Stone Type</td>
                 <td>Natural Diamond</td>
               </tr>
               <tr>
-                <td>2</td>
+                <td style={{ textAlign: 'center' }}>2</td>
                 <td>Measurements</td>
                 <td>From 3.00mm and above.</td>
               </tr>
               <tr>
-                <td>3</td>
+                <td style={{ textAlign: 'center' }}>3</td>
                 <td>Shape & Cut</td>
                 <td>All types of cuts.</td>
               </tr>
               <tr>
-                <td>4</td>
+                <td style={{ textAlign: 'center' }}>4</td>
                 <td>Color</td>
                 <td>Standard scale: From D to Z</td>
               </tr>
               <tr>
-                <td>5</td>
+                <td style={{ textAlign: 'center' }}>5</td>
                 <td>Clarity</td>
                 <td>
                   Standard scale: FL, IF, VVS1-VVS2, VS1-VS2, SI1-SI2, I1-I2-I3.
                 </td>
               </tr>
               <tr>
-                <td>6</td>
+                <td style={{ textAlign: 'center' }}>6</td>
                 <td>Cut</td>
                 <td>
                   Standard scale: Excellent, Very Good, Good, Fair, Poor <br />{" "}
@@ -170,12 +170,12 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>7</td>
+                <td style={{ textAlign: 'center' }}>7</td>
                 <td>Proportions</td>
                 <td>Measuring the stone cutting proportions.</td>
               </tr>
               <tr>
-                <td>8</td>
+                <td style={{ textAlign: 'center' }}>8</td>
                 <td>Polish, Symmetry</td>
                 <td>
                   Standard scale: Excellent, Very Good, Good, Fair, Poor <br />{" "}
@@ -183,7 +183,7 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>9</td>
+                <td style={{ textAlign: 'center' }}>9</td>
                 <td>Fluorescence</td>
                 <td>
                   Standard scale: None, Faint, Medium, Strong, Very Strong.{" "}
@@ -191,12 +191,12 @@ const Typevaluation = () => {
                 </td>
               </tr>
               <tr>
-                <td>10</td>
+                <td style={{ textAlign: 'center' }}>10</td>
                 <td>Sealing</td>
                 <td>All stones are evaluated by Diamond Valuation.</td>
               </tr>
               <tr>
-                <td>11</td>
+                <td style={{ textAlign: 'center' }}>11</td>
                 <td>Diamond Grading Report</td>
                 <td>
                   Issuing certificates for stones larger than 4.00mm. <br /> Not

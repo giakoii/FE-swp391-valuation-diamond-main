@@ -99,6 +99,10 @@ export const validateEditForm = (firstname, lastname, phoneNumber, address) => {
 
   return true;
 };
+export const validateBirthday = (birthday) => {
+  const datePattern = /^([0-2][0-9]|(3)[0-1])\/((0)[0-9]|(1)[0-2])\/((19|20)\d\d)$/;
+  return datePattern.test(birthday);
+};
 
 export const formattedDate2 = (date2) => {
   const shortDateFormat = dayjs(date2).format("YYYY-MM-DD");
@@ -129,3 +133,31 @@ export const validatePasswordChange = (password ,confirmPassWord) => {
   }
   return true;
 }
+export const validateEditForm2 = (firstname, lastname, phoneNumber, address, birthday) => {
+  if (!validateFirstname(firstname)) {
+    showAlert('Error!', 'First name must be between 1 and 20 characters and contain only letters.', 'error');
+    return false;
+  }
+
+  if (!validateLastname(lastname)) {
+    showAlert('Error!', 'Last name must be between 1 and 20 characters and contain only letters.', 'error');
+    return false;
+  }
+
+  if (!validatePhoneNumber(phoneNumber)) {
+    showAlert('Error', 'Phone number must be 10 digits and start with 0.', 'error');
+    return false;
+  }
+
+  if (!validateAddress(address)) {
+    showAlert('Error', 'Address must be between 1 and 50 characters.', 'error');
+    return false;
+  }
+
+  if (!validateBirthday(birthday)) {
+    showAlert('Error', 'Birthday must be in the format dd/mm/yyyy.', 'error');
+    return false;
+  }
+
+  return true;
+};

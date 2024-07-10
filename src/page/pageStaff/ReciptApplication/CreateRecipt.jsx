@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Col, Row } from "react-bootstrap";
 import { useReactToPrint } from "react-to-print";
-import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useLocation } from "react-router-dom";
 import useAuth from "../../../utils/hook/useAuth";
@@ -259,8 +258,13 @@ export const CreateReceipt = () => {
     navigate(0); // Navigate back to the previous page
 
     // Reset only necessary states
-    setReviewMode(false); // Exit review mode
+   
   };
+    // Function to exit review mode
+   const exitReviewMode = () => {
+      setReviewMode(false);
+      // Reset other necessary states
+    };
 
 
   const printStyles = `

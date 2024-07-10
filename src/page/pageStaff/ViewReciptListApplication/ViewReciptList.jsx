@@ -188,6 +188,8 @@ export const ViewReciptList = () => {
                   >
                     View Detail
                   </Button>
+
+                  
                 </td>
               </tr>
             ))}

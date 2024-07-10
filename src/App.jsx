@@ -23,7 +23,7 @@ import { CertificateDetail } from "./page/pageValuationStaff/ValuationApplicatio
 // Customer Pages
 import HomeCustomer from "./page/pageCustomer/HomeCustomer.jsx";
 import Signup from "./page/pageCustomer/Signup";
-import Contact from "./page/pageCustomer/Contact";
+import Contact from './page/pageCustomer/Contact/Contact.jsx';
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";
 import Calculate from "./page/pageCustomer/Calculate/Calculate.jsx";
 import { PersonalRequest } from "./page/pageCustomer/PersonalRequest";

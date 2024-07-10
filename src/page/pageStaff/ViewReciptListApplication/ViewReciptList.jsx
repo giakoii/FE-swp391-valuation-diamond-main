@@ -150,6 +150,7 @@ export const ViewReciptList = () => {
               onClick={handleSearch}>
                 Search
               </Button>
+              
             </Col>
           </Row>
         </Form>

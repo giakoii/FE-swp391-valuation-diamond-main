@@ -161,6 +161,7 @@ const ServicePolicy = () => {
           <h2 className="" style={{ marginTop: "100px",marginBottom:"50px", textAlign: "center", fontStyle: 'italic' }}>
             Diamond Valuation Life Valuation
           </h2>
+          
           <Image
             src="/assets/assetsCustomer/diamond.png"
             fluid

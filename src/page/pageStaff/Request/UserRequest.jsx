@@ -139,13 +139,13 @@ export const UserRequest = () => {
   const handleSearch = () => {
     const filtered = userRequest.filter(
       (request) =>
-        request.requestId.toString().includes(searchTerm) ||
-        request.guestName.toLowerCase().includes(searchTerm.toLowerCase())
+        request.requestId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.guestName.toLowerCase().trim().replace(/\s+/g, ' ').includes(searchTerm.toLowerCase().trim().replace(/\s+/g, ' '))||
+        request.status.toString().toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
     );
     setFilteredRequests(filtered);
     setCurrentPage(1);
   };
-
   // Pagination
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

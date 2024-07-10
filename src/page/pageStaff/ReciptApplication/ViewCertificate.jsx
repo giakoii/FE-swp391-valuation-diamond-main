@@ -38,7 +38,7 @@ export const ViewCertificate = () => {
 
     const showConfirmPrint = (e) => {
         e.preventDefault();
-        console.log('Certificate:', certificate); // Log the certificate object
+        console.log('Certificate:', certificate); 
         if (certificate === null) {
             toast.error('Fail to print: certificate is not completed');
             return;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, FormControl, InputGroup, Container, Row, Col } from "react-bootstrap";
 import Swal from 'sweetalert2';
-import diamondLogo from "/src/assets/assetsCustomer/diamond.png"; // Replace with the actual path to your image
+import diamondLogo from "/assets/assetsCustomer/checkmark.png"; // Replace with the actual path to your image
 
 const CheckDiamond = () => {
   const [assess_id, setAssessId] = useState("");

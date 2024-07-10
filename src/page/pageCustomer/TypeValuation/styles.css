@@ -1,10 +1,31 @@
-/* styles.css */
 .service-type-header,
 .service-list-header {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding around the text */
-  border-radius: 5px; /* Rounded corners */
-  text-align: center; /* Center text alignment */
-  margin-bottom: 20px; /* Space below the header */
+  position: relative;
+  background-image: url('/assets/assetsCustomer/diamondd.png'); /* Đường dẫn tới ảnh nền */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #f2f1f3; /* Màu chữ */
+  padding: 10px 20px; /* Khoảng cách xung quanh văn bản */
+  border-radius: 5px; /* Góc bo tròn */
+  text-align: center; /* Căn giữa nội dung */
+  margin-bottom: 20px; /* Khoảng cách phía dưới tiêu đề */
+  overflow: hidden; /* Đảm bảo nội dung không vượt ra ngoài */
+  height: 20vh; /* Chiều cao */
+}
+
+.service-type-header::before,
+.service-list-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Kế thừa hình ảnh nền từ phần tử cha */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(20px); /* Độ mờ của hình ảnh nền, điều chỉnh giá trị blur tại đây */
+  z-index: -1; /* Đặt phần tử này phía sau */
 }

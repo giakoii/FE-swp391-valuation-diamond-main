@@ -71,8 +71,10 @@ const Typevaluation = () => {
     <Container style={{ marginTop: "20px" }}>
       <Row>
         <Col>
-          <h1 className="service-type-header">Types Of Diamond Valuation Services</h1> {/* Apply custom class */}
-          <Table striped bordered hover style={{ marginTop: "20px" }}>
+          <div  className="service-type-header">      
+          <h1 style={{marginTop:"50px"}}>Types Of Diamond Valuation Services</h1> {/* Apply custom class */}
+          </div>
+          <Table striped bordered hover style={{ }}>
             <thead>
               <tr>
                 <th style={{ textAlign: 'center' }}>No.</th>
@@ -90,10 +92,11 @@ const Typevaluation = () => {
               ))}
             </tbody>
           </Table>
-
-          <h1 className="service-list-header" style={{ marginTop: "50px" }}>
+          <div  className="service-type-header"> 
+          <h1 style={{ marginTop: "50px" }}>
           Detailed List Of Types Of Pricing Services
           </h1> {/* Apply custom class */}
+          </div>
           <Table striped bordered hover style={{ marginTop: "20px" }}>
             <thead>
               <tr style={{ textAlign: "center" }}>

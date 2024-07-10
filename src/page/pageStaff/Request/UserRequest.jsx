@@ -12,6 +12,8 @@ import { Status } from "../../../component/Status";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_BASE_URL } from "../../../utils/constants/url";
+import updateById from "../../../utils/updateAPI/updateById";
+import dayjs from "dayjs";
 
 export const UserRequest = () => {
   const [userRequest, setUserRequest] = useState([]);
@@ -42,6 +44,17 @@ export const UserRequest = () => {
         const sortedData = data.sort(
           (a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate)
         );
+      // tự cập nhật cancel khi khách ko phản hồi qúa 1 ngày
+         for (let request of sortedData) {
+          if (request.status === "Requesting" && dayjs().diff(request.requestDate, 'hour') > 2) {
+            const res = await updateById(`${API_BASE_URL}/evaluation-request/update`, request.requestId, 'status', 'Canceled');
+            if (res && res.status === 'Canceled') {
+              request.status = 'Canceled';
+            } else {
+              toast.error("Failed to auto-cancel request");
+            }
+          }
+        }
         setUserRequest(sortedData);
         setFilteredRequests(sortedData);
       } catch (error) {
@@ -54,6 +67,8 @@ export const UserRequest = () => {
 
     fetchData();
   }, []);
+
+
 
   //get order by request id
   const APIOrderById = `${API_BASE_URL}/order_request/getOrderByRequestId`;
@@ -81,7 +96,6 @@ export const UserRequest = () => {
   };
 
   // Update status
-
   const handleOnChangeStatus = async (user) => {
     const exists = await checkExistId(user.requestId);
     if (exists) {
@@ -205,7 +219,7 @@ export const UserRequest = () => {
                           value={editStatus}
                           onChange={(e) => setEditStatus(e.target.value)} // Cập nhật editStatus khi thay đổi
                         >
-                          <option value="Requested">Requested</option>
+                          <option value="Requesting">Requesting</option>
                           <option value="Accepted">Accepted</option>
                           <option value="Canceled">Canceled</option>
                         </Form.Select>

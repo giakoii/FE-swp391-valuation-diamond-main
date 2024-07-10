@@ -1,6 +1,7 @@
 import React from 'react'
 
 export const Status = ({ status }) => {
+    
     const styleStatus = {
         color:  (status === 'Requesting') ? '#7C9099' :
                 (status === 'Accepted' || status === 'Finished') ? 'green' :

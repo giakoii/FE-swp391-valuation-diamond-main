@@ -28,14 +28,19 @@ export const ViewReciptList = () => {
   // Get current requests
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentOrders = filteredSelection.slice(indexOfFirstPost, indexOfLastPost);
+  const currentOrders = filteredSelection.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Fetch order details
   const fetchOrderDetails = async (orderId) => {
-    const response = await fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`);
+    const response = await fetch(
+      `${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`
+    );
     const data = await response.json();
     return data;
   };
@@ -61,7 +66,7 @@ export const ViewReciptList = () => {
       const expiredDateMax = getExpiredDateMax(orderDetails);
       const now = new Date();
       if (expiredDateMax && expiredDateMax < now) {
-        colors[order.orderId] = '#f99de9';
+        colors[order.orderId] = "#f99de9";
       }
     }
     setRowColors(colors);
@@ -114,9 +119,13 @@ export const ViewReciptList = () => {
   }, []);
 
   const handleSearch = () => {
-    const filteredData = selection.filter((item) =>
-      item.orderId.toString().includes(searchTerm) ||
-      item.status.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+    const filteredData = selection.filter(
+      (item) =>
+        item.orderId.toString().includes(searchTerm) ||
+        item.status
+          .toLowerCase()
+          .trim()
+          .includes(searchTerm.toLowerCase().trim())
     );
     setFilteredSelection(filteredData);
   };
@@ -202,8 +211,10 @@ export const ViewReciptList = () => {
           </thead>
           <tbody>
             {currentOrders.map((item) => (
-              <tr key={item.orderId} >
-                <td style={{ backgroundColor: rowColors[item.orderId] }}>{item.orderId}</td>
+              <tr key={item.orderId}>
+                <td style={{ backgroundColor: rowColors[item.orderId] }}>
+                  {item.orderId}
+                </td>
                 <td>{formattedDate(item.orderDate)}</td>
                 <td>{item.diamondQuantity}</td>
                 <td>

@@ -544,4 +544,5 @@ export const CreateReceipt = () => {
   );
 };
 
+
 export default CreateReceipt;

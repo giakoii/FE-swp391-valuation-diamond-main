@@ -17,8 +17,10 @@ const HomeCustomer = () => {
     return (
         <div className="full-width-container">
             <div>
-                <img src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719877253/aa_c7zej4.jpg?_s=public-apps"
-                 alt="Diamond" style={{ width: "100%", height: "25%" }} className="img-fluid full-width-image" />
+                <img src="/assets/assetsCustomer/pickture.png"
+              
+              alt="Diamond" style={{ width: "100%", height: "40vh" }}  />
+          
             </div>
 
             <Container id="services" className="my-5">

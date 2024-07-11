@@ -68,8 +68,9 @@ const Typevaluation = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container style={{ marginTop: "20px" }}>
-      <Row>
+    <Container fluid style={{ marginTop: "20px",backgroundColor:"green"}}>
+      <div >
+       <Row>
         <Col>
           <div  className="service-type-header">      
           <h1 style={{marginTop:"50px"}}>Types Of Diamond Valuation Services</h1> {/* Apply custom class */}
@@ -164,6 +165,7 @@ const Typevaluation = () => {
           </div>
         </Col>
       </Row>
+      </div>
     </Container>
   );
 };

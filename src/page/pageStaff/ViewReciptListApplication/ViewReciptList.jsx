@@ -139,7 +139,7 @@ export const ViewReciptList = () => {
         className="d-flex justify-content-center"
         style={{ marginBottom: "50px", marginTop: "50px" }}
       >
-        <h1>View Order List</h1>
+        <h1>View All Orders List</h1>
       </div>
       <div
         className="justify-content-center"

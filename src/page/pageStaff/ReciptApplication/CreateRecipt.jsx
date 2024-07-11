@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import useAuth from "../../../utils/hook/useAuth";
 import diamondLogo from "/src/assets/assetsCustomer/logo.png";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 export const CreateReceipt = () => {
   const [selection, setSelection] = useState([]);
@@ -25,9 +25,6 @@ export const CreateReceipt = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [sizeErrors, setSizeErrors] = useState([]);
-
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,18 +65,18 @@ export const CreateReceipt = () => {
 
   const handleRowChange = async (index, field, value) => {
     const numericValue = value.replace(/^0+(?=\d)|[^.\d]/g, "");
-  
+
     const updatedRows = rows.map((row, rowIndex) =>
       rowIndex === index ? { ...row, [field]: numericValue } : row
     );
     setRows(updatedRows);
-  
+
     if (field === "size") {
       const newErrors = [...sizeErrors];
       newErrors[index] = numericValue <= 2 ? "Size must be more than 2" : "";
       setSizeErrors(newErrors);
     }
-  
+
     if (field === "size" && updatedRows[index].serviceId && numericValue) {
       const unitPrice = await fetchUnitPrice(
         updatedRows[index].serviceId,
@@ -89,10 +86,6 @@ export const CreateReceipt = () => {
       updateDatesAndPrices(index, updatedRows);
     }
   };
-  
-  
-
-
 
   const handleServiceChange = async (index, serviceId) => {
     const updatedRows = rows.map((row, rowIndex) =>
@@ -182,12 +175,12 @@ export const CreateReceipt = () => {
     e.preventDefault();
 
     // Kiểm tra các trường có giá trị không hợp lệ
-    if (!quantity || rows.some(row => !row.serviceId || !row.size)) {
+    if (!quantity || rows.some((row) => !row.serviceId || !row.size)) {
       // Hiển thị thông báo lỗi sử dụng SweetAlert 2
       Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: 'Please fill in all required fields: Quantity, Service Type, and Size.',
+        icon: "error",
+        title: "Validation Error",
+        text: "Please fill in all required fields: Quantity, Service Type, and Size.",
       });
       return;
     }
@@ -239,24 +232,23 @@ export const CreateReceipt = () => {
 
       // Hiển thị thông báo thành công sử dụng SweetAlert 2
       Swal.fire({
-        icon: 'success',
-        title: 'Successfully',
-        text: 'Data successfully saved!',
+        icon: "success",
+        title: "Successfully",
+        text: "Data successfully saved!",
       }).then((result) => {
         // Không thay đổi reviewMode khi bấm OK
         if (result.isConfirmed) {
           // Tắt thông báo và không làm gì
         }
       });
-
     } catch (error) {
       console.error("Error saving data:", error);
 
       // Hiển thị thông báo lỗi sử dụng SweetAlert 2
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to save data. Please try again.',
+        icon: "error",
+        title: "Error",
+        text: "Failed to save data. Please try again.",
       });
     }
   };
@@ -267,31 +259,30 @@ export const CreateReceipt = () => {
 
   const handleBack = () => {
     navigate(1); // Navigate back to the previous page
-  
+
     // Optionally, reset only necessary states
     setReviewMode(false); // Exit review mode
   };
 
   const handleReviewMode = () => {
     // Check if any size is less than or equal to 2
-    const errors = rows.map((row) => (row.size <= 2 ? "Size must be more than 2" : ""));
+    const errors = rows.map((row) =>
+      row.size <= 2 ? "Size must be more than 2" : ""
+    );
     setSizeErrors(errors);
- 
+
     // Proceed to review mode only if all sizes are valid
-    if (!errors.some(error => error)) {
+    if (!errors.some((error) => error)) {
       setReviewMode(true);
     } else {
       // Display error using SweetAlert2
       Swal.fire({
-        icon: 'error',
-        title: 'Size need more than 2',
-        text: 'Please correct the size errors before proceeding.',
+        icon: "error",
+        title: "Size need more than 2",
+        text: "Please correct the size errors before proceeding.",
       });
     }
-    };
-  
-
-
+  };
   const printStyles = `
   @media print {
     .print-container {
@@ -314,84 +305,89 @@ export const CreateReceipt = () => {
   }
 `;
 
-return (
-  <div>
-    <style>{printStyles}</style>
-    {reviewMode ? (
-      <div style={{ width: "90%", marginLeft: "100px" }}>
-        <h2 className="d-flex justify-content-center">Review</h2>
+  return (
+    <div>
+      <style>{printStyles}</style>
+      {reviewMode ? (
+        <div style={{ width: "90%", marginLeft: "100px" }}>
+          <h2 className="d-flex justify-content-center">Review</h2>
 
-        <Button
-      style={{ backgroundColor: "blue", transition: "background-color 0.3s" }}
-      onClick={handleBack}
-      onMouseEnter={(e) => e.target.style.backgroundColor = "green"}
-      onMouseLeave={(e) => e.target.style.backgroundColor = "blue"}
-    >
-      Back to Order
-    </Button>
+          <Button
+            style={{
+              backgroundColor: "blue",
+              transition: "background-color 0.3s",
+            }}
+            onClick={handleBack}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = "green")}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = "blue")}
+          >
+            Back to Order
+          </Button>
 
-        <div ref={componentRef} className="print-container">
-
-          <div className="d-flex">
-            <img
-              src={diamondLogo}
-              alt="Diamond Logo"
-              style={{
-                width: "100px",
-                height: "100px",
-                marginBottom: "10px",
-                borderRadius: "15px",
-                marginLeft:"200px"
-              }}
-            />
-            <h2 style={{marginTop:"30px", marginLeft:"30px"}}>Diamond Valuation</h2>
-          </div>
-          <div className="d-flex justify-content-center">
-            <div className="flex-column" style={{ width: "70%" }}>
-              <div style={{ fontWeight: 'bold' }}>
-                <p>Customer Name: {userRequestDetail.guestName}</p>
-                <p>Phone: {userRequestDetail.phoneNumber}</p>
-                <p>Quantity: {quantity}</p>
-                <p>Order Date: {orderDate}</p>
+          <div ref={componentRef} className="print-container">
+            <div className="d-flex">
+              <img
+                src={diamondLogo}
+                alt="Diamond Logo"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  marginBottom: "10px",
+                  borderRadius: "15px",
+                  marginLeft: "200px",
+                }}
+              />
+              <h2 style={{ marginTop: "30px", marginLeft: "30px" }}>
+                Diamond Valuation
+              </h2>
+            </div>
+            <div className="d-flex justify-content-center">
+              <div className="flex-column" style={{ width: "70%" }}>
+                <div style={{ fontWeight: "bold" }}>
+                  <p>Customer Name: {userRequestDetail.guestName}</p>
+                  <p>Phone: {userRequestDetail.phoneNumber}</p>
+                  <p>Quantity: {quantity}</p>
+                  <p>Order Date: {orderDate}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="print-content">
-            <Table striped bordered className="fs-5 print-table">
-              <thead className="text-center">
-                <tr>
-                  <th>Type Service</th>
-                  <th>Received Date</th>
-                  <th>Expired Date</th>
-                  <th>Sample Size</th>
-                  <th>Service Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.serviceId}</td>
-                    <td>{row.receivedDate}</td>
-                    <td>{row.expiredReceivedDate}</td>
-                    <td>{row.size}</td>
-                    <td>{row.unitPrice}</td>
+            <div className="print-content">
+              <Table striped bordered className="fs-5 print-table">
+                <thead className="text-center">
+                  <tr>
+                    <th>Type Service</th>
+                    <th>Received Date</th>
+                    <th>Expired Date</th>
+                    <th>Sample Size</th>
+                    <th>Service Price</th>
                   </tr>
-                ))}
-                <tr>
-                  <td colSpan="4" className="text-end">
-                    <strong>Total Price</strong>
-                  </td>
-                  <td>{totalPrice}</td>
-                </tr>
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {rows.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.serviceId}</td>
+                      <td>{row.receivedDate}</td>
+                      <td>{row.expiredReceivedDate}</td>
+                      <td>{row.size}</td>
+                      <td>{row.unitPrice}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td colSpan="4" className="text-end">
+                      <strong>Total Price</strong>
+                    </td>
+                    <td>{totalPrice}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          </div>
+          <div className="d-flex justify-content-end" style={{ width: "100%" }}>
+            <Button style={{ backgroundColor: "blue" }} onClick={handlePrint}>
+              Print
+            </Button>
           </div>
         </div>
-        < div className="d-flex justify-content-end" style={{ width: "100%" }}>
-          <Button style={{backgroundColor:"blue"}} onClick={handlePrint}>Print</Button>      
-        </div>
-
-      </div>
       ) : (
         <form onSubmit={handleOnSubmit}>
           <div className="row mb-5">
@@ -400,13 +396,17 @@ return (
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Customer Name</label>
               </div>
-              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.guestName}</div>
+              <div className="col-7" style={{ fontStyle: "italic" }}>
+                {userRequestDetail.guestName}
+              </div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Phone</label>
               </div>
-              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.phoneNumber}</div>
+              <div className="col-7" style={{ fontStyle: "italic" }}>
+                {userRequestDetail.phoneNumber}
+              </div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
@@ -423,15 +423,17 @@ return (
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
-                <label className="form-label fw-bold" >Request Your ID</label>
+                <label className="form-label fw-bold">Request Your ID</label>
               </div>
-              <div className="col-7" style={{ fontStyle: 'italic' }}>{userRequestDetail.requestId}</div>
+              <div className="col-7" style={{ fontStyle: "italic" }}>
+                {userRequestDetail.requestId}
+              </div>
             </div>
             <div className="row mb-3 d-flex justify-content-center">
               <div className="col-3" style={{ width: "15%" }}>
                 <label className="form-label fw-bold">Order Date</label>
               </div>
-              <div className="col-7" style={{ fontStyle: 'italic' }}>
+              <div className="col-7" style={{ fontStyle: "italic" }}>
                 <input
                   type="text"
                   className="form-control"
@@ -491,18 +493,18 @@ return (
                       />
                     </td>
                     <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={row.size}
-                  onChange={(e) =>
-                    handleRowChange(index, "size", e.target.value)
-                  }
-                />
-                {errors[index] && (
-                  <span className="text-danger">{errors[index]}</span>
-                )}
-              </td>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={row.size}
+                        onChange={(e) =>
+                          handleRowChange(index, "size", e.target.value)
+                        }
+                      />
+                      {errors[index] && (
+                        <span className="text-danger">{errors[index]}</span>
+                      )}
+                    </td>
                     <td>
                       <input
                         type="text"
@@ -533,10 +535,9 @@ return (
             <Button className="btn btn-success me-4" type="submit">
               Accept
             </Button>
-            
+
             <Button onClick={handleReviewMode}>Review</Button>
           </div>
-          
         </form>
       )}
     </div>

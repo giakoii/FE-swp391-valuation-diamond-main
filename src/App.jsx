@@ -21,7 +21,8 @@ import { ViewCertificate } from "./page/pageStaff/ReciptApplication/ViewCertific
 import { MyCertificateList } from "./page/pageValuationStaff/ValuationApplication/MyCertificateList.jsx";
 import { CertificateDetail } from "./page/pageValuationStaff/ValuationApplication/CertificateDetail.jsx";
 // Customer Pages
-import HomeCustomer from "./page/pageCustomer/HomeCustomer.jsx";
+
+import HomeCustomer from './page/pageCustomer/HomeCustomer/HomeCustomer.jsx';
 import Signup from "./page/pageCustomer/Signup";
 import Contact from './page/pageCustomer/Contact/Contact.jsx';
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";

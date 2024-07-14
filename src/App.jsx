@@ -50,6 +50,7 @@ import CheckDiamond from './page/pageCustomer/CheckDiamond/CheckDiamond.jsx';
 import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCheck.jsx';
 import ServicePolicy from './page/pageCustomer/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
+import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
 
 
 function App() {
@@ -85,8 +86,8 @@ function App() {
             element={<PersonalRequestDetail />}
           />
           <Route path="my-order" element={<PersonalOrder />} />
-          {/* sẽ sửa lại thành order detail sau*/}
           <Route path="my-order/:orderId" element={<PersonalOrderDetail />} />
+          <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
 
         {/* ROLE:GUEST*/}
@@ -166,7 +167,6 @@ function App() {
             </RoleBasedGuard>
           </AuthGuard>
         }>
-          
           <Route path="dashboard" element={<DashBoard />} />
           <Route path="managecustomer" element={<ManageCustomer />} />
           <Route path="managestaff" element={<ManageStaff />} />

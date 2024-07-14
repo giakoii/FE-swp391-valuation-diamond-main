@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Spinner, Stack, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
 import formattedDate from '../../utils/formattedDate/formattedDate';
@@ -20,6 +17,7 @@ export const PersonalOrderDetail = () => {
 
     const [order, setOrder] = useState({});
     const [orderDetails, setOrderDetails] = useState([]);
+
     // get order detail by order id
     useEffect(() => {
         const fetchData = async () => {
@@ -68,7 +66,6 @@ export const PersonalOrderDetail = () => {
     }
     return (
         <div style={{minHeight:700}} >
-            <ToastContainer />
             <div className=" mx-4">
                 <i className="bi bi-arrow-90deg-left"
                     onClick={() => {
@@ -119,7 +116,12 @@ export const PersonalOrderDetail = () => {
 
                                                 <Col md={2}>
                                                     <div className='fw-bold'>Unit Price</div>
-                                                    <div style={{ alignItems: "center" }}>{orderDetail.unitPrice}</div>
+                                                    <div style={{ alignItems: "center", marginBottom:"10px" }}>{orderDetail.unitPrice}</div>
+                                                    <Button variant='info' onClick={()=>{
+                                                        navigate(`/my-certificate/${orderDetail.orderDetailId}`)
+                                                    }}>
+                                                        Certificate
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </div>
@@ -127,17 +129,13 @@ export const PersonalOrderDetail = () => {
                                 </div>
                             </div>
                         </Col>
-
-                        {/* Information of order */}
                         <Col md={4} className='border border-dark rounded m-4' style={{ maxHeight: 300 }}>
                             <div >
                                 <div className='mt-3'>
                                     <h3 style={{ backgroundColor: "#CCFBF0", padding: "10px 10px " }}>
                                         Your Order
                                     </h3>
-
                                 </div>
-                                {/* Order Infor mation */}
                                 <div>
                                     <Row className='my-4'>
                                         {/* User */}

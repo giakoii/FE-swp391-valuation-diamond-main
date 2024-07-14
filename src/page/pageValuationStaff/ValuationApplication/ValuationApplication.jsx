@@ -75,7 +75,7 @@ export const ValuationApplication = () => {
 
   console.log(marketPrice)
   const handleOnChange = (e) => {
-   
+  
     const { name, value } = e.target;
     setErrorCarat("");
     if (name === "shapeCut") {

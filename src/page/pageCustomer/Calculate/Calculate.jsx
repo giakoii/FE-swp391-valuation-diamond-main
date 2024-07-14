@@ -35,7 +35,7 @@ function Calculate() {
       ...diamondCalculate,
       caratWeight: Math.max(0.3, Math.min(5, Number.parseFloat(diamondCalculate.caratWeight)))
     }
-    console.log(diamondCalculateFinal)
+    console.log('final',typeof diamondCalculateFinal.caratWeight)
     const queryParams = new URLSearchParams(diamondCalculateFinal).toString();
     navigate(`/calculate?${queryParams}`);
   };

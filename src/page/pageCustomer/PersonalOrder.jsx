@@ -42,8 +42,6 @@ export const PersonalOrder = () => {
         }
         return orders
     }
-    // get order by user id 
-    //   tam thoi la get all
 
     useEffect(() => {
         const fetchData = async () => {

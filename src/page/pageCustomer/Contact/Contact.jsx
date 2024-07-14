@@ -36,31 +36,48 @@ const Contact = () => {
       </Row>
       <Row className="mb-4" style={{ textAlign: "center" }}>
         <Col md={3}>
-          <h5 style={{ fontStyle: 'italic' }}>
-            <img src={addressIcon} alt="Address Icon" style={{ width: "20px", marginRight: "10px" }} />
+          <h5 style={{ fontStyle: "italic" }}>
+            <img
+              src={addressIcon}
+              alt="Address Icon"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
             Address
           </h5>
           <p>
-            Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh, Vietnam
+            Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí
+            Minh, Vietnam
           </p>
         </Col>
         <Col md={3}>
-          <h5 style={{ fontStyle: 'italic' }}>
-            <img src={phoneIcon} alt="Phone Icon" style={{ width: "20px", marginRight: "10px" }} />
+          <h5 style={{ fontStyle: "italic" }}>
+            <img
+              src={phoneIcon}
+              alt="Phone Icon"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
             Phone
           </h5>
           <p>(+84) 766 942 380</p>
         </Col>
         <Col md={3}>
-          <h5 style={{ fontStyle: 'italic' }}>
-            <img src={emailIcon} alt="Email Icon" style={{ width: "20px", marginRight: "10px" }} />
+          <h5 style={{ fontStyle: "italic" }}>
+            <img
+              src={emailIcon}
+              alt="Email Icon"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
             Email
           </h5>
           <p>diamondValuation@gmail.com</p>
         </Col>
         <Col md={3}>
-          <h5 style={{ fontStyle: 'italic' }}>
-            <img src={managerIcon} alt="Manager Icon" style={{ width: "20px", marginRight: "10px" }} />
+          <h5 style={{ fontStyle: "italic" }}>
+            <img
+              src={managerIcon}
+              alt="Manager Icon"
+              style={{ width: "20px", marginRight: "10px" }}
+            />
             Manager
           </h5>
           <p>Nguyen Anh Minh</p>
@@ -73,8 +90,12 @@ const Contact = () => {
             <Form onSubmit={handleSubmit}>
               <div className="social-block">
                 <Form.Group className="mb-3" controlId="formFacebook">
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    <img src={facebookIcon} alt="Facebook Icon" style={{ width: "20px", marginRight: "10px" }} />
+                  <Form.Label style={{ fontWeight: "bold" }}>
+                    <img
+                      src={facebookIcon}
+                      alt="Facebook Icon"
+                      style={{ width: "20px", marginRight: "10px" }}
+                    />
                     Facebook:
                   </Form.Label>
                   <p>facebook.com/DiamondValuation</p>
@@ -82,8 +103,12 @@ const Contact = () => {
               </div>
               <div className="social-block">
                 <Form.Group className="mb-3" controlId="formYouTube">
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    <img src={youtobeIcon} alt="YouTube Icon" style={{ width: "20px", marginRight: "10px" }} />
+                  <Form.Label style={{ fontWeight: "bold" }}>
+                    <img
+                      src={youtobeIcon}
+                      alt="YouTube Icon"
+                      style={{ width: "20px", marginRight: "10px" }}
+                    />
                     YouTube:
                   </Form.Label>
                   <p>youtube.com/DiamondValuation</p>
@@ -91,8 +116,12 @@ const Contact = () => {
               </div>
               <div className="social-block">
                 <Form.Group className="mb-3" controlId="formInstagram">
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    <img src={instagramIcon} alt="Instagram Icon" style={{ width: "20px", marginRight: "10px" }} />
+                  <Form.Label style={{ fontWeight: "bold" }}>
+                    <img
+                      src={instagramIcon}
+                      alt="Instagram Icon"
+                      style={{ width: "20px", marginRight: "10px" }}
+                    />
                     Instagram:
                   </Form.Label>
                   <p>instagram.com/DiamondValuation</p>
@@ -100,8 +129,12 @@ const Contact = () => {
               </div>
               <div className="social-block">
                 <Form.Group className="mb-3" controlId="formTikTok">
-                  <Form.Label style={{ fontWeight: 'bold' }}>
-                    <img src={tiktokIcon} alt="TikTok Icon" style={{ width: "20px", marginRight: "10px" }} />
+                  <Form.Label style={{ fontWeight: "bold" }}>
+                    <img
+                      src={tiktokIcon}
+                      alt="TikTok Icon"
+                      style={{ width: "20px", marginRight: "10px" }}
+                    />
                     TikTok:
                   </Form.Label>
                   <p>tiktok.com/@DiamondValuation</p>

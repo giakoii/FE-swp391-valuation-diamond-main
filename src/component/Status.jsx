@@ -1,8 +1,8 @@
 import React from "react";
- 
-export const Status = ({ status }) => { 
-  const styleStatus = { 
-    color: 
+
+export const Status = ({ status }) => {
+  const styleStatus = {
+    color:
       status === "Requesting"
         ? "#7C9099"
         : status === "Accepted" || status === "Finished"
@@ -19,10 +19,11 @@ export const Status = ({ status }) => {
         ? "#2196F3"
         : status === "ENABLE"
         ? "green"
-        : "black",
-    border: "solid",
-    borderRadius: "15px",
-    padding: "2px 8px",
-  };
-  return <span style={styleStatus}>{status}</span>;
+        : "black", 
+
+    border: "solid", 
+    borderRadius: "15px", 
+    padding: "2px 8px", 
+  }; 
+  return <span style={styleStatus}>{status}</span>; 
 }; 

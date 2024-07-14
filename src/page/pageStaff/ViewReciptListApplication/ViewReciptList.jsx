@@ -221,6 +221,7 @@ export const ViewReciptList = () => {
                   <Status status={item.status} />
                 </td>
                 <td>
+                  
                   <Button
                     style={{
                       backgroundColor: "blue",

@@ -44,7 +44,7 @@ function Header() {
           
               <NavDropdown title="Evaluation Service" id="nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/calculate">
-                  Calculate
+                  Calculate Your Diamonnd
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={NavLink} to="/evaluationservice">

@@ -71,15 +71,15 @@ export const ViewReciptList = () => {
     }
     setRowColors(colors);
   };
-
-  // Update order details
-  const checkAndUpdateOrderStatus = async (orders) => {
-    for (const order of orders) {
-      const orderDetails = await fetchOrderDetails(order.orderId);
-      const allFinished = orderDetails.every(
-        (detail) => detail.status === "Finished"
-      );
-      if (
+ 
+  // Update order details 
+  const checkAndUpdateOrderStatus = async (orders) => { 
+    for (const order of orders) { 
+      const orderDetails = await fetchOrderDetails(order.orderId); 
+      const allFinished = orderDetails.every( 
+        (detail) => detail.status === "Finished" 
+      ); 
+      if ( 
         allFinished &&
         order.status !== "Finished" &&
         order.status !== "Sealed"
@@ -142,11 +142,11 @@ export const ViewReciptList = () => {
     );
   }
 
-  return (
-    <div className="container">
-      <div
-        className="d-flex justify-content-center"
-        style={{ marginBottom: "50px", marginTop: "50px" }}
+  return ( 
+    <div className="container"> 
+      <div 
+        className="d-flex justify-content-center" 
+        style={{ marginBottom: "50px", marginTop: "50px" }} 
       >
         <h1>View All Orders List</h1>
       </div>
@@ -221,7 +221,6 @@ export const ViewReciptList = () => {
                   <Status status={item.status} />
                 </td>
                 <td>
-                  
                   <Button
                     style={{
                       backgroundColor: "blue",
@@ -256,5 +255,4 @@ export const ViewReciptList = () => {
     </div>
   );
 };
-
 export default ViewReciptList;

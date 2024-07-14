@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, FormControl, InputGroup, Container, Row, Col } from "react-bootstrap";
-import Swal from 'sweetalert2';
+import {
+  Button,
+  FormControl,
+  InputGroup,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
+import Swal from "sweetalert2";
 import diamondLogo from "/assets/assetsCustomer/checkmark.png"; // Replace with the actual path to your image
 
 const CheckDiamond = () => {
@@ -10,7 +17,9 @@ const CheckDiamond = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`);
+      const response = await fetch(
+        `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`
+      );
       if (!response.ok) {
         throw new Error("Diamond not found");
       }
@@ -21,10 +30,9 @@ const CheckDiamond = () => {
     } catch (err) {
       // Nếu lỗi xảy ra, hiển thị thông báo lỗi dùng SweetAlert2
       Swal.fire({
-        icon: 'error',
-        title: 'Diamond not found !!!',
-        text: 'Please try again',
-        
+        icon: "error",
+        title: "Diamond not found !!!",
+        text: "Please try again",
       });
     }
   };
@@ -40,24 +48,35 @@ const CheckDiamond = () => {
               <h1 style={{ color: "blue" }}>price & quality </h1>
             </h1>
             <p style={{ textAlign: "left" }}>
-              Transact with confidence — get fair price, cut score, visual
-              carat and more for free
+              Transact with confidence — get fair price, cut score, visual carat
+              and more for free
             </p>
           </div>
         </Col>
 
         {/* Right Column: Image, Search Input, and Button */}
         <Col md="6">
-          <div className="d-flex justify-content-center mb-4" style={{ marginTop: "75px" }}>
+          <div
+            className="d-flex justify-content-center mb-4"
+            style={{ marginTop: "75px" }}
+          >
             <img
               src={diamondLogo}
               alt="Diamond Logo"
-              style={{ width: "50%", height: "50%", marginBottom: "10px", borderRadius: "15px" }}
+              style={{
+                width: "50%",
+                height: "50%",
+                marginBottom: "10px",
+                borderRadius: "15px",
+              }}
             />
           </div>
         </Col>
 
-        <div className="text-center" style={{ width: "50%", marginBottom: "200px", marginTop: "50px" }}>
+        <div
+          className="text-center"
+          style={{ width: "50%", marginBottom: "200px", marginTop: "50px" }}
+        >
           <div>
             <style>
               {`

@@ -322,12 +322,11 @@ const DetailDiamondCheck = () => {
 
       <h1
         className="text-center"
-        style={{ marginTop: "50px", marginBottom: "50px", fontStyle:"italic" }}
+        style={{ marginTop: "50px", marginBottom: "50px", fontStyle: "italic" }}
       >
         Your Diamond Detail Parameters
       </h1>
 
-     
       <div>
         <style>
           {`

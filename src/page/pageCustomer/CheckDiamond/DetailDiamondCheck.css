@@ -1,14 +1,10 @@
 .button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  .diamond-image {
-    border: 2px solid #000; /* Adjust the border size and color as needed */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjust the shadow as needed */
-    border-radius: 10px; /* Optional: add rounded corners */
-  }
-  
-  
- 
-  
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.diamond-image {
+  border: 2px solid #000; /* Adjust the border size and color as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjust the shadow as needed */
+  border-radius: 10px; /* Optional: add rounded corners */
+}

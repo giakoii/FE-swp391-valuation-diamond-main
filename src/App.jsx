@@ -23,7 +23,7 @@ import { CertificateDetail } from "./page/pageValuationStaff/ValuationApplicatio
 // Customer Pages
 import HomeCustomer from "./page/pageCustomer/HomeCustomer.jsx";
 import Signup from "./page/pageCustomer/Signup";
-import Contact from "./page/pageCustomer/Contact";
+import Contact from './page/pageCustomer/Contact/Contact.jsx';
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";
 import Calculate from "./page/pageCustomer/Calculate/Calculate.jsx";
 import { PersonalRequest } from "./page/pageCustomer/PersonalRequest";
@@ -31,7 +31,7 @@ import { ValuationOrderDetail } from "./page/pageStaff/ValuationOrderDetail.jsx"
 import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
-import TypeValuation from './page/pageCustomer/Typevaluation.jsx';
+import Typevaluation from './page/pageCustomer/TypeValuation/Typevaluation.jsx';
 import {Profile} from './page/pageCustomer/Profile.jsx'
 // import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
@@ -48,7 +48,7 @@ import CommitmentDetail from "./page/pageStaff/Commitment/CommitmentDetail.jsx";
 import { CustomerGuard } from "./guards/CustomerGuard.jsx";
 import CheckDiamond from './page/pageCustomer/CheckDiamond/CheckDiamond.jsx';
 import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCheck.jsx';
-import ServicePolicy from './page/pageCustomer/ServicePolicy.jsx';
+import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
 import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
 
@@ -115,7 +115,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="inforcheck/:assess_id" element={<DetailDiamondCheck />} />
           <Route path="policy" element={<ServicePolicy />} />
-          <Route path="typevaluation" element={<TypeValuation />} />
+          <Route path="typevaluation" element={<Typevaluation />} />
         </Route>
 
         {/* ROLE: CONSULTANT_STAFF */}

@@ -37,7 +37,7 @@
             useEffect(() => {
                 const fetchDataService = async() => { 
                     try { 
-                        const response = await fetch('https://valuation.techtheworld.id.vn/service/getServices');
+                        const response = await fetch('https://valuation.techtheworld.id.vn/service/getServiceAdmin');
                         const data = await response.json(); 
                         setViewService(data);
                     } catch(error) {

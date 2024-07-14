@@ -68,7 +68,7 @@ const Typevaluation = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container fluid style={{ marginTop: "20px", backgroundColor: "green" }}>
+    <Container fluid style={{ marginTop: "20px"}}>
       <div>
         <Row>
           <Col>

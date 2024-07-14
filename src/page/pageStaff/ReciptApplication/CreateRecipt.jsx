@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect, useRef } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -307,13 +304,12 @@ export const CreateReceipt = () => {
     }
   }
 `;
-
-  return (
-    <div>
-      <style>{printStyles}</style>
+  return (   
+    <div> 
+      <style>{printStyles}</style> 
       {reviewMode ? (
-        <div style={{ width: "90%", marginLeft: "100px" }}>
-          <h2 className="d-flex justify-content-center">Review</h2>
+        <div style={{ width: "90%", marginLeft: "100px" }}> 
+          <h2 className="d-flex justify-content-center">Review Order</h2> 
 
           <Button
             style={{
@@ -494,7 +490,6 @@ export const CreateReceipt = () => {
                         value={row.expiredReceivedDate}
                         readOnly
                       />
-                      
                     </td>
                     <td>
                       <input
@@ -520,28 +515,25 @@ export const CreateReceipt = () => {
                   </tr>
                 ))}
                 <tr>
-
                   <td colSpan="4" className="text-end">
-                    <strong>Total Prices</strong> 
+                    <strong>Total Prices</strong>
                   </td>
-                  <td> 
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={totalPrice} 
-                      readOnly 
-                    /> 
-                  </td> 
-                </tr> 
-
-              </tbody> 
-            </Table> 
-          </div> 
+                  <td>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={totalPrice}
+                      readOnly
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
           <div className="d-flex justify-content-end" style={{ width: "90%" }}>
             <Button className="btn btn-success me-4" type="submit">
               Accept
             </Button>
-
             <Button onClick={handleReviewMode}>Review</Button>
           </div>
         </form>
@@ -549,6 +541,5 @@ export const CreateReceipt = () => {
     </div>
   );
 };
- 
- 
-export default CreateReceipt; 
+
+export default CreateReceipt;

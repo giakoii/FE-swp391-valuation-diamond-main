@@ -158,7 +158,7 @@ export const ReceiptDetails = () => {
                   <img src={product.img} alt="" height="80" width="80" />
                 </td>
                 <td>{product.serviceId.serviceType}</td>
-                <td style={{ backgroundColor: getColorTime(orderDetails[0]?.orderId?.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
+                <td style={{ backgroundColor: product.status ==='Finished' ? "none" : getColorTime(orderDetails[0]?.orderId?.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
                 <td>{product.evaluationStaffId}</td>
                 <td>{product.size}</td>
                 <td>{product.isDiamond ? "Diamond" : "Not a diamond"}</td>

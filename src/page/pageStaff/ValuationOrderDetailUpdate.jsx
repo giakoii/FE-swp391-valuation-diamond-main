@@ -23,7 +23,6 @@ export const ValuationOrderDetailUpdate = () => {
     isDiamond: product.isDiamond,
     img: product.img,
   });
-
   const saveImage = async () => {
     if (!imageUpload) {
       return null;

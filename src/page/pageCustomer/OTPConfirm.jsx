@@ -36,13 +36,10 @@ export const OTPConfirm = ({ userId }) => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-
-        // Kiểm tra mật khẩu mới có hợp lệ không
         if (!validatePassword(otpConfirm.newPassword)) {
             setErrorNewPassword('Password must be between 8 and 20 characters');
             return;
         }
-
         try {
             const response = await fetch(`${API_BASE_URL}/user_request/reset-password`, {
                 method: 'POST',

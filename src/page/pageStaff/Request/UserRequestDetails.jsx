@@ -3,7 +3,6 @@ import { Row, Col, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import formattedDateTime from "../../../utils/formattedDate/formattedDateTime";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';

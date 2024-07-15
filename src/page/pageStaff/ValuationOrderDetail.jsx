@@ -103,7 +103,7 @@ export const ValuationOrderDetail = () => {
                 </div>
               </td>
               <td>{product.serviceId.serviceType}</td>
-              <td style={{ backgroundColor: getColorTime(product.orderId.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
+              <td style={{backgroundColor: product.status ==='Finished' ? "none" : getColorTime(product.orderId.orderDate, product.receivedDate)}}>{formattedDateTime(product.receivedDate)}</td>
               <td>{product.size}</td>
               <td>
                 <div className="text-center">{product.isDiamond ? "Diamond" : "Not a diamond"}</div>

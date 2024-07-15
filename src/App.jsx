@@ -12,7 +12,6 @@ import { UserRequest } from "./page/pageStaff/Request/UserRequest.jsx";
 import { ViewReciptList } from "./page/pageStaff/ViewReciptListApplication/ViewReciptList.jsx";
 import { CreateReceipt } from "./page/pageStaff/ReciptApplication/CreateRecipt.jsx";
 import CreateCommitment from "./page/pageStaff/Commitment/CreateCommitment.jsx";
-import { PersonalInformation } from "./page/pageStaff/PersonalInformation";
 import { ValuationApplication } from "./page/pageValuationStaff/ValuationApplication/ValuationApplication.jsx";
 import { ReceiptDetails } from "./page/pageStaff/ReciptApplication/ReciptDetails.jsx";
 import { ValuationList } from "./page/pageValuationStaff/ValuationApplication/ValuationList.jsx";
@@ -139,7 +138,6 @@ function App() {
             path="commitment-list/:committedId"
             element={<CommitmentDetail />}
           />
-          <Route path="personal-info" element={<PersonalInformation />} />
           <Route path="valuation-result-list" element={<ValuationList />} />
 
         </Route>

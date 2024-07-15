@@ -113,12 +113,12 @@ export const PersonalOrderDetail = () => {
                                                         {(orderDetail.isDiamond ? "Diamond" : "Not a diamond")}
                                                     </div>
                                                 </Col>
-
                                                 <Col md={2}>
                                                     <div className='fw-bold'>Unit Price</div>
                                                     <div style={{ alignItems: "center", marginBottom:"10px" }}>{orderDetail.unitPrice}</div>
-                                                    <Button variant='info' onClick={()=>{
+                                                    <Button variant='info' disabled={(orderDetail.status !== 'Finished' ||orderDetail.status !== 'Sealed') && !orderDetail.isDiamond } onClick={()=>{
                                                         navigate(`/my-certificate/${orderDetail.orderDetailId}`)
+                                                        
                                                     }}>
                                                         Certificate
                                                     </Button>

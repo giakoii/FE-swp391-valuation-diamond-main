@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Form, Image, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Image, Spinner, Stack } from 'react-bootstrap';
 import { GeneratePDF } from '../../pageValuationStaff/ValuationApplication/GeneratePDF';
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -89,14 +89,16 @@ export const ViewCertificate = () => {
                         </Col>
                         <Col md={8} className="d-flex flex-column justify-content-center align-items-center">
                             <h1 className="text-center my-3">Diamond Valuation Report</h1>
-                            <Row className="justify-content-center">
-                                <Col md={6} className="text-center w-100 fw-bold">
-                                    <Form.Label className="mb-2">Certificate ID:</Form.Label>
-                                </Col>
-                                <Col md={6} className="text-center w-100 fw-bold">
-                                    <p>{certificate?.evaluationResultId}</p>
-                                </Col>
-                            </Row>
+                            <Row className=" w-100" >
+                            <Stack direction="horizontal" className='justify-content-center'>
+                            <Col md={6} className="text-center w-25 fw-bold">
+                                <div>Certificate Number</div>
+                            </Col>
+                            <Col md={6} className="text-center w-25 fw-bold">
+                                <div>{certificate?.evaluationResultId}</div>
+                            </Col>
+                            </Stack>
+                        </Row>
                         </Col>
                     </Row>
 

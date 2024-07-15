@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Form, Image, Row, Spinner } from 'react-bootstrap';
+import { Col, Container, Form, FormControl, Image, Row, Spinner, Stack } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_BASE_URL } from '../../utils/constants/url';
 
@@ -28,7 +28,7 @@ export const PersonalCertificate = () => {
         return <div className="text-center my-4"><Spinner animation="border" /></div>;
     }
     return (
-        <Container>
+        <div className='mb-5'>
             <img
                 src="/assets/assetsStaff/back.svg"
                 alt="go back"
@@ -39,9 +39,11 @@ export const PersonalCertificate = () => {
                     navigate(-1)
                 }}
             />
+            <div>
 
+        <Container className='border border-dark w-75'>
             <Form>
-                <Row className="mb-4">
+                <Row className="mb-4 w-100">
                     <Col md={2}>
                         <Image
                             src="https://res.cloudinary.com/dz2dv8lk4/image/upload/fl_preserve_transparency/v1719856194/logo_fyex4a.jpg?_s=public-apps"
@@ -52,13 +54,15 @@ export const PersonalCertificate = () => {
                     </Col>
                     <Col md={8} className="d-flex flex-column justify-content-center align-items-center">
                         <h1 className="text-center my-3">Diamond Valuation Report</h1>
-                        <Row className="justify-content-center">
-                            <Col md={6} className="text-center w-100 fw-bold">
-                                <Form.Label className="mb-2">Certificate ID:</Form.Label>
+                        <Row className=" w-100" >
+                            <Stack direction="horizontal" className='justify-content-center'>
+                            <Col md={6} className="text-center w-25 fw-bold">
+                                <div>Certificate Number</div>
                             </Col>
-                            <Col md={6} className="text-center w-100 fw-bold">
-                                <p>{certificate?.evaluationResultId}</p>
+                            <Col md={6} className="text-center w-25 fw-bold">
+                                <div>{certificate?.evaluationResultId}</div>
                             </Col>
+                            </Stack>
                         </Row>
                     </Col>
                 </Row>
@@ -202,5 +206,7 @@ export const PersonalCertificate = () => {
 
 
         </Container>
+            </div>
+        </div>
     )
 }

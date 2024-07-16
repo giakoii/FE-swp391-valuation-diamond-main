@@ -718,7 +718,6 @@ export const CertificateDetail = () => {
                 View Price
               </Button>
             </div>
-
           </div>
         </div>
 
@@ -728,18 +727,17 @@ export const CertificateDetail = () => {
               className="text-center py-1"
               style={{ backgroundColor: "#7CF4DE" }}
             >
-              Product Image
+              Sample Image
             </h4>
             <div className="my-3 d-flex justify-content-center">
-
               <img
                 src={image || resultDefault.img}
                 alt="product-img"
                 height="300"
                 className="border border-dark w-75"
               />
-
             </div>
+            
             <div className="d-flex justify-content-center">
               <input type="file" name="" id="" onChange={handleOnchangeImage} accept=".jpg, .jpeg, .png" />
             </div>

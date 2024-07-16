@@ -7,12 +7,11 @@ import useAuth from '../../utils/hook/useAuth';
 import { Pagination } from '../../component/Pagination/Pagination';
 import { API_BASE_URL } from '../../utils/constants/url';
 import updateById from '../../utils/updateAPI/updateById';
+import { useOrderContext } from '../../contexts/OrderContext/OrderContext';
 
 export const PersonalOrder = () => {
-    const [myOrder, setMyOrder] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const {myOrder, loading} = useOrderContext();
     const navigate = useNavigate();
-    const { user } = useAuth();
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(6);
@@ -23,52 +22,36 @@ export const PersonalOrder = () => {
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    //update order status is completed when order all finished is completed
-    // get order details
-    const fetchOrderDetails = async (orderId) => {
-        const response = await fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`)
-        const data = await response.json()
-        return data;
-    }
-    // update order details
-    const updateOrderStatus = async (orders) => {
-        for (const order of orders) {
-            const orderDetails = await fetchOrderDetails(order.orderId);
-            const allFinished = orderDetails.every(detail => detail.status === 'Finished');
-            if (allFinished && (order.status !== 'Finished' && order.status !== 'Sealed')) {
-                await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status','Completed')
-            }
-            order.status = 'Completed'
-        }
-        return orders
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${API_BASE_URL}/order_request/getOrderByUserId/${user.userId}`);
-                let data = await response.json();
-                // update order when all details finished
-                data = await updateOrderStatus(data)
-                const sortedData = data.sort((a, b) => Date.parse(b.orderDate) - Date.parse(a.orderDate));
-                setMyOrder(sortedData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
+    // //update order status is completed when order all finished is completed
+    // // get order details
+    // const fetchOrderDetails = async (orderId) => {
+    //     const response = await fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`)
+    //     const data = await response.json()
+    //     return data;
+    // }
+    // // update order details
+    // const updateOrderStatus = async (orders) => {
+    //     const orderPromises = orders.map(async (order) => {
+    //         const orderDetails = await fetchOrderDetails(order.orderId);
+    //         const allFinished = orderDetails.every(detail => detail.status === 'Finished');
+    //         if (allFinished && (order.status !== 'Finished' && order.status !== 'Sealed')) {
+    //           await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status', 'Completed');
+    //           order.status = 'Completed';
+    //         }
+    //         return order;
+    //       });
       
-    }, []);
+    //       return Promise.all(orderPromises);
+    // }
 
-    // get order by user id
-    //   useEffect(() => {
+    // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
-    //             const response = await fetch(`${API}/${user.userId}`);
-    //             const data = await response.json();
-    //             const sortedData = data.sort((a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate));
+    //             const response = await fetch(`${API_BASE_URL}/order_request/getOrderByUserId/${user.userId}`);
+    //             let data = await response.json();
+    //             // update order when all details finished
+    //             data = await updateOrderStatus(data)
+    //             const sortedData = data.sort((a, b) => Date.parse(b.orderDate) - Date.parse(a.orderDate));
     //             setMyOrder(sortedData);
     //         } catch (error) {
     //             console.error('Error fetching data:', error);
@@ -77,7 +60,8 @@ export const PersonalOrder = () => {
     //         }
     //     };
     //     fetchData();
-    // }, [user.userId]);
+      
+    // }, []);
 
     if (loading) {
         return (
@@ -96,7 +80,7 @@ export const PersonalOrder = () => {
             <h2 className='text-center' style={{ margin: "30px 0" }}>My Order</h2>
             {currentOrder.length > 0 ? (
                 <Stack gap={4}>
-                    {currentOrder.map((order, index) => (
+                    {currentOrder.map((order) => (
                         <Row key={order.orderId} className="justify-content-center w-50 mx-auto p-3" style={{ boxShadow: 'rgb(0 0 0 / 16%) 1px 1px 10px' }}>
                             <Col xs="auto" className="d-flex align-items-center">
                                 <img

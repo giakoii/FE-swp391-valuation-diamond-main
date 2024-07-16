@@ -34,11 +34,10 @@ export const ReceiptDetails = () => {
     };
     fetchData();
   }, [orderId]);
-
+  
   const viewCertificate = (orderDetailId) => {
     navigate(`/staff/view-certificate/${orderDetailId}`)
   }
-
   const createCommitment = async () => {
     if(orderDetails[0]?.orderId?.status === 'In-Progress'){
       toast.error('Your order have not completed')
@@ -46,7 +45,6 @@ export const ReceiptDetails = () => {
     }
     navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
   };
-
 
   const updateOrderStatus = async (status) => {
     try {

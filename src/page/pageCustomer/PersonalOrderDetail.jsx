@@ -13,9 +13,8 @@ export const PersonalOrderDetail = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [isOrder, setIsOrder] = useState(false);
-    const { user } = useAuth()
-
     const [order, setOrder] = useState({});
+    const { user } = useAuth()
     const [orderDetails, setOrderDetails] = useState([]);
 
     // get order detail by order id

@@ -51,6 +51,7 @@ import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCh
 import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
 import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
+import { OrderProvider } from './contexts/OrderContext/OrderContext.jsx';
 
 
 function App() {
@@ -85,8 +86,17 @@ function App() {
             path="my-request/:requestId"
             element={<PersonalRequestDetail />}
           />
-          <Route path="my-order" element={<PersonalOrder />} />
-          <Route path="my-order/:orderId" element={<PersonalOrderDetail />} />
+          <Route path="my-order" element={
+          <OrderProvider>
+            <PersonalOrder />
+          </OrderProvider>  
+            } />
+          <Route path="my-order/:orderId" element={
+            <OrderProvider>
+              <PersonalOrderDetail />
+            </OrderProvider>
+            
+            } />
           <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
 

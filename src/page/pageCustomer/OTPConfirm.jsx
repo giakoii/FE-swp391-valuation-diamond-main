@@ -72,7 +72,7 @@ export const OTPConfirm = ({ userId }) => {
                         {!success ? (
                             <Form onSubmit={handleOnSubmit}>
                                 <Form.Group className="mb-3" controlId="formUserId">
-                                    <Form.Label>UserId</Form.Label>
+                                    <Form.Label>User name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="userId"

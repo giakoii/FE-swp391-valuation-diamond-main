@@ -39,8 +39,6 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
         throw new Error('Failed to update meeting date');
       }
       const data = await response.json();
-      console.log('Ater update')
-      console.log('res',data);
 
       if (data) {
         toast.success("Update meeting date successful");

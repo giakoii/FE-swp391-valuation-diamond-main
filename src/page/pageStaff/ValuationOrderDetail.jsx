@@ -62,7 +62,6 @@ export const ValuationOrderDetail = () => {
   }
 
   const handleCreateForm = (product) => {
-    // check update isDiamond and image
     if (product.img === null) {
       toast.error('Your sample must include image')
       return;

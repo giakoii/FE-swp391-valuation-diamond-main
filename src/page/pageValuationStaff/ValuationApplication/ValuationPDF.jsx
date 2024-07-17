@@ -40,7 +40,7 @@ export const ValuationPDF = ({ result }) => {
     },
     value: {
       marginLeft: 'auto',
-      textAlign: 'right'
+      textAlign: 'right',
     },
     wrap: {
       flexDirection: 'row',
@@ -60,7 +60,18 @@ export const ValuationPDF = ({ result }) => {
     logo: {
       width: 100,
       height: 100,
-    }
+    },
+    description: {
+      fontSize: 12,
+      marginBottom: 5,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      width: '70%',
+      whiteSpace: 'pre-wrap',
+    },
+    preWrapText: {
+      whiteSpace: 'pre-wrap',
+    },
   });
 
   return (
@@ -80,68 +91,67 @@ export const ValuationPDF = ({ result }) => {
           <View style={styles.wrapLeft}>
             <View style={styles.section}>
               <Text style={styles.header}>Diamond Valuation Report</Text>
-              <Text style={styles.text}>
+              <View style={styles.text}>
                 <Text style={styles.label}>Diamond Origin:</Text>
                 <Text style={styles.value}>{result.diamondOrigin}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Measurements:</Text>
                 <Text style={styles.value}>{result.measurements}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Shape Cut:</Text>
                 <Text style={styles.value}>{result.shapeCut}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Description:</Text>
-                <Text style={styles.value}>{result.description}</Text>
-              </Text>
+                <Text style={[styles.description, styles.preWrapText]}>{result.description}</Text>
+              </View>
             </View>
+
+            {/*  */}
             <View style={styles.section}>
               <Text style={styles.header}>Grading Results</Text>
-              <Text style={styles.text}>
+              <View style={styles.text}>
                 <Text style={styles.label}>Carat Weight:</Text>
                 <Text style={styles.value}>{result.caratWeight}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Color Grade:</Text>
                 <Text style={styles.value}>{result.color}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Clarity Grade:</Text>
                 <Text style={styles.value}>{result.clarity}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Cut Grade:</Text>
                 <Text style={styles.value}>{result.cut}</Text>
-              </Text>
+              </View>
             </View>
+            {/*  */}
             <View style={styles.section}>
               <Text style={styles.header}>Additional Grading Information</Text>
-              <Text style={styles.text}>
-                <View>
+              <View style={styles.text}>
                   <Text style={styles.label}>Polish:</Text>
-                </View>
-                <View>
                   <Text style={styles.value}>{result.polish}</Text>
-                </View>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Symmetry:</Text>
                 <Text style={styles.value}>{result.symmetry}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Fluorescence:</Text>
                 <Text style={styles.value}>{result.fluorescence}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Proportion:</Text>
                 <Text style={styles.value}>{result.proportions}</Text>
-              </Text>
-              <Text style={styles.text}>
+              </View>
+              <View style={styles.text}>
                 <Text style={styles.label}>Estimate Price:</Text>
                 <Text style={styles.value}>{result.price}</Text>
-              </Text>
+              </View>
             </View>
           </View>
           <View style={styles.wrapRight}>

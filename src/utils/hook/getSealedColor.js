@@ -16,9 +16,9 @@ function getSealedColor(orders) {
     const expiredDate = dayjs(getExpiredDateMax(orders));
 
     if (expiredDate.isBefore(now, 'day')) {
-        return '#de62f4'; // Red color
+        return '#de62f4';
     } else {
-        return ''; // Default or other color if needed
+        return '';
     }
 }
 

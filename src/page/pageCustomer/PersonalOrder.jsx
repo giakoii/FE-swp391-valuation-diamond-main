@@ -8,9 +8,11 @@ import { Pagination } from '../../component/Pagination/Pagination';
 import { API_BASE_URL } from '../../utils/constants/url';
 import updateById from '../../utils/updateAPI/updateById';
 import { useOrderContext } from '../../contexts/OrderContext/OrderContext';
+import { Status } from '../../component/Status';
 
 export const PersonalOrder = () => {
     const {myOrder, loading} = useOrderContext();
+    console.log('my order',myOrder)
     const navigate = useNavigate();
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -94,7 +96,12 @@ export const PersonalOrder = () => {
                                 <Stack>
                                     <h4>{order.orderId}</h4>
                                     <div className='mb-1'><span className='fw-bold'>Service: </span>{order.requestId.service}</div>
-                                    <div className='mb-1'><span className='fw-bold'>Order Date: </span>{formattedDateTime(order.orderDate)}</div>
+                                    <div className='mb-2'><span className='fw-bold'>Order Date: </span>{formattedDateTime(order.orderDate)}</div>
+                                    <div className='mb-1'>
+                                    <span className='fw-bold'>Status: </span>
+                                    <Status status={order.status === 'In_Progress' ? 'In-Progress' : order.status} />
+                                    </div>
+                                   
                                 </Stack>
                             </Col>
                             <Col md={2} >

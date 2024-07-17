@@ -45,10 +45,10 @@ export const ManageSchedule = () => {
     fetchData();
   }, []);
 
-  const handleOnChangeValuationStaff = (orderDetailId, value) => {
+  const handleOnChangeValuationStaff = (name, value) => {
     setSelectedEvaluationStaff((prevState) => ({
       ...prevState,
-      [orderDetailId]: value,
+      [name]: value,
     }));
   };
 

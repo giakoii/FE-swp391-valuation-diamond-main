@@ -5,6 +5,7 @@ import "./style.css"; // Make sure to import the CSS file containing your custom
 import addressIcon from "/assets/assetsCustomer/instagram.svg"; // Path to your image files
 import handle from "/assets/assetsCustomer/hand.jpg";
 
+
 const HomeCustomer = () => {
   return (
     <div className="full-width-container diagonal-shadow">
@@ -17,7 +18,7 @@ const HomeCustomer = () => {
       <Container id="services" className="my-5">
         <Row>
           <Col className="text-center">
-            <div  className="has-bg left">
+            <div className="has-bg left">
               <img
                 src="/assets/assetsCustomer/make.png"
                 alt="Diamond"
@@ -27,7 +28,13 @@ const HomeCustomer = () => {
             </div>
           </Col>
           <Col className="text-center" style={{ marginTop: "60px" }}>
-            <h1 style={{ textAlign: "center", marginRight: "50px", color: "#000055" }}>
+            <h1
+              style={{
+                textAlign: "center",
+                marginRight: "50px",
+                color: "#000055",
+              }}
+            >
               Services at Valuation Diamond
             </h1>
             <p
@@ -66,7 +73,8 @@ const HomeCustomer = () => {
                 alt="Address Icon"
                 style={{ width: "20px", marginRight: "10px" }}
               />
-              Assessment and Consulting on Gold, Silver, Precious Metals, Non-ferrous Metals
+              Assessment and Consulting on Gold, Silver, Precious Metals,
+              Non-ferrous Metals
             </div>
           </Col>
         </Row>
@@ -120,13 +128,17 @@ const HomeCustomer = () => {
               needs.
             </p>
           </div>
-       
 
           <div className="w-50 p-2">
             <img
               src={handle}
               alt="Diamond"
-              style={{ width: "80%", height: "90%", marginLeft: "10%", marginBottom: "0px" }}
+              style={{
+                width: "80%",
+                height: "90%",
+                marginLeft: "10%",
+                marginBottom: "0px",
+              }}
               className="img-fluid"
             />
           </div>

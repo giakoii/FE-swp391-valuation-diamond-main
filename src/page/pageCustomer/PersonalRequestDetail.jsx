@@ -63,10 +63,7 @@ export const PersonalRequestDetail = () => {
 
   const APIUpdate = `${API_BASE_URL}/evaluation-request/update`;
   const handleOnCancel = async (value) => {
-    if (order.length > 0 && order[0].orderId) {
-      toast.error("You have had an order, so you cannot cancel at this time");
-      return;
-    }
+
 
     try {
       const response = await fetch(`${APIUpdate}/${requestId}`, {
@@ -94,6 +91,10 @@ export const PersonalRequestDetail = () => {
   };
 
   const showCancelConfirmation = () => {
+    if (order.length > 0 && order[0].orderId) {
+      toast.error("You have had an order, so you cannot cancel at this time");
+      return;
+    }
     confirmAlert({
       title: 'Confirm to cancel',
       message: 'Are you sure you want to cancel this request?',

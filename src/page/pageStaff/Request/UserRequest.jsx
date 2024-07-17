@@ -27,7 +27,7 @@ export const UserRequest = () => {
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
+  const [postsPerPage] = useState(8);
   const navigate = useNavigate();
 
   useEffect(() => {

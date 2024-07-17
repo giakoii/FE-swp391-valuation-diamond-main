@@ -1,6 +1,7 @@
 const INITIALIZE = 'INITIALIZE';
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
+
 export function initialize (payload){
     return {
         type: INITIALIZE,

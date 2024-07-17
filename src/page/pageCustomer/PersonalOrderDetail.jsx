@@ -104,7 +104,7 @@ export const PersonalOrderDetail = () => {
                                                     <div>{formattedDate(orderDetail.expiredReceivedDate)}</div>
                                                 </Col>
                                                 <Col md={2} className='d-flex align-items-center'>
-                                                    <Status status={orderDetail.status} />
+                                                <Status status={orderDetail.status === 'In_Progress' ? 'In-Progress' : orderDetail.status} />
                                                 </Col>
                                                 <Col md={2}>
                                                     <div className='fw-bold'>Is Diamond:</div>
@@ -163,7 +163,7 @@ export const PersonalOrderDetail = () => {
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold mb-1'>Status</div>
-                                                    {isOrder && <Status status={order.status} />}
+                                                    {isOrder &&  <Status status={order.status === 'In_Progress' ? 'In-Progress' : order.status} />}
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold'>Created Order Date</div>

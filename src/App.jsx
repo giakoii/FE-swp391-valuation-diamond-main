@@ -99,7 +99,6 @@ function App() {
             } />
           <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
-
         {/* ROLE:GUEST*/}
         <Route element={<CustomerApp />}>
           <Route

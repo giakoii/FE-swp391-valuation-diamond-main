@@ -39,7 +39,7 @@ export const ReceiptDetails = () => {
     navigate(`/staff/view-certificate/${orderDetailId}`)
   }
   const createCommitment = async () => {
-    if(orderDetails[0]?.orderId?.status === 'In-Progress'){
+    if(orderDetails[0]?.orderId?.status === 'In_Progress'){
       toast.error('Your order have not completed')
       return ;
     }
@@ -71,7 +71,7 @@ export const ReceiptDetails = () => {
   };
 
   const showConfirmDialog = (e, status) => {
-    if(orderDetails[0]?.orderId?.status === 'In-Progress'){
+    if(orderDetails[0]?.orderId?.status === 'In_Progress'){
       toast.error('Your order have not completed')
       return ;
     }
@@ -131,7 +131,8 @@ export const ReceiptDetails = () => {
         <Row className="mb-4">
           <Col md={2}>Status:</Col>
           <Col md={3}>
-            <Status status={orderDetails[0]?.orderId?.status} />
+        
+            <Status status={orderDetails[0]?.orderId?.status === 'In_Progress' ? 'In-Progress' : orderDetails[0]?.orderId?.status} />
           </Col>
         </Row>
         <Table>
@@ -161,7 +162,7 @@ export const ReceiptDetails = () => {
                 <td>{product.size}</td>
                 <td>{product.isDiamond ? "Diamond" : "Not a diamond"}</td>
                 <td>
-                  <Status status={product.status} />
+                  <Status status={product.status === 'In_Progress' ? 'In-Progress' : product.status} />
                 </td>
                 <td>{product.unitPrice}</td>
                 <td>
@@ -185,14 +186,14 @@ export const ReceiptDetails = () => {
             {/* {!isFinishedOrder ? "Finished" : "Finish Order"} */}
             Finish Order
           </Button>
-          <Button
+          {/* <Button
             style={{ margin: "0px 13px" }}
             onClick={(e) => showConfirmDialog(e, "Sealed")}
             disabled={orderDetails[0]?.orderId?.status === 'Finished'}
           >
-            {/* {!isFinishedOrder ? "Sealed" : "Seal Order"} */}
+            {!isFinishedOrder ? "Sealed" : "Seal Order"}
             Seal Order
-          </Button>
+          </Button> */}
           <Button
             style={{ margin: "0px 13px" }}
             onClick={createCommitment}

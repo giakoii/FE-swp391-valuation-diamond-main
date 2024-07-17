@@ -5,7 +5,7 @@
   height: 100%;
   left: 0;
   bottom: 0;
-  background: #F8F0DE; /* Background color */
+  background: #f8f0de; /* Background color */
   transform: skew(-20deg); /* Skew transformation */
   z-index: -1; /* Ensure it's behind the content */
 }

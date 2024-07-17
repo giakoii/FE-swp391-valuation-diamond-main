@@ -14,14 +14,13 @@ import diamondLogo from "/assets/assetsCustomer/diamond-check.png"; // Replace w
 const CheckDiamond = () => {
   const [assess_id, setAssessId] = useState("");
   const navigate = useNavigate();
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
+  const handleSearch = async () => { 
+    try { 
+      const response = await fetch( 
         `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`
       );
-      if (!response.ok) {
-        throw new Error("Diamond not found");
+      if (!response.ok) { 
+        throw new Error("Diamond not found"); 
       }
       const data = await response.json();
       // Nếu thành công, điều hướng đến trang inforcheck và có thể xử lý dữ liệu nếu cần thiết
@@ -37,49 +36,51 @@ const CheckDiamond = () => {
     }
   };
 
-  return (
-    <Container>
-      <Row className="justify-content-md-center mt-5">
-        {/* Left Column: Text Content */}
-        <Col md="6" style={{marginTop:"50px"}}>
-          <div className="text-center mb-4" style={{ marginTop: "200px" }}>
-            <h1 style={{ textAlign: "left" }}>
-            <h1 style={{ fontSize: '1.5em', fontWeight: 'bold'  }}>Check any diamond's</h1>
-<h1 style={{ color: 'blue', fontSize: '1.5em',fontWeight: 'bold'  }}>price & quality</h1>
 
+  return ( 
+    <Container>  
+      <Row className="justify-content-md-center mt-5"> 
+        {/* Left Column: Text Content */} 
+        <Col md="6" style={{ marginTop: "50px" }}> 
+          <div className="text-center mb-4" style={{ marginTop: "200px" }}> 
+            <h1 style={{ textAlign: "left" }}>
+              <h1 style={{ fontSize: "1.5em", fontWeight: "bold" }}>
+                Check any diamond's
+              </h1>
+              <h1
+                style={{ color: "blue", fontSize: "1.5em", fontWeight: "bold" }}
+              >
+                price & quality
+              </h1>
             </h1>
             <p style={{ textAlign: "left" }}>
               Transact with confidence — get fair price, cut score, visual carat
               and more for free
             </p>
           </div>
-<InputGroup className="mb-3" style={{marginTop:"75px"}}>
-  <FormControl
-    style={{ height: '40px'}} // Điều chỉnh chiều cao của thành phần nhập liệu
-    placeholder="Enter Certificate Diamond"
-    aria-label="Diamond Assess ID"
-    aria-describedby="basic-addon2"
-    value={assess_id}
-    onChange={(e) => setAssessId(e.target.value)}
-  />
-  <Button
-    variant="primary"
-    className="ms-2 custom-button"
-    style={{fontWeight: 'bold'}}
-    onClick={handleSearch}
-  >
-    Run for Check
-  </Button>
-</InputGroup>
-
+          <InputGroup className="mb-3" style={{ marginTop: "75px" }}>
+            <FormControl
+              style={{ height: "40px" }} // Điều chỉnh chiều cao của thành phần nhập liệu
+              placeholder="Enter Certificate Diamond"
+              aria-label="Diamond Assess ID"
+              aria-describedby="basic-addon2"
+              value={assess_id}
+              onChange={(e) => setAssessId(e.target.value)}
+            />
+            <Button
+              variant="primary"
+              className="ms-2 custom-button"
+              style={{ fontWeight: "bold" }}
+              onClick={handleSearch}
+            >
+              Run for Check
+            </Button>
+          </InputGroup>
         </Col>
 
         {/* Right Column: Image, Search Input, and Button */}
         <Col md="6">
-          <div
-            className="d-flex justify-content-center mb-4"
-            
-          >
+          <div className="d-flex justify-content-center mb-4">
             <img
               src={diamondLogo}
               alt="Diamond Logo"
@@ -113,7 +114,6 @@ const CheckDiamond = () => {
                   }
               `}
             </style>
-           
           </div>
         </div>
       </Row>

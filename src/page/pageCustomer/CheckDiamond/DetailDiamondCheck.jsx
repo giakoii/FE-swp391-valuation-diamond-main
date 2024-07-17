@@ -61,7 +61,11 @@ const DetailDiamondCheck = () => {
 
       <div style={{ marginBottom: "25px", marginTop: "25px" }}>
         <Row>
-          <Col md={6} className="d-flex justify-content-end" style={{marginLeft:"100px"}}>
+          <Col
+            md={6}
+            className="d-flex justify-content-end"
+            style={{ marginLeft: "100px" }}
+          >
             <Form.Group>
               <img
                 src={diamond.imageUrl}
@@ -69,14 +73,12 @@ const DetailDiamondCheck = () => {
                 width="400px"
                 height="400px"
                 className="diamond-image"
-                
               />
             </Form.Group>
           </Col>
 
-
           <Col md={4}>
-            <div style={{marginBottom:"50px"}}>
+            <div style={{ marginBottom: "50px" }}>
               <div
                 style={{
                   width: "20%",
@@ -92,7 +94,7 @@ const DetailDiamondCheck = () => {
                     whiteSpace: "nowrap", // Đảm bảo chữ không bị xuống dòng
                   }}
                 >
-                  <span className="text-muted" >ASSESS DIAMOND ID:</span>
+                  <span className="text-muted">ASSESS DIAMOND ID:</span>
                 </Form.Label>
                 <div className="text-left">
                   <div
@@ -115,7 +117,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}>Assess Origin</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Assess Origin
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -136,7 +140,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted"style={{marginLeft:"20px"}}>Measurement</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Measurement
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -157,7 +163,10 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}> Fluorescence</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      {" "}
+                      Fluorescence
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -180,8 +189,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "25px" }}
                 >
                   <Form.FloatingLabel>
-                    <div className="text-muted" style={{marginLeft:"30px"}}>Assess Cut</div>
-                    
+                    <div className="text-muted" style={{ marginLeft: "30px" }}>
+                      Assess Cut
+                    </div>
                   </Form.FloatingLabel>
                   <Form.Control
                     type="text"
@@ -202,8 +212,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted"style={{marginLeft:"20px"}}
-                    >Assess Shape Cut</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Assess Shape Cut
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -224,7 +235,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}>Assess Color</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Assess Color
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -247,7 +260,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}>Assess Clarity</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Assess Clarity
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -268,7 +283,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}>Proportions</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Proportions
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -289,7 +306,9 @@ const DetailDiamondCheck = () => {
                   style={{ marginBottom: "20px" }}
                 >
                   <Form.Label>
-                    <span className="text-muted" style={{marginLeft:"20px"}}>Symmetry</span>
+                    <span className="text-muted" style={{ marginLeft: "20px" }}>
+                      Symmetry
+                    </span>
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -297,7 +316,7 @@ const DetailDiamondCheck = () => {
                     value={diamond.symmetry}
                     style={{
                       textAlign: "center",
-                      marginLeft:"10px",
+                      marginLeft: "10px",
                       fontStyle: "italic",
                       fontWeight: "bold",
                       border: "none",

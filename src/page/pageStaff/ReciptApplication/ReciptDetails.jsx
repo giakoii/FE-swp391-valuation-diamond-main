@@ -17,7 +17,6 @@ export const ReceiptDetails = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,16 +33,18 @@ export const ReceiptDetails = () => {
     };
     fetchData();
   }, [orderId]);
-  
+
   const viewCertificate = (orderDetailId) => {
-    navigate(`/staff/view-certificate/${orderDetailId}`)
-  }
+    navigate(`/staff/view-certificate/${orderDetailId}`);
+  };
   const createCommitment = async () => {
-    if(orderDetails[0]?.orderId?.status === 'In_Progress'){
-      toast.error('Your order have not completed')
-      return ;
+    if (orderDetails[0]?.orderId?.status === "In_Progress") {
+      toast.error("Your order have not completed");
+      return;
     }
-    navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, { state: { orderDetails } });
+    navigate(`/staff/commitment/${orderDetails[0]?.orderId?.orderId}`, {
+      state: { orderDetails },
+    });
   };
 
   const updateOrderStatus = async (status) => {
@@ -57,7 +58,10 @@ export const ReceiptDetails = () => {
       setOrderDetails((prevDetails) =>
         prevDetails.map((detail) => {
           if (detail.orderId.orderId === orderId) {
-            return { ...detail, orderId: { ...detail.orderId, status: status } };
+            return {
+              ...detail,
+              orderId: { ...detail.orderId, status: status },
+            };
           }
           return detail;
         })
@@ -71,9 +75,9 @@ export const ReceiptDetails = () => {
   };
 
   const showConfirmDialog = (e, status) => {
-    if(orderDetails[0]?.orderId?.status === 'In_Progress'){
-      toast.error('Your order have not completed')
-      return ;
+    if (orderDetails[0]?.orderId?.status === "In_Progress") {
+      toast.error("Your order have not completed");
+      return;
     }
     e.preventDefault();
     confirmAlert({
@@ -86,7 +90,7 @@ export const ReceiptDetails = () => {
         },
         {
           label: "Cancel",
-          onClick: () => { },
+          onClick: () => {},
         },
       ],
     });
@@ -131,8 +135,13 @@ export const ReceiptDetails = () => {
         <Row className="mb-4">
           <Col md={2}>Status:</Col>
           <Col md={3}>
-        
-            <Status status={orderDetails[0]?.orderId?.status === 'In_Progress' ? 'In-Progress' : orderDetails[0]?.orderId?.status} />
+            <Status
+              status={
+                orderDetails[0]?.orderId?.status === "In_Progress"
+                  ? "In-Progress"
+                  : orderDetails[0]?.orderId?.status
+              }
+            />
           </Col>
         </Row>
         <Table>
@@ -157,18 +166,38 @@ export const ReceiptDetails = () => {
                   <img src={product.img} alt="" height="80" width="80" />
                 </td>
                 <td>{product.serviceId.serviceType}</td>
-                <td style={{ backgroundColor: product.status ==='Finished' ? "none" : getColorTime(orderDetails[0]?.orderId?.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
+                <td
+                  style={{
+                    backgroundColor:
+                      product.status === "Finished"
+                        ? "none"
+                        : getColorTime(
+                            orderDetails[0]?.orderId?.orderDate,
+                            product.receivedDate
+                          ),
+                  }}
+                >
+                  {formattedDateTime(product.receivedDate)}
+                </td>
                 <td>{product.evaluationStaffId}</td>
                 <td>{product.size}</td>
                 <td>{product.isDiamond ? "Diamond" : "Not a diamond"}</td>
                 <td>
-                  <Status status={product.status === 'In_Progress' ? 'In-Progress' : product.status} />
+                  <Status
+                    status={
+                      product.status === "In_Progress"
+                        ? "In-Progress"
+                        : product.status
+                    }
+                  />
                 </td>
                 <td>{product.unitPrice}</td>
                 <td>
                   <Button
                     onClick={() => viewCertificate(product.orderDetailId)}
-                    disabled={product.status !== "Finished" || !product.isDiamond }
+                    disabled={
+                      product.status !== "Finished" || !product.isDiamond
+                    }
                   >
                     View
                   </Button>
@@ -181,23 +210,12 @@ export const ReceiptDetails = () => {
           <Button
             style={{ margin: "0px 13px" }}
             onClick={(e) => showConfirmDialog(e, "Finished")}
-             disabled={orderDetails[0]?.orderId?.status === 'Finished'}
+            disabled={orderDetails[0]?.orderId?.status === "Finished"}
           >
-            {/* {!isFinishedOrder ? "Finished" : "Finish Order"} */}
             Finish Order
           </Button>
-          {/* <Button
-            style={{ margin: "0px 13px" }}
-            onClick={(e) => showConfirmDialog(e, "Sealed")}
-            disabled={orderDetails[0]?.orderId?.status === 'Finished'}
-          >
-            {!isFinishedOrder ? "Sealed" : "Seal Order"}
-            Seal Order
-          </Button> */}
-          <Button
-            style={{ margin: "0px 13px" }}
-            onClick={createCommitment}
-          >
+
+          <Button style={{ margin: "0px 13px" }} onClick={createCommitment}>
             Create Commitment
           </Button>
         </div>

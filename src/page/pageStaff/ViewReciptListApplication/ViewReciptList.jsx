@@ -12,6 +12,7 @@ import { Status } from "../../../component/Status";
 import { Spinner } from "react-bootstrap";
 import updateById from "../../../utils/updateAPI/updateById";
 import { API_BASE_URL } from "../../../utils/constants/url";
+import getExpiredDateMax from "../../../utils/hook/getExpiredDateMax";
 
 export const ViewReciptList = () => {
   const [selection, setSelection] = useState([]);
@@ -45,25 +46,13 @@ export const ViewReciptList = () => {
     return data;
   };
 
-  // Get max expired received date
-  const getExpiredDateMax = (orders) => {
-    if (orders.length === 0) return null;
-    let maxDate = new Date(orders[0].expiredReceivedDate);
-    for (let i = 1; i < orders.length; i++) {
-      const currentDate = new Date(orders[i].expiredReceivedDate);
-      if (currentDate > maxDate) {
-        maxDate = currentDate;
-      }
-    }
-    return maxDate;
-  };
 
   // Determine row color based on expired date
   const determineRowColors = async (orders) => {
     const colors = {};
     for (const order of orders) {
       const orderDetails = await fetchOrderDetails(order.orderId);
-      const expiredDateMax = getExpiredDateMax(orderDetails);
+      const expiredDateMax = getExpiredDateMax(orderDetails)
       const now = new Date();
       if (expiredDateMax && expiredDateMax < now) {
         colors[order.orderId] = "#f99de9";
@@ -107,7 +96,7 @@ export const ViewReciptList = () => {
         );
         setSelection(sortedData);
         setFilteredSelection(sortedData);
-        await determineRowColors(sortedData); // Determine row colors after fetching data
+        await determineRowColors(sortedData); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -218,7 +207,7 @@ export const ViewReciptList = () => {
                 <td>{formattedDate(item.orderDate)}</td>
                 <td>{item.diamondQuantity}</td>
                 <td>
-                  <Status status={item.status} />
+                  <Status status={item.status === 'In_Progress' ? 'In-Progress' : item.status} />
                 </td>
                 <td>
                   <Button

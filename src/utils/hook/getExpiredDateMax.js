@@ -9,4 +9,5 @@ const getExpiredDateMax = (orderDetails) =>{
     }
     return maxDate
 }
+
 export default getExpiredDateMax

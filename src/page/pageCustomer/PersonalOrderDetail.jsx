@@ -8,58 +8,63 @@ import formattedDateTime from '../../utils/formattedDate/formattedDateTime';
 import { Status } from '../../component/Status';
 import { API_BASE_URL } from '../../utils/constants/url';
 import useAuth from '../../utils/hook/useAuth';
+import getExpiredDateMax from '../../utils/hook/getExpiredDateMax';
+import updateById from '../../utils/updateAPI/updateById';
 export const PersonalOrderDetail = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [isOrder, setIsOrder] = useState(false);
     const [order, setOrder] = useState({});
-    const { user } = useAuth()
+    const { user } = useAuth();
     const [orderDetails, setOrderDetails] = useState([]);
-
-    // get order detail by order id
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(
-                    `${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`
-                );
-                const data = await response.json();
-                setOrderDetails(data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            } finally {
-                setLoading(false);
+    
+    const fetchData = async () => {
+        try {
+            const [orderResponse, orderDetailsResponse] = await Promise.all([
+                fetch(`${API_BASE_URL}/order_request/getOrder/${orderId}`),
+                fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`)
+            ]);
+            
+            if (!orderResponse.ok || !orderDetailsResponse.ok) {
+                throw new Error('Failed to fetch data');
             }
-        };
+            
+            const orderData = await orderResponse.json();
+            const orderDetailsData = await orderDetailsResponse.json();
+            setOrderDetails(orderDetailsData);
+
+            const updatedOrder = await updateOrderStatus(orderData, orderDetailsData);
+            setOrder(updatedOrder);
+            setIsOrder(true);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const updateOrderStatus = async (order, orderDetails) => {
+        const allFinished = orderDetails?.every((detail) => detail.status === 'Finished');
+        const expiredDateMax = getExpiredDateMax(orderDetails);
+        const now = new Date();
+  
+        if (allFinished && (order.status !== 'Finished' && order.status !== 'Sealed')) {
+            await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status', 'Completed');
+            order.status = 'Completed';
+        } 
+        if (expiredDateMax && expiredDateMax < now && (order.status === 'Completed')) {
+            console.log('Updating status to Sealed for order:', order.orderId);
+            await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status', 'Sealed');
+            order.status = 'Sealed';
+        }
+        return order;
+    };
+
+    useEffect(() => {
         fetchData();
     }, [orderId]);
-    // get order by order id 
-    useEffect(() => {
-        const fetchOrderData = async () => {
-            try {
-                const response = await fetch(`${API_BASE_URL}/order_request/getOrder/${orderId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch order details');
-                }
-                const data = await response.json();
-                if (data != null) {
-                    setOrder(data);
-                    
-                    setIsOrder(true);
-                }
-            } catch (error) {
-                console.error('Error fetching order data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchOrderData();
-        return () => {
-            setLoading(false);
-        };
-    }, [orderId]);
-    
+
     if (loading) {
         return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
     }

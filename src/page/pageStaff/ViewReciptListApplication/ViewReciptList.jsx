@@ -13,6 +13,7 @@ import { Spinner } from "react-bootstrap";
 import updateById from "../../../utils/updateAPI/updateById";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import getExpiredDateMax from "../../../utils/hook/getExpiredDateMax";
+import { max } from "@cloudinary/url-gen/actions/roundCorners";
 
 export const ViewReciptList = () => {
   const [selection, setSelection] = useState([]);
@@ -48,23 +49,15 @@ export const ViewReciptList = () => {
 
 
   // Determine row color based on expired date
-  const determineRowColors = async (orders) => {
-    const colors = {};
-    for (const order of orders) {
-      const orderDetails = await fetchOrderDetails(order.orderId);
-      const expiredDateMax = getExpiredDateMax(orderDetails)
-      const now = new Date();
-      if (expiredDateMax && expiredDateMax < now) {
-        colors[order.orderId] = "#f99de9";
-      }
-    }
-    setRowColors(colors);
-  };
+  
  
   // Update order details 
   const checkAndUpdateOrderStatus = async (orders) => { 
     for (const order of orders) { 
       const orderDetails = await fetchOrderDetails(order.orderId); 
+      const maxDate = getExpiredDateMax(orderDetails);
+      console.log("maxDate:", order.orderId, maxDate);
+      const now = new Date();
       const allFinished = orderDetails.every( 
         (detail) => detail.status === "Finished" 
       ); 
@@ -78,10 +71,22 @@ export const ViewReciptList = () => {
           order.orderId,
           "status",
           "Completed"
+          
         );
         order.status = "Completed";
       }
+       if (maxDate && maxDate < now && order.status === "Completed"){
+        await updateById(
+          `${API_BASE_URL}/order_request/updateStatus`,
+          order.orderId,
+          "status",
+          "Sealed"
+        );
+        order.status = "Sealed";
+
+      }
     }
+
     return orders;
   };
 
@@ -96,7 +101,6 @@ export const ViewReciptList = () => {
         );
         setSelection(sortedData);
         setFilteredSelection(sortedData);
-        await determineRowColors(sortedData); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);

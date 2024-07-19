@@ -304,12 +304,12 @@ export const CreateReceipt = () => {
     }
   }
 `;
-  return (   
-    <div> 
-      <style>{printStyles}</style> 
+  return (
+    <div>
+      <style>{printStyles}</style>
       {reviewMode ? (
-        <div style={{ width: "90%", marginLeft: "100px" }}> 
-          <h2 className="d-flex justify-content-center">Review Order</h2> 
+        <div style={{ width: "90%", marginLeft: "100px" }}>
+          <h2 className="d-flex justify-content-center">Review Order</h2>
 
           <Button
             style={{
@@ -532,14 +532,14 @@ export const CreateReceipt = () => {
           </div>
           <div className="d-flex justify-content-end" style={{ width: "90%" }}>
             <Button className="btn btn-success me-4" type="submit">
-              Accept
+              Send
             </Button>
             <Button onClick={handleReviewMode}>Review</Button>
           </div>
         </form>
-      )}
-    </div>
-  );
-};
+      )} 
+    </div> 
+  ); 
+}; 
 
 export default CreateReceipt;

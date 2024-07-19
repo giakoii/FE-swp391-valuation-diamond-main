@@ -8,10 +8,8 @@ import { confirmAlert } from "react-confirm-alert";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { API_BASE_URL } from "../../../utils/constants/url";
-import updateById from "../../../utils/updateAPI/updateById";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
-
 
 // ROLE: VALUATION_STAFF
 export const ValuationApplication = () => {
@@ -22,6 +20,7 @@ export const ValuationApplication = () => {
   const [orderDetail, setOrderDetail] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [errorCarat, setErrorCarat] = useState('')
+  const [errorPrice, setErrorPrice] = useState('')
 
   //GET VALUATION BY VALUATION ORDER DETAILS
   useEffect(() => {
@@ -75,9 +74,9 @@ export const ValuationApplication = () => {
 
   console.log(marketPrice)
   const handleOnChange = (e) => {
-  
     const { name, value } = e.target;
     setErrorCarat("");
+    setErrorPrice("")
     if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
         ...currentState,
@@ -91,10 +90,16 @@ export const ValuationApplication = () => {
   };
   const viewMarketPrice = () => {
     const caratWeight = Number.parseFloat(marketPrice.caratWeight)
-    if (caratWeight < 0.3 || caratWeight > 50) {
-      setErrorCarat("Carat Weight must be between 0.3 and 50")
+
+    if (isNaN(caratWeight)) {
+     setErrorCarat ( "Carat weight must include only number");
+     return 
+    }
+    if ((caratWeight < 2 || caratWeight > 50)) {
+      setErrorCarat("Carat Weight must be between 2 and 50 carat")
       return;
     }
+
     const queryParams = new URLSearchParams(marketPrice).toString();
     const fetchData = async () => {
       try {
@@ -122,7 +127,6 @@ export const ValuationApplication = () => {
       if (!response.ok) {
         return false;
       }
-      // Check if the response body is empty
       const text = await response.text();
       if (!text) {
         return false;
@@ -147,6 +151,7 @@ export const ValuationApplication = () => {
       toast.error("Sample ID already exists. Cannot create duplicate sample.");
       return;
     }
+
 
     confirmAlert({
       title: "Confirm to Finish",
@@ -189,13 +194,6 @@ export const ValuationApplication = () => {
         const res = await response.json();
         console.log(res)
         toast.success("Create successfully");
-       
-        // const updateFinishedOrder = await updateById(`${API_BASE_URL}/order_detail_request/getOrderDe/`,orderDetail,'status','Finished')
-        // if(updateFinishedOrder){
-        //   toast.success("Create and Update Finished sample successfully");
-        // }else{
-        //   toast.error("Failed to update Finished sample")
-        // }
       }
       console.log("Submitted data", data);
     } catch (error) {
@@ -302,7 +300,7 @@ export const ValuationApplication = () => {
                       required: "Measurements is required",
                       minLength: {
                         value: 2,
-                        message: "Measurements length must be at least 3 characters"
+                        message: "Measurements length must be at least 2 characters"
                       },
                       maxLength: {
                         value: 20,
@@ -334,7 +332,6 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-
                     onChange={handleOnChange}
                   >
                     <option value=""></option>
@@ -379,8 +376,6 @@ export const ValuationApplication = () => {
                 </Col>
               </Row>
             </div>
-
-
             <div className="my-4 ms-4" style={{ width: "500px" }}>
               <h4
                 className="text-center py-1"
@@ -395,7 +390,8 @@ export const ValuationApplication = () => {
                 <Col md={5}>
                   <input
                     type="number"
-                    min={0}
+                    min={2}
+                    max={50}
                     step="0.01"
                     id="caratWeight"
                     {...result("caratWeight", { required: "Carat Weight is required" })}
@@ -404,7 +400,6 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                    // value={result.caratWeight || ""}
                     onChange={handleOnChange}
                   />
                   {errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}
@@ -419,7 +414,6 @@ export const ValuationApplication = () => {
                 <Col md={5}>
                   <select
                     id="color"
-                    // value={result.color || ""}
                     {...result("color", { required: "Color Grade is required" })}
                     style={{
                       border: "none",
@@ -599,7 +593,6 @@ export const ValuationApplication = () => {
                       borderBottom: "solid",
                       width: "100%",
                     }}
-                  // onChange={handleOnChange}
                   />
                   {errors.proportions && <span className="text-danger">{errors.proportions.message}</span>}
                 </Col>
@@ -614,7 +607,9 @@ export const ValuationApplication = () => {
                     type="number"
                     min={0}
                     id="price"
-                    {...result("price", { required: "Price is required" })}
+                    {...result("price", { 
+                      required: "Price is required",
+                    })}
                     style={{
                       border: "none",
                       borderBottom: "solid",

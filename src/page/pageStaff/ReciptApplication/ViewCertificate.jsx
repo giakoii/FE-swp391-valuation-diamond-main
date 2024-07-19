@@ -38,7 +38,7 @@ export const ViewCertificate = () => {
 
     const showConfirmPrint = (e) => {
         e.preventDefault();
-        console.log('Certificate:', certificate); 
+        console.log('Certificate:', certificate);
         if (certificate === null) {
             toast.error('Fail to print: certificate is not completed');
             return;
@@ -65,7 +65,7 @@ export const ViewCertificate = () => {
 
     return (
         <Container>
-            <ToastContainer />                    
+            <ToastContainer />
             <img
                 src="/assets/assetsStaff/back.svg"
                 alt="go back"
@@ -74,7 +74,7 @@ export const ViewCertificate = () => {
                 width="20"
                 onClick={() => {
                     navigate(-1)
-                } }
+                }}
             />
             {!isPrint ? (
                 <Form>
@@ -90,15 +90,15 @@ export const ViewCertificate = () => {
                         <Col md={8} className="d-flex flex-column justify-content-center align-items-center">
                             <h1 className="text-center my-3">Diamond Valuation Report</h1>
                             <Row className=" w-100" >
-                            <Stack direction="horizontal" className='justify-content-center'>
-                            <Col md={6} className="text-center w-25 fw-bold">
-                                <div>Certificate Number</div>
-                            </Col>
-                            <Col md={6} className="text-center w-25 fw-bold">
-                                <div>{certificate?.evaluationResultId}</div>
-                            </Col>
-                            </Stack>
-                        </Row>
+                                <Stack direction="horizontal" className='justify-content-center'>
+                                    <Col md={6} className="text-center w-25 fw-bold">
+                                        <div>Certificate Number</div>
+                                    </Col>
+                                    <Col md={6} className="text-center w-25 fw-bold">
+                                        <div>{certificate?.evaluationResultId}</div>
+                                    </Col>
+                                </Stack>
+                            </Row>
                         </Col>
                     </Row>
 
@@ -135,7 +135,7 @@ export const ViewCertificate = () => {
                                         <Form.Label>Description</Form.Label>
                                     </Col>
                                     <Col md={6}>
-                                        <p>{certificate?.description}</p>
+                                        <div style={{ maxWidth: 260, wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>{certificate?.description}</div>
                                     </Col>
                                 </Row>
                             </div>

@@ -32,7 +32,7 @@ import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
 import Typevaluation from './page/pageCustomer/TypeValuation/Typevaluation.jsx';
-import {Profile} from './page/pageCustomer/Profile.jsx'
+import { Profile } from './page/pageCustomer/Profile.jsx'
 // import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
@@ -51,7 +51,6 @@ import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCh
 import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
 import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
-import { OrderProvider } from './contexts/OrderContext/OrderContext.jsx';
 
 
 function App() {
@@ -87,19 +86,13 @@ function App() {
             element={<PersonalRequestDetail />}
           />
           <Route path="my-order" element={
-          <OrderProvider>
             <PersonalOrder />
-          </OrderProvider>  
-            } />
+          } />
           <Route path="my-order/:orderId" element={
-            <OrderProvider>
-              <PersonalOrderDetail />
-            </OrderProvider>
-            
-            } />
+            <PersonalOrderDetail />
+          } />
           <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
-
         {/* ROLE:GUEST*/}
         <Route element={<CustomerApp />}>
           <Route

@@ -20,7 +20,6 @@ function Calculate() {
   
   const navigate = useNavigate();
   // console.log(diamondCalculate)
-
   const selectedOption = (type, item) => {
     setDiamondCalculate((currentItem) => ({
       ...currentItem,

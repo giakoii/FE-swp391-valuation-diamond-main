@@ -218,7 +218,7 @@ export const UserRequest = () => {
                           value={editStatus}
                           onChange={(e) => setEditStatus(e.target.value)} // Cập nhật editStatus khi thay đổi
                         >
-                          <option value="Requesting">Requesting</option>
+                          <option value="Requesting" disabled>Requesting</option>
                           <option value="Accepted">Accepted</option>
                           <option value="Canceled">Canceled</option>
                         </Form.Select>

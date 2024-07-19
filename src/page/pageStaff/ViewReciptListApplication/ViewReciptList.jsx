@@ -19,7 +19,7 @@ export const ViewReciptList = () => {
   const [selection, setSelection] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredSelection, setFilteredSelection] = useState([]);
-  const [rowColors, setRowColors] = useState({});
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -205,7 +205,7 @@ export const ViewReciptList = () => {
           <tbody>
             {currentOrders.map((item) => (
               <tr key={item.orderId}>
-                <td style={{ backgroundColor: rowColors[item.orderId] }}>
+                <td>
                   {item.orderId}
                 </td>
                 <td>{formattedDate(item.orderDate)}</td>

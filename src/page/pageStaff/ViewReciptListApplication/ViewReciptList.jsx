@@ -13,7 +13,7 @@ import { Spinner } from "react-bootstrap";
 import updateById from "../../../utils/updateAPI/updateById";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import getExpiredDateMax from "../../../utils/hook/getExpiredDateMax";
-import { max } from "@cloudinary/url-gen/actions/roundCorners";
+
 
 export const ViewReciptList = () => {
   const [selection, setSelection] = useState([]);

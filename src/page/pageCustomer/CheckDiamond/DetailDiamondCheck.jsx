@@ -251,6 +251,7 @@ const DetailDiamondCheck = () => {
                     <span className="text-muted" style={{ marginLeft: "20px" }}>
                       Fluorescence
                     </span>
+                    
                   </Form.Label>
                   <Form.Control
                     type="text"

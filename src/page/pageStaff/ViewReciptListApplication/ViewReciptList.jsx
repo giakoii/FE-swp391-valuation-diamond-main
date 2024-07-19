@@ -114,15 +114,17 @@ export const ViewReciptList = () => {
   const handleSearch = () => {
     const filteredData = selection.filter(
       (item) =>
-        item.orderId.toString().includes(searchTerm) ||
+        item.orderId.toString().trim().includes(searchTerm.trim()) ||
         item.status
           .toLowerCase()
           .trim()
           .includes(searchTerm.toLowerCase().trim())
     );
     setFilteredSelection(filteredData);
+    setCurrentPage(1);
   };
 
+  
   const viewDetail = (item) => {
     navigate(`/staff/view-receipt/${item.orderId}`, { state: { item } });
   };

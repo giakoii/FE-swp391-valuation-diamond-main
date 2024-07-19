@@ -14,21 +14,21 @@ const DetailDiamondCheck = () => {
   const [priceLoading, setPriceLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDiamondDetails = async () => {
-      try {
-        const response = await fetch(
+  useEffect(() => { 
+    const fetchDiamondDetails = async () => { 
+      try { 
+        const response = await fetch( 
           `https://valuation.techtheworld.id.vn/api/diamond-assessments/DiamondAssessmentByIDDB2/${assess_id}`
-        );
-        if (!response.ok) {
-          throw new Error("Diamond not found");
-        }
-        const data = await response.json();
-        setDiamond(data);
-
+        ); 
+        if (!response.ok) { 
+          throw new Error("Diamond not found"); 
+        } 
+        const data = await response.json(); 
+        setDiamond(data); 
+ 
         // Fetch baseFinalPrice after diamond details are set
         setPriceLoading(true);
-
+ 
         const assessmentParam = `diamondOrigin=${data?.assessOrigin}&caratWeight=${data?.assessCarat}&shape=${data?.assessShapeCut}&cut=${data?.assessCut}&fluorescence=${data?.fluorescence}&symmetry=${data?.symmetry}&clarity=${data?.assessClarity}&color=${data?.assessColor}&polish=${data?.polish}`;
         console.log(assessmentParam);
         console.log("diamond:", data);

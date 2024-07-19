@@ -12,7 +12,6 @@ import { UserRequest } from "./page/pageStaff/Request/UserRequest.jsx";
 import { ViewReciptList } from "./page/pageStaff/ViewReciptListApplication/ViewReciptList.jsx";
 import { CreateReceipt } from "./page/pageStaff/ReciptApplication/CreateRecipt.jsx";
 import CreateCommitment from "./page/pageStaff/Commitment/CreateCommitment.jsx";
-import { PersonalInformation } from "./page/pageStaff/PersonalInformation";
 import { ValuationApplication } from "./page/pageValuationStaff/ValuationApplication/ValuationApplication.jsx";
 import { ReceiptDetails } from "./page/pageStaff/ReciptApplication/ReciptDetails.jsx";
 import { ValuationList } from "./page/pageValuationStaff/ValuationApplication/ValuationList.jsx";
@@ -21,7 +20,8 @@ import { ViewCertificate } from "./page/pageStaff/ReciptApplication/ViewCertific
 import { MyCertificateList } from "./page/pageValuationStaff/ValuationApplication/MyCertificateList.jsx";
 import { CertificateDetail } from "./page/pageValuationStaff/ValuationApplication/CertificateDetail.jsx";
 // Customer Pages
-import HomeCustomer from "./page/pageCustomer/HomeCustomer.jsx";
+
+import HomeCustomer from './page/pageCustomer/HomeCustomer/HomeCustomer.jsx';
 import Signup from "./page/pageCustomer/Signup";
 import Contact from './page/pageCustomer/Contact/Contact.jsx';
 import EvaluationServicePage from "./page/pageCustomer/EvaluationServicePage";
@@ -32,7 +32,7 @@ import { PersonalOrder } from './page/pageCustomer/PersonalOrder.jsx';
 import { PersonalOrderDetail } from './page/pageCustomer/PersonalOrderDetail.jsx';
 import { ChangePassword } from './page/pageCustomer/ChangePassword.jsx';
 import Typevaluation from './page/pageCustomer/TypeValuation/Typevaluation.jsx';
-import {Profile} from './page/pageCustomer/Profile.jsx'
+import { Profile } from './page/pageCustomer/Profile.jsx'
 // import { OTPConfirm } from './page/pageCustomer/OTPConfirm.jsx';
 // Admin Pages
 import { DashBoard } from "./page/pageAdmin/dashBoard/dashBoard.jsx";
@@ -50,6 +50,7 @@ import CheckDiamond from './page/pageCustomer/CheckDiamond/CheckDiamond.jsx';
 import DetailDiamondCheck from './page/pageCustomer/CheckDiamond/DetailDiamondCheck.jsx';
 import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
+import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
 
 
 function App() {
@@ -84,11 +85,14 @@ function App() {
             path="my-request/:requestId"
             element={<PersonalRequestDetail />}
           />
-          <Route path="my-order" element={<PersonalOrder />} />
-          {/* sẽ sửa lại thành order detail sau*/}
-          <Route path="my-order/:orderId" element={<PersonalOrderDetail />} />
+          <Route path="my-order" element={
+            <PersonalOrder />
+          } />
+          <Route path="my-order/:orderId" element={
+            <PersonalOrderDetail />
+          } />
+          <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
-
         {/* ROLE:GUEST*/}
         <Route element={<CustomerApp />}>
           <Route
@@ -137,7 +141,6 @@ function App() {
             path="commitment-list/:committedId"
             element={<CommitmentDetail />}
           />
-          <Route path="personal-info" element={<PersonalInformation />} />
           <Route path="valuation-result-list" element={<ValuationList />} />
 
         </Route>
@@ -166,7 +169,6 @@ function App() {
             </RoleBasedGuard>
           </AuthGuard>
         }>
-          
           <Route path="dashboard" element={<DashBoard />} />
           <Route path="managecustomer" element={<ManageCustomer />} />
           <Route path="managestaff" element={<ManageStaff />} />

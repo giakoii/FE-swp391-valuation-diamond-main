@@ -3,7 +3,6 @@ import { Row, Col, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import formattedDateTime from "../../../utils/formattedDate/formattedDateTime";
 import { API_BASE_URL } from "../../../utils/constants/url";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
@@ -40,8 +39,6 @@ export const UserRequestDetails1 = ({ userRequestDetail }) => {
         throw new Error('Failed to update meeting date');
       }
       const data = await response.json();
-      console.log('Ater update')
-      console.log('res',data);
 
       if (data) {
         toast.success("Update meeting date successful");

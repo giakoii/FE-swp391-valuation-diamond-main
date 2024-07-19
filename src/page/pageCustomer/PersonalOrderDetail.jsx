@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Spinner, Stack, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from 'react-router-dom';
 import formattedDate from '../../utils/formattedDate/formattedDate';
@@ -11,64 +8,68 @@ import formattedDateTime from '../../utils/formattedDate/formattedDateTime';
 import { Status } from '../../component/Status';
 import { API_BASE_URL } from '../../utils/constants/url';
 import useAuth from '../../utils/hook/useAuth';
+import getExpiredDateMax from '../../utils/hook/getExpiredDateMax';
+import updateById from '../../utils/updateAPI/updateById';
 export const PersonalOrderDetail = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [isOrder, setIsOrder] = useState(false);
-    const { user } = useAuth()
-
     const [order, setOrder] = useState({});
+    const { user } = useAuth();
     const [orderDetails, setOrderDetails] = useState([]);
-    // get order detail by order id
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(
-                    `${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`
-                );
-                const data = await response.json();
-                setOrderDetails(data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            } finally {
-                setLoading(false);
+    
+    const fetchData = async () => {
+        try {
+            const [orderResponse, orderDetailsResponse] = await Promise.all([
+                fetch(`${API_BASE_URL}/order_request/getOrder/${orderId}`),
+                fetch(`${API_BASE_URL}/order_detail_request/orderDetail/${orderId}`)
+            ]);
+            
+            if (!orderResponse.ok || !orderDetailsResponse.ok) {
+                throw new Error('Failed to fetch data');
             }
-        };
+            
+            const orderData = await orderResponse.json();
+            const orderDetailsData = await orderDetailsResponse.json();
+            setOrderDetails(orderDetailsData);
+
+            const updatedOrder = await updateOrderStatus(orderData, orderDetailsData);
+            setOrder(updatedOrder);
+            setIsOrder(true);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const updateOrderStatus = async (order, orderDetails) => {
+        const allFinished = orderDetails?.every((detail) => detail.status === 'Finished');
+        const expiredDateMax = getExpiredDateMax(orderDetails);
+        const now = new Date();
+  
+        if (allFinished && (order.status !== 'Finished' && order.status !== 'Sealed')) {
+            await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status', 'Completed');
+            order.status = 'Completed';
+        } 
+        if (expiredDateMax && expiredDateMax < now && (order.status === 'Completed')) {
+            console.log('Updating status to Sealed for order:', order.orderId);
+            await updateById(`${API_BASE_URL}/order_request/updateStatus`, order.orderId, 'status', 'Sealed');
+            order.status = 'Sealed';
+        }
+        return order;
+    };
+
+    useEffect(() => {
         fetchData();
     }, [orderId]);
-    // get order by order id 
-    useEffect(() => {
-        const fetchOrderData = async () => {
-            try {
-                const response = await fetch(`${API_BASE_URL}/order_request/getOrder/${orderId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch order details');
-                }
-                const data = await response.json();
-                if (data != null) {
-                    setOrder(data);
-                    
-                    setIsOrder(true);
-                }
-            } catch (error) {
-                console.error('Error fetching order data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchOrderData();
-        return () => {
-            setLoading(false);
-        };
-    }, [orderId]);
-    
+
     if (loading) {
         return <div className="text-center my-4" style={{ minHeight: '500px' }}><Spinner animation="border" /></div>;
     }
     return (
         <div style={{minHeight:700}} >
-            <ToastContainer />
             <div className=" mx-4">
                 <i className="bi bi-arrow-90deg-left"
                     onClick={() => {
@@ -108,7 +109,7 @@ export const PersonalOrderDetail = () => {
                                                     <div>{formattedDate(orderDetail.expiredReceivedDate)}</div>
                                                 </Col>
                                                 <Col md={2} className='d-flex align-items-center'>
-                                                    <Status status={orderDetail.status} />
+                                                <Status status={orderDetail.status === 'In_Progress' ? 'In-Progress' : orderDetail.status} />
                                                 </Col>
                                                 <Col md={2}>
                                                     <div className='fw-bold'>Is Diamond:</div>
@@ -116,10 +117,15 @@ export const PersonalOrderDetail = () => {
                                                         {(orderDetail.isDiamond ? "Diamond" : "Not a diamond")}
                                                     </div>
                                                 </Col>
-
                                                 <Col md={2}>
                                                     <div className='fw-bold'>Unit Price</div>
-                                                    <div style={{ alignItems: "center" }}>{orderDetail.unitPrice}</div>
+                                                    <div style={{ alignItems: "center", marginBottom:"10px" }}>{orderDetail.unitPrice}</div>
+                                                    <Button variant='info' disabled={(orderDetail.status !== 'Finished' ||orderDetail.status !== 'Sealed') && !orderDetail.isDiamond } onClick={()=>{
+                                                        navigate(`/my-certificate/${orderDetail.orderDetailId}`)
+                                                        
+                                                    }}>
+                                                        Certificate
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </div>
@@ -127,17 +133,13 @@ export const PersonalOrderDetail = () => {
                                 </div>
                             </div>
                         </Col>
-
-                        {/* Information of order */}
                         <Col md={4} className='border border-dark rounded m-4' style={{ maxHeight: 300 }}>
                             <div >
                                 <div className='mt-3'>
                                     <h3 style={{ backgroundColor: "#CCFBF0", padding: "10px 10px " }}>
                                         Your Order
                                     </h3>
-
                                 </div>
-                                {/* Order Infor mation */}
                                 <div>
                                     <Row className='my-4'>
                                         {/* User */}
@@ -166,7 +168,7 @@ export const PersonalOrderDetail = () => {
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold mb-1'>Status</div>
-                                                    {isOrder && <Status status={order.status} />}
+                                                    {isOrder &&  <Status status={order.status === 'In_Progress' ? 'In-Progress' : order.status} />}
                                                 </div>
                                                 <div className='mb-3'>
                                                     <div className='fw-bold'>Created Order Date</div>

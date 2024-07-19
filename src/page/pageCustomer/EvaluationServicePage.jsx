@@ -3,12 +3,12 @@ import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import useAuth from '../../utils/hook/useAuth';
-
+import { formValidRequest } from '../../utils/validation/valAdd';
 dayjs.extend(utc); // Kích hoạt plugin utc
 
 function EvaluationServicePage() {
   const { user } = useAuth();
-  const [formRequest, setFormRequest] = useState({
+  const initialFormState = {
     service: '',
     phoneNumber: '',
     guestName: '',
@@ -16,7 +16,9 @@ function EvaluationServicePage() {
     requestDescription: '',
     userId: '',
     requestDate: '' // This will hold the formatted date
-  });
+  };
+  
+  const [formRequest, setFormRequest] = useState(initialFormState);
 
   useEffect(() => {
     if (user) {
@@ -29,7 +31,7 @@ function EvaluationServicePage() {
       }));
     }
   }, [user]);
-  
+
   const getCurrentDate = () => {
     return dayjs().utc(true).format('MM/DD/YYYY, HH:mm');
   };
@@ -44,7 +46,9 @@ function EvaluationServicePage() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
+    if(!formValidRequest(formRequest.guestName,formRequest.phoneNumber,formRequest.requestDescription)){
+      return;
+    }
     const requestData = {
       ...formRequest,
       requestDate: getCurrentDate() 
@@ -82,6 +86,14 @@ function EvaluationServicePage() {
         button: "OK"
       });
     }
+  };
+
+  const handleOnClear = () => {
+    setFormRequest( prevState => ({
+      ...initialFormState,
+      userId: prevState.userId
+    })
+    );
   };
 
   return (
@@ -152,7 +164,7 @@ function EvaluationServicePage() {
               <label htmlFor="requestEmail" className='px-1'> Email: </label>
               <input
                 id="requestEmail"
-                type="text"
+                type="email"
                 name="requestEmail"
                 value={formRequest.requestEmail}
                 className="mt-1 px-2"
@@ -194,7 +206,9 @@ function EvaluationServicePage() {
             />
           </div>
           <div className="form-button text-center">
-            <button type="submit" className="btn fw-bold py-3 px-3 my-3" style={{ backgroundColor: "#CCFBF0", borderColor: "black", marginLeft: "70%" }}>SEND</button>
+            <button type="button" className="btn fw-bold py-3 px-3 my-3" style={{ backgroundColor: "#CCFBF0", borderColor: "black", marginRight: "10px",marginLeft:'60%' }} onClick={handleOnClear}>CLEAR</button>
+              <button type="submit" className="btn fw-bold py-3 px-3 my-3" style={{ backgroundColor: "#CCFBF0", borderColor: "black" }}>SEND</button>
+            
           </div>
         </form>
       </div>

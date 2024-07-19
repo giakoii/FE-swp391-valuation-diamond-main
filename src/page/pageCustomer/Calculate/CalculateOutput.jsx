@@ -13,8 +13,8 @@ export const CalculateOutput = () => {
   const [error, setError] = useState(null);
   const location = useLocation();
 
+  //default price
   const queryParams = new URLSearchParams(location.search).toString();
-  // set default neu ko co queryParams
   const diamondCalculateDefault = {
     diamondOrigin: "Natural",
     shape: "Round",
@@ -26,9 +26,23 @@ export const CalculateOutput = () => {
     polish: "Fair",
     fluorescence: "Very Strong",
   };
+  // default recommend list
+  const diamondRecommendDefault = {
+    assessOrigin: "Natural",
+    assessShapeCut: "Round",
+    assessCarat: 1,
+    assessClarity: "FL",
+    assessColor: "K",
+    assessCut: "Fair",
+    symmetry: "Fair",
+    polish: "Fair",
+    fluorescence: "Very Strong",
+  }
   const queryParamsDefault = new URLSearchParams(diamondCalculateDefault).toString()
-  console.log(queryParamsDefault)
-
+  // get list recommend after calculate
+  const query = new URLSearchParams(queryParams)
+  const queryRecommendDefault = new URLSearchParams(diamondRecommendDefault).toString()
+  const queryRecommendCalculate = `assessOrigin=${query.get('diamondOrigin')}&assessShapeCut=${query.get('shape')}&assessCarat=${query.get('caratWeight')}&assessClarity=${query.get('clarity')}&assessColor=${query.get('color')}&assessCut=${query.get('cut')}&symmetry=${query.get('symmetry')}&polish=${query.get('polish')}&fluorescence=${query.get('fluorescence')}`
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -55,12 +69,12 @@ export const CalculateOutput = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          queryParams ? `${API_BASE_URL}/api/diamond-assessments/search?${queryParams}` : `${API_BASE_URL}/api/diamond-assessments/search?${queryParamsDefault}`
+          queryParams ? `${API_BASE_URL}/api/diamond-assessments/search?${queryRecommendCalculate}` : `${API_BASE_URL}/api/diamond-assessments/search?${queryRecommendDefault}`
         );
         const data = await response.json();
-        const sortData = data.sort((a,b)=> b.price -a.price)
+        const sortData = data.sort((a, b) => a.price - b.price)
         setResultRecommend(sortData);
-        console.log(sortData)
+        console.log('assess', sortData)
       } catch (error) {
         setError(error);
       } finally {
@@ -99,7 +113,7 @@ export const CalculateOutput = () => {
           </div>
           <div className="d-flex justify-content-center">
             <div className="quality-diamond">
-  
+
             </div>
           </div>
           <div className="d-flex justify-content-center">
@@ -137,7 +151,7 @@ export const CalculateOutput = () => {
                 </Col>
                 <Col md={9} className="m-2">
                   <div className="d-flex justify-content-between align-items-center">
-                  <div className="text-center">
+                    <div className="text-center">
                       <div className="fw-bold">{store.assessOrigin}</div>
                       <div>Origin</div>
                     </div>

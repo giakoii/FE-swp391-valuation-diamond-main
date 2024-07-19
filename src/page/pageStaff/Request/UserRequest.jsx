@@ -27,7 +27,7 @@ export const UserRequest = () => {
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
+  const [postsPerPage] = useState(8);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,9 +44,8 @@ export const UserRequest = () => {
         const sortedData = data.sort(
           (a, b) => Date.parse(b.requestDate) - Date.parse(a.requestDate)
         );
-      // tự cập nhật cancel khi khách ko phản hồi qúa 1 ngày
          for (let request of sortedData) {
-          if (request.status === "Requesting" && dayjs().diff(request.requestDate, 'hour') > 2) {
+          if (request.status === "Requesting" && dayjs().diff(request.requestDate, 'day') > 1) {
             const res = await updateById(`${API_BASE_URL}/evaluation-request/update`, request.requestId, 'status', 'Canceled');
             if (res && res.status === 'Canceled') {
               request.status = 'Canceled';

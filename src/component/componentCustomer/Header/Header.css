@@ -2,5 +2,45 @@
     background-color:#E2FBF5 ;
 }
 .button-sign-in{
-    background-color: #7CF4DE;
+    background-color: #ecf3f2;
 }
+/* Header.css */
+.login-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px;
+  border: 2px solid #100900d5; /* Viền */
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: white;
+}
+
+.login-link:hover {
+  background-color: #3c109c; /* Màu nền khi hover */
+  color: #fff; /* Màu văn bản khi hover */
+  
+}
+
+  /* Header.css */
+.nav-link, .nav-dropdown-item {
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+  }
+  
+  .nav-link:hover, .nav-dropdown-item:hover {
+    background-color: #d5af7c; /* Màu vàng nâu */
+    color: #fff; /* Màu văn bản khi hover */
+    border-radius: 5px;
+    
+  }
+  
+  .nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  

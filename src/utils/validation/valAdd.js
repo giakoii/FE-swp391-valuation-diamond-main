@@ -145,7 +145,7 @@ export const validateEditForm2 = (firstname, lastname, phoneNumber, address, bir
   }
 
   if (!validatePhoneNumber(phoneNumber)) {
-    showAlert('Error', 'Phone number must be 10 digits and start with 0.', 'error');
+    showAlert('Error', 'Phone number must be 10 digits number and start with 0.', 'error');
     return false;
   }
 
@@ -161,3 +161,29 @@ export const validateEditForm2 = (firstname, lastname, phoneNumber, address, bir
 
   return true;
 };
+export const validateGuestName = (guestName) => {
+  return guestName.trim().length > 1 && guestName.length <= 40;
+};
+export const validateDescription = (requestDescription) => {
+  return requestDescription.trim().length > 1 ;
+};
+
+
+
+
+
+export const formValidRequest = (guestName,phoneNumber,requestDescription) => { 
+    if(!validatePhoneNumber(phoneNumber)){
+      showAlert('Error','Phone number must be 10 digits and start with 0','error' );
+      return false;
+    }
+    if(!validateGuestName(guestName)){
+      showAlert('Error','Name must be between 2 and 40 character ','error')
+      return false;
+    }
+    if(!validateDescription(requestDescription) ){
+      showAlert('Error', 'Descpription must be at least 2 degit ','error' )
+      return false;
+    }
+    return true;
+}

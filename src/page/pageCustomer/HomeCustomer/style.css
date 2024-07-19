@@ -1,0 +1,18 @@
+.has-bg.left:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  background: #f8f0de; /* Background color */
+  transform: skew(-20deg); /* Skew transformation */
+  z-index: -1; /* Ensure it's behind the content */
+}
+
+.has-bg img {
+  position: relative; /* Ensure relative positioning for z-index */
+  z-index: 1; /* Ensure the image stays above the background */
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+}

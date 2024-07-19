@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Table, Button, Spinner } from "react-bootstrap";
+import { Container, Table, Button, Spinner, Form, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,8 +14,10 @@ import { API_BASE_URL } from "../../utils/constants/url";
 
 export const ValuationOrderDetail = () => {
   const [orderDetails, setOrderDetails] = useState([]);
+  const [filter, setFilter] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+  const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate();
 
   // Pagination
@@ -25,7 +27,7 @@ export const ValuationOrderDetail = () => {
   // Get current requests
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentOrderDetails = orderDetails.slice(indexOfFirstPost, indexOfLastPost);
+  const currentOrderDetails = filter.slice(indexOfFirstPost, indexOfLastPost);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -38,6 +40,7 @@ export const ValuationOrderDetail = () => {
         const data = await response.json();
         const sortedData = data.sort((a, b) => Date.parse(b.orderId.orderDate) - Date.parse(a.orderId.orderDate));
         setOrderDetails(sortedData);
+        setFilter(sortedData)
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -47,8 +50,18 @@ export const ValuationOrderDetail = () => {
     fetchData();
   }, [user.userId]);
 
+  // handleSearch
+  const handleSearch = ()=>{
+    const filtered = orderDetails.filter(
+      (sample)=> sample.orderDetailId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sample.serviceId.serviceType.toLowerCase().trim().replace(/\s+/g, ' ').includes(searchTerm.toLowerCase().trim().replace(/\s+/g, ' '))||
+      sample.status.toString().toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+    );
+    setFilter(filtered)
+    setCurrentPage(1)
+  }
+
   const handleCreateForm = (product) => {
-    // check update isDiamond and image
     if (product.img === null) {
       toast.error('Your sample must include image')
       return;
@@ -66,6 +79,25 @@ export const ValuationOrderDetail = () => {
       <div className="text-center my-4">
         <h1>Valuation's Staff Product</h1>
       </div>
+      <div style={{ width: "80%", margin: "0 auto" }}>
+            <Form className="mb-3">
+              <Row>
+                <Col>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search by Sample ID or Service type "
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </Col>
+                <Col xs="auto">
+                  <Button variant="primary" onClick={handleSearch}>
+                    Search
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </div>
       <Table>
         <thead>
           <tr className="text-center">
@@ -103,7 +135,7 @@ export const ValuationOrderDetail = () => {
                 </div>
               </td>
               <td>{product.serviceId.serviceType}</td>
-              <td style={{ backgroundColor: getColorTime(product.orderId.orderDate, product.receivedDate) }}>{formattedDateTime(product.receivedDate)}</td>
+              <td style={{backgroundColor: product.status ==='Finished' ? "none" : getColorTime(product.orderId.orderDate, product.receivedDate)}}>{formattedDateTime(product.receivedDate)}</td>
               <td>{product.size}</td>
               <td>
                 <div className="text-center">{product.isDiamond ? "Diamond" : "Not a diamond"}</div>
@@ -132,7 +164,7 @@ export const ValuationOrderDetail = () => {
       </Table>
       <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={orderDetails.length}
+        totalPosts={filter.length}
         paginate={paginate}
       />
     </Container>

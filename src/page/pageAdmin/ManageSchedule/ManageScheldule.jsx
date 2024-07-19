@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2';
 import formattedDateTime from '../../../utils/formattedDate/formattedDateTime';
 import './ManageSchedule.css';
-import { Pagination } from 'react-bootstrap';
+import { Badge, Dropdown, DropdownButton, Pagination } from 'react-bootstrap';
 import {Status} from '../../../component/Status.jsx'
 
 export const ManageSchedule = () => {
@@ -27,21 +27,18 @@ export const ManageSchedule = () => {
   };
 
   // Fetch evaluation staff IDs
-  useEffect(() => {
-    const fetchStaffIds = async () => {
-      try {
-        const response = await fetch('https://valuation.techtheworld.id.vn/user_request/getStaff');
-        const data = await response.json();
-        setEvaluationStaffIds(data);
-      } catch (error) {
-        console.error('Error fetching staff IDs:', error);
-      }
-    };
+  const fetchStaffIds = async () => {
+    try {
+      const response = await fetch('https://valuation.techtheworld.id.vn/user_request/countOrderDetailByEvaluationStaffId');
+      const data = await response.json();
+      setEvaluationStaffIds(data);
+    } catch (error) {
+      console.error('Error fetching staff IDs:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchStaffIds();
-  }, []);
-
-  useEffect(() => {
     fetchData();
   }, []);
 
@@ -84,6 +81,7 @@ export const ManageSchedule = () => {
         confirmButtonText: 'OK'
       }).then(() => {
         fetchData();
+        fetchStaffIds();
       });
     } catch (error) {
       console.error('Error updating evaluation ID:', error);
@@ -138,19 +136,25 @@ export const ManageSchedule = () => {
                 <td>{data.orderDetailId}</td>
                 <td>{formattedDateTime(data.orderId.orderDate)}</td>
                 <td>{data.serviceId.serviceType}</td>
-                <td><Status status={data.status} /></td>
                 <td>
-                  <Form.Select
-                    onChange={(e) => handleOnChangeValuationStaff(data.orderDetailId, e.target.value)}
-                    value={selectedEvaluationStaff[data.orderDetailId] || ''}
+                  
+                  <Status status={data.status === 'In_Progress' ? 'In-Progress' : data.status } /></td>
+                <td>
+                <DropdownButton
+                    title={selectedEvaluationStaff[data.orderDetailId] ? selectedEvaluationStaff[data.orderDetailId] : 'Select Staff'}
+                    onSelect={(value) => handleOnChangeValuationStaff(data.orderDetailId, value)}
+                 variant="outline-secondary"
+                    className="w-100 mx-3 "
+                    size="md"
                   >
-                    <option value="">Select Staff</option>
                     {evaluationStaffIds.map((staff) => (
-                      <option key={staff.userId} value={staff.userId}>
-                        {staff.firstName + " " + staff.lastName}
-                      </option>
+                      <Dropdown.Item eventKey={staff.userId} key={staff.userId} className='w-100'>
+                        <span className="select-option">
+                          {staff.userId} <Badge bg="warning">{staff.count}</Badge>
+                        </span>
+                      </Dropdown.Item>
                     ))}
-                  </Form.Select>
+                  </DropdownButton>
                 </td>
                 <td>
                   <Button onClick={() => handleSendClick(data.orderDetailId)} className='btn text-light'>

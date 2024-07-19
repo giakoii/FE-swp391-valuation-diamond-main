@@ -93,6 +93,12 @@ export const CertificateDetail = () => {
     if (!resultDefault.measurements) {
       errors.measurements = "Measurements are required";
     }
+    if(resultDefault.measurements.length <2){
+      errors.measurements = "Measurements length must be at least 2 characters"
+    }
+    if(resultDefault.measurements.length >50){
+      errors.measurements = "Measurements length must not exceed 20 characters"
+    }
 
     if (!resultDefault.description) {
       errors.description = "Description is required";
@@ -103,11 +109,14 @@ export const CertificateDetail = () => {
     if (!resultDefault.caratWeight) {
       errors.caratWeight = "Carat weight is required";
     }
-    if (Number.parseFloat(resultDefault.caratWeight) <= 0.3) {
-      errors.caratWeight = "Carat weight must greater than 0.3 carat";
+    // if (!/^\d+(\.\d+)?$/.test(resultDefault.caratWeight)) {
+    //   errors.caratWeight = "Carat weight must include only number";
+    // }
+    if (Number.parseFloat(resultDefault.caratWeight) < 2 || Number.parseFloat(resultDefault.caratWeight) > 50) {
+      errors.caratWeight = "Carat Weight must be between 2 and 50 carat";
     }
-    if (Number.parseFloat(resultDefault.caratWeight) >= 50) {
-      errors.caratWeight = "Carat weight must smaller than 50 carat";
+    if (isNaN(Number.parseFloat(resultDefault.caratWeight))) {
+      errors.caratWeight = "Carat weight must include only number";
     }
 
     if (!resultDefault.proportions) {
@@ -119,8 +128,8 @@ export const CertificateDetail = () => {
     if (!resultDefault.price) {
       errors.price = "Price is required";
     }
-    if (Number.parseFloat(resultDefault.price) <= 500) {
-      errors.price = "Price must have greater than 500 dollars ";
+    if (!/^\d+(\.\d+)?$/.test(resultDefault.price)) {
+      errors.price = "Price must include only number";
     }
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
@@ -146,11 +155,6 @@ export const CertificateDetail = () => {
     }
 
   };
-
-  // update image sample id
-
-
-
   // update result
   const updateResult = async () => {
     let imageUrl = resultDefault.img;
@@ -297,12 +301,7 @@ export const CertificateDetail = () => {
           }}
           style={{ cursor: "pointer" }}
         />
-        {/* <i className="bi bi-arrow-90deg-left"
-          onClick={() => {
-            navigate("/valuation-staff/certificate-list");
-          }}
-          style={{ cursor: "pointer" }}
-        ></i> */}
+
       </div>
       <ToastContainer />
       <h1 className="text-center my-3">Diamond Valuation Report</h1>

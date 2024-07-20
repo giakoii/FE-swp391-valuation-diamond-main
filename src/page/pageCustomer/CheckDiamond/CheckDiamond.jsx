@@ -9,7 +9,7 @@ import {
   Col,
 } from "react-bootstrap";
 import Swal from "sweetalert2";
-import diamondLogo from "/assets/assetsCustomer/diamond-check.png"; // Replace with the actual path to your image
+import diamondLogo from "/assets/assetsCustomer/mobile.jpg"; // Replace with the actual path to your image
 
 const CheckDiamond = () => {
   const [assess_id, setAssessId] = useState("");

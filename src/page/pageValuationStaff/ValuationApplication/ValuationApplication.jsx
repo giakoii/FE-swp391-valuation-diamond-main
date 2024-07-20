@@ -20,7 +20,6 @@ export const ValuationApplication = () => {
   const [orderDetail, setOrderDetail] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [errorCarat, setErrorCarat] = useState('')
-  const [errorPrice, setErrorPrice] = useState('')
 
   //GET VALUATION BY VALUATION ORDER DETAILS
   useEffect(() => {
@@ -39,31 +38,13 @@ export const ValuationApplication = () => {
     fetchData();
   }, []);
 
-  const { register: result,handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      diamondOrigin: "",
-      measurements: "",
-      proportions: "",
-      shapeCut: "",
-      caratWeight: "",
-      color: "",
-      clarity: "",
-      cut: "",
-      symmetry: "",
-      polish: "",
-      fluorescence: "",
-      description: "",
-      price: "",
-      orderDetailId: orderDetail.orderDetailId,
-      userId: orderDetail.evaluationStaffId,
-    }
-  });
+  const { register: result, handleSubmit, formState: { errors } } = useForm();
 
   // Data market price
   const [marketPrice, setMarketPrice] = useState({
     diamondOrigin: "",
     shape: "",
-    caratWeight: 0,
+    caratWeight:"",
     clarity: "",
     color: "",
     cut: "",
@@ -76,7 +57,6 @@ export const ValuationApplication = () => {
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setErrorCarat("");
-    setErrorPrice("")
     if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
         ...currentState,
@@ -86,18 +66,19 @@ export const ValuationApplication = () => {
     else {
       setMarketPrice((currentState) => ({ ...currentState, [name]: value }));
     }
-    
   };
   const viewMarketPrice = () => {
     const caratWeight = Number.parseFloat(marketPrice.caratWeight)
-
-    if (isNaN(caratWeight)) {
-     setErrorCarat ( "Carat weight must include only number");
-     return 
-    }
-    if ((caratWeight < 2 || caratWeight > 50)) {
+    if (!marketPrice.caratWeight) {
+      setErrorCarat("Carat Weight is required");
+      return;
+    } else if ((caratWeight < 2 || caratWeight > 50)) {
       setErrorCarat("Carat Weight must be between 2 and 50 carat")
       return;
+    }
+    else if (!/^\d+(\.\d{1,2})?$/.test(marketPrice.caratWeight)) {
+      setErrorCarat("Carat weight must be number and have 2 decimals");
+      return
     }
 
     const queryParams = new URLSearchParams(marketPrice).toString();
@@ -118,7 +99,6 @@ export const ValuationApplication = () => {
     fetchData();
   }
 
-  //Check if the evalution result ID by order ID exists
   const checkExistId = async (orderDetailId) => {
     try {
       const response = await fetch(
@@ -133,7 +113,7 @@ export const ValuationApplication = () => {
       }
       const data = JSON.parse(text);
       console.log(data);
-  
+
       if (data?.orderDetailId?.orderDetailId === orderDetailId) {
         return true;
       }
@@ -163,7 +143,7 @@ export const ValuationApplication = () => {
         },
         {
           label: "Cancel",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -189,7 +169,7 @@ export const ValuationApplication = () => {
           },
         }
       );
-  
+
       if (response.ok) {
         const res = await response.json();
         console.log(res)
@@ -285,8 +265,6 @@ export const ValuationApplication = () => {
                   {errors.diamondOrigin && <span className="text-danger">{errors.diamondOrigin.message}</span>}
                 </Col>
               </Row>
-
-
               {/* Measurements */}
               <Row className="mb-2 align-items-end justify-content-between">
                 <Col md={4}>
@@ -394,15 +372,18 @@ export const ValuationApplication = () => {
                     max={50}
                     step="0.01"
                     id="caratWeight"
-                    {...result("caratWeight", { required: "Carat Weight is required" })}
+                    {...result("caratWeight", {
+                      required: "Carat Weight is required",
+                    })}
                     style={{
                       border: "none",
                       borderBottom: "solid",
                       width: "100%",
                     }}
+                    
                     onChange={handleOnChange}
                   />
-                  {errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}
+                  <div>{errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}</div>
                   {errorCarat && <span className="text-danger">{errorCarat}</span>}
                 </Col>
               </Row>
@@ -587,7 +568,7 @@ export const ValuationApplication = () => {
                     id="proportions"
                     type="text"
                     {...result("proportions", { required: "Proportion is required" })}
-                  
+
                     style={{
                       border: "none",
                       borderBottom: "solid",
@@ -605,9 +586,9 @@ export const ValuationApplication = () => {
                 <Col md={5}>
                   <input
                     type="number"
-                    min={0}
                     id="price"
-                    {...result("price", { 
+
+                    {...result("price", {
                       required: "Price is required",
                     })}
                     style={{

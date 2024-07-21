@@ -16,13 +16,10 @@ export const CertificateDetail = () => {
   const [imgUpload, setImgUpload] = useState(null);
 
   const { evaluationResultId } = useParams()
-  // 
   const [priceMarket, setPriceMarket] = useState({})
   const [loading, setLoading] = useState(true);
   // default get from api
   const [resultDefault, setResultDefault] = useState({})
-  // console.log(resultEdit);
-  console.log('result default out side:', resultDefault)
 
   // validation
   const [validationErrors, setValidationErrors] = useState({

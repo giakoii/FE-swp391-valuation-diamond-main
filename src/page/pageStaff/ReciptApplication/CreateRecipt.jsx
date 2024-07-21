@@ -532,7 +532,7 @@ export const CreateReceipt = () => {
           </div>
           <div className="d-flex justify-content-end" style={{ width: "90%" }}>
             <Button className="btn btn-success me-4" type="submit">
-              Send
+              Accept
             </Button>
             <Button onClick={handleReviewMode}>Review</Button>
           </div>

@@ -77,7 +77,7 @@ export const ValuationApplication = () => {
   const validateForm = () => {
     const errors = {};
     if (!marketPrice.diamondOrigin) {
-      errors.diamondOrigin = "Clarity is required to calculate";
+      errors.diamondOrigin = "Diamond Origin is required to calculate";
     }
   
     if (!marketPrice.clarity) {

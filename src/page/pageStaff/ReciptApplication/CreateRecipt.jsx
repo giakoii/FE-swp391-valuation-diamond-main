@@ -92,7 +92,7 @@ export const CreateReceipt = () => {
       rowIndex === index ? { ...row, serviceId } : row
     );
     setRows(updatedRows);
-
+  
     if (serviceId) {
       updateDatesAndPrices(index, updatedRows);
       if (updatedRows[index].size) {
@@ -103,9 +103,14 @@ export const CreateReceipt = () => {
         updatedRows[index].unitPrice = unitPrice || 0;
         setRows([...updatedRows]);
       }
+    } else {
+      // Reset receivedDate and expiredReceivedDate if no service is selected
+      updatedRows[index].receivedDate = "";
+      updatedRows[index].expiredReceivedDate = "";
+      setRows([...updatedRows]);
     }
   };
-
+  
   const updateDatesAndPrices = (index, updatedRows) => {
     const selectedService = selection.find(
       (service) => service.serviceId === updatedRows[index].serviceId
@@ -154,17 +159,42 @@ export const CreateReceipt = () => {
   };
 
   const handleQuantityChange = (e) => {
-    const qty = parseInt(e.target.value) || 0;
-    setQuantity(e.target.value);
-    const newRows = Array.from({ length: qty }, () => ({
-      serviceId: "",
-      receivedDate: "",
-      expiredReceivedDate: "",
-      size: 0,
-      unitPrice: 0.0,
-    }));
-    setRows(newRows);
+    const value = e.target.value;
+  
+    // Regular expression to match only positive integers
+    const integerRegex = /^\d+$/;
+  
+    // Check if the value matches the integer regex or is empty
+    if (value === "" || integerRegex.test(value)) {
+      const qty = parseInt(value, 10);
+  
+      if (!isNaN(qty) && qty > 0 && !isNaN(qty) && qty <= 50 ) {
+        setQuantity(value);
+        const newRows = Array.from({ length: qty }, () => ({
+          serviceId: "",
+          receivedDate: "",
+          expiredReceivedDate: "",
+          size: 0,
+          unitPrice: 0.0,
+        }));
+        setRows(newRows);
+      } 
+     else {
+      // If the value does not match the integer regex, clear the input and rows
+      setQuantity("");
+      setRows([]);
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Quantity",
+        text: "Please enter a valid positive integer for quantity.",
+      });
+    }
+  }
+    
   };
+  
+  
+  
 
   const totalPrice = rows.reduce(
     (total, row) => total + parseFloat(row.unitPrice || 0),

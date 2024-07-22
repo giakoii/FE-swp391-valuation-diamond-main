@@ -52,7 +52,6 @@ import ServicePolicy from './page/pageCustomer/ServicePolicy/ServicePolicy.jsx';
 import { ManageService } from './page/pageAdmin/MangeService/ManageService.jsx';
 import { PersonalCertificate } from './page/pageCustomer/PersonalCertificate.jsx';
 
-
 function App() {
 
   return (
@@ -93,6 +92,7 @@ function App() {
           } />
           <Route path="my-certificate/:orderDetailId" element={<PersonalCertificate />} />
         </Route>
+        
         {/* ROLE:GUEST*/}
         <Route element={<CustomerApp />}>
           <Route

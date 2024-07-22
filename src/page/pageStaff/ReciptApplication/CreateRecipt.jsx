@@ -124,7 +124,7 @@ export const CreateReceipt = () => {
     if (match) {
       hoursToAdd = parseInt(match[1], 10);
     }
-
+      
     const receivedDateTime = new Date(
       orderDateTime.getTime() + hoursToAdd * 3600000
     );
@@ -296,23 +296,34 @@ export const CreateReceipt = () => {
 
   const handleReviewMode = () => {
     // Check if any size is less than or equal to 2
-    const errors = rows.map((row) =>
+    const sizeErrors = rows.map((row) =>
       row.size <= 2 ? "Size must be more than 2" : ""
     );
-    setSizeErrors(errors);
-
-    // Proceed to review mode only if all sizes are valid
-    if (!errors.some((error) => error)) {
+  
+    // Check if any service type is not selected
+    const serviceErrors = rows.map((row) =>
+      !row.serviceId ? "Service type must be selected" : ""
+    );
+  
+    // Check if quantity is provided
+    const quantityError = quantity <= 0 ? "Quantity must be a positive integer" : "";
+  
+    // Combine all errors into a single array
+    const allErrors = [...sizeErrors, ...serviceErrors, quantityError];
+  
+    // Proceed to review mode only if no errors
+    if (!allErrors.some((error) => error)) {
       setReviewMode(true);
     } else {
       // Display error using SweetAlert2
       Swal.fire({
         icon: "error",
-        title: "Size need more than 2",
-        text: "Please correct the size errors before proceeding.",
+        title: "Validation Error",
+        text: "Please correct all before proceeding.",
       });
     }
   };
+  
   const printStyles = `
   @media print {
     .print-container {

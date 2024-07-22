@@ -16,13 +16,10 @@ export const CertificateDetail = () => {
   const [imgUpload, setImgUpload] = useState(null);
 
   const { evaluationResultId } = useParams()
-  // 
   const [priceMarket, setPriceMarket] = useState({})
   const [loading, setLoading] = useState(true);
   // default get from api
   const [resultDefault, setResultDefault] = useState({})
-  // console.log(resultEdit);
-  console.log('result default out side:', resultDefault)
 
   // validation
   const [validationErrors, setValidationErrors] = useState({
@@ -93,10 +90,10 @@ export const CertificateDetail = () => {
     if (!resultDefault.measurements) {
       errors.measurements = "Measurements are required";
     }
-    if(resultDefault.measurements.length <2){
+    if (resultDefault.measurements.length < 2) {
       errors.measurements = "Measurements length must be at least 2 characters"
     }
-    if(resultDefault.measurements.length >50){
+    if (resultDefault.measurements.length > 20) {
       errors.measurements = "Measurements length must not exceed 20 characters"
     }
 
@@ -108,17 +105,14 @@ export const CertificateDetail = () => {
     }
     if (!resultDefault.caratWeight) {
       errors.caratWeight = "Carat weight is required";
+    }else{
+      if (!/^\d+(\.\d{1,2})?$/.test(resultDefault.caratWeight)) {
+        errors.caratWeight = "Carat weight must include only number and 2 decimal places";
+      }
+      else if (Number.parseFloat(resultDefault.caratWeight) < 2 || Number.parseFloat(resultDefault.caratWeight) > 50) {
+        errors.caratWeight = "Carat Weight must be between 2 and 50 carat";
+      }
     }
-    // if (!/^\d+(\.\d+)?$/.test(resultDefault.caratWeight)) {
-    //   errors.caratWeight = "Carat weight must include only number";
-    // }
-    if (Number.parseFloat(resultDefault.caratWeight) < 2 || Number.parseFloat(resultDefault.caratWeight) > 50) {
-      errors.caratWeight = "Carat Weight must be between 2 and 50 carat";
-    }
-    if (isNaN(Number.parseFloat(resultDefault.caratWeight))) {
-      errors.caratWeight = "Carat weight must include only number";
-    }
-
     if (!resultDefault.proportions) {
       errors.proportions = "Proportions is required";
     }
@@ -214,13 +208,7 @@ export const CertificateDetail = () => {
     const { name, value } = e.target;
     setResultDefault((currentState) => ({ ...currentState, [name]: value }));
     setValidationErrors((currentState) => ({ ...currentState, [name]: "" }));
-
-    if (name === "diamondOrigin") {
-      setMarketPrice((currentState) => ({
-        ...currentState,
-        diamondOrigin: 'Lab Grown' ? 'Lab' : 'Natural'
-      }));
-    } else if (name === "shapeCut") {
+    if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
         ...currentState,
         shape: value
@@ -228,6 +216,7 @@ export const CertificateDetail = () => {
     } else {
       setMarketPrice((currentState) => ({ ...currentState, [name]: value }));
     }
+    
   };
   const handleOnchangeImage = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -344,7 +333,7 @@ export const CertificateDetail = () => {
                 >
 
                   <option value="Natural">Natural</option>
-                  <option value="Lab Grown">Lab Grown</option>
+                  <option value="Lab">Lab Grown</option>
                 </Form.Control>
                 <Form.Control.Feedback type="invalid">
                   {validationErrors.diamondOrigin}
@@ -446,7 +435,9 @@ export const CertificateDetail = () => {
               <Col md={5}>
                 <Form.Control
                   type="number"
-                  min={0}
+                  min={2}
+                  max={50}
+                  step="0.01"
                   id="caratWeight"
                   name="caratWeight"
                   style={{
@@ -736,7 +727,7 @@ export const CertificateDetail = () => {
                 className="border border-dark w-75"
               />
             </div>
-            
+
             <div className="d-flex justify-content-center">
               <input type="file" name="" id="" onChange={handleOnchangeImage} accept=".jpg, .jpeg, .png" />
             </div>

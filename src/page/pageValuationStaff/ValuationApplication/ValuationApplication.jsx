@@ -19,8 +19,13 @@ export const ValuationApplication = () => {
   const [priceMarket, setPriceMarket] = useState({})
   const [orderDetail, setOrderDetail] = useState({})
   const [isLoading, setIsLoading] = useState(true)
-  const [errorCarat, setErrorCarat] = useState('')
-  const [errorPrice, setErrorPrice] = useState('')
+  const [validMarketPrice, setValidMarketPrice] = useState({
+    diamondOrigin:"",
+    clarity: "",
+    shape: "",
+    caratWeight: "",
+    color: "",
+  });
 
   //GET VALUATION BY VALUATION ORDER DETAILS
   useEffect(() => {
@@ -39,31 +44,13 @@ export const ValuationApplication = () => {
     fetchData();
   }, []);
 
-  const { register: result,handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      diamondOrigin: "",
-      measurements: "",
-      proportions: "",
-      shapeCut: "",
-      caratWeight: "",
-      color: "",
-      clarity: "",
-      cut: "",
-      symmetry: "",
-      polish: "",
-      fluorescence: "",
-      description: "",
-      price: "",
-      orderDetailId: orderDetail.orderDetailId,
-      userId: orderDetail.evaluationStaffId,
-    }
-  });
+  const { register: result, handleSubmit, formState: { errors } } = useForm();
 
   // Data market price
   const [marketPrice, setMarketPrice] = useState({
     diamondOrigin: "",
     shape: "",
-    caratWeight: 0,
+    caratWeight: "",
     clarity: "",
     color: "",
     cut: "",
@@ -75,8 +62,6 @@ export const ValuationApplication = () => {
   console.log(marketPrice)
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setErrorCarat("");
-    setErrorPrice("")
     if (name === "shapeCut") {
       setMarketPrice((currentState) => ({
         ...currentState,
@@ -86,39 +71,54 @@ export const ValuationApplication = () => {
     else {
       setMarketPrice((currentState) => ({ ...currentState, [name]: value }));
     }
-    
   };
-  const viewMarketPrice = () => {
-    const caratWeight = Number.parseFloat(marketPrice.caratWeight)
+  // validation calculate carat weight
 
-    if (isNaN(caratWeight)) {
-     setErrorCarat ( "Carat weight must include only number");
-     return 
+  const validateForm = () => {
+    const errors = {};
+    if (!marketPrice.diamondOrigin) {
+      errors.diamondOrigin = "Diamond Origin is required to calculate";
     }
-    if ((caratWeight < 2 || caratWeight > 50)) {
-      setErrorCarat("Carat Weight must be between 2 and 50 carat")
-      return;
+  
+    if (!marketPrice.clarity) {
+      errors.clarity = "Clarity is required to calculate";
     }
-
-    const queryParams = new URLSearchParams(marketPrice).toString();
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
-        );
-        const data = await response.json();
-        setPriceMarket(data);
-        console.log(data)
-      } catch (error) {
-        setError(error);
-      } finally {
-
+    if (!marketPrice.caratWeight) {
+      errors.caratWeight = "Carat weight is required to calculate";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(marketPrice.caratWeight)) {
+      errors.caratWeight = "Carat weight must include only number and 2 decimal places";
+    } else if (Number.parseFloat(marketPrice.caratWeight) < 2 || Number.parseFloat(marketPrice.caratWeight) > 50) {
+      errors.caratWeight = "Carat Weight must be between 2 and 50 carats";
+    }
+    if (!marketPrice.shape) {
+      errors.shape = "Shape cut is required to calculate";
+    }
+    if (!marketPrice.color) {
+      errors.color = "Color is required to calculate";
+    }
+  
+    setValidMarketPrice(errors);
+    return Object.keys(errors).length === 0;
+  };
+  
+  const viewMarketPrice = async () => {
+  if (validateForm()) {
+    try {
+      const queryParams = new URLSearchParams(marketPrice).toString();
+      const response = await fetch(
+        `${API_BASE_URL}/getDB2/calculate/price?${queryParams}`
+      );
+      if (!response.ok) {
+        throw new Error('Error fetching market price');
       }
-    };
-    fetchData();
+      const data = await response.json();
+      setPriceMarket(data);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching market price:', error);
+    }
   }
-
-  //Check if the evalution result ID by order ID exists
+};
   const checkExistId = async (orderDetailId) => {
     try {
       const response = await fetch(
@@ -133,7 +133,7 @@ export const ValuationApplication = () => {
       }
       const data = JSON.parse(text);
       console.log(data);
-  
+
       if (data?.orderDetailId?.orderDetailId === orderDetailId) {
         return true;
       }
@@ -163,7 +163,7 @@ export const ValuationApplication = () => {
         },
         {
           label: "Cancel",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -189,7 +189,7 @@ export const ValuationApplication = () => {
           },
         }
       );
-  
+
       if (response.ok) {
         const res = await response.json();
         console.log(res)
@@ -282,11 +282,12 @@ export const ValuationApplication = () => {
                     <option value="Natural">Natural</option>
                     <option value="Lab">Lab Grown</option>
                   </select>
+                  <div>
                   {errors.diamondOrigin && <span className="text-danger">{errors.diamondOrigin.message}</span>}
+                  </div>
+                  {!!validMarketPrice.diamondOrigin && <span className="text-danger">{validMarketPrice.diamondOrigin}</span>}
                 </Col>
               </Row>
-
-
               {/* Measurements */}
               <Row className="mb-2 align-items-end justify-content-between">
                 <Col md={4}>
@@ -342,7 +343,10 @@ export const ValuationApplication = () => {
                     <option value="Pear">Pear</option>
                     <option value="Princess">Princess</option>
                   </select>
+                  <div>
                   {errors.shapeCut && <span className="text-danger">{errors.shapeCut.message}</span>}
+                  </div>
+                  {!!validMarketPrice.shape && <span className="text-danger">{validMarketPrice.shape}</span>}
                 </Col>
               </Row>
 
@@ -394,16 +398,19 @@ export const ValuationApplication = () => {
                     max={50}
                     step="0.01"
                     id="caratWeight"
-                    {...result("caratWeight", { required: "Carat Weight is required" })}
+                    {...result("caratWeight", {
+                      required: "Carat Weight is required",
+                    })}
                     style={{
                       border: "none",
                       borderBottom: "solid",
                       width: "100%",
                     }}
+
                     onChange={handleOnChange}
                   />
-                  {errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}
-                  {errorCarat && <span className="text-danger">{errorCarat}</span>}
+                  <div>{errors.caratWeight && <span className="text-danger">{errors.caratWeight.message}</span>}</div>
+                  {!!validMarketPrice.caratWeight && <span className="text-danger">{validMarketPrice.caratWeight}</span>}
                 </Col>
               </Row>
 
@@ -432,7 +439,11 @@ export const ValuationApplication = () => {
                     <option value="J">J</option>
                     <option value="K">K</option>
                   </select>
+                  <div>
                   {errors.color && <span className="text-danger">{errors.color.message}</span>}
+                  </div>
+                  {!!validMarketPrice.color && <span className="text-danger">{validMarketPrice.color}</span>}
+
                 </Col>
               </Row>
 
@@ -461,7 +472,11 @@ export const ValuationApplication = () => {
                     <option value="IF">IF</option>
                     <option value="FL">FL</option>
                   </select>
+                  <div>
                   {errors.clarity && <span className="text-danger">{errors.clarity.message}</span>}
+                  </div>
+                
+                  {!!validMarketPrice.clarity && <span className="text-danger">{validMarketPrice.clarity}</span>}
                 </Col>
               </Row>
 
@@ -587,7 +602,7 @@ export const ValuationApplication = () => {
                     id="proportions"
                     type="text"
                     {...result("proportions", { required: "Proportion is required" })}
-                  
+
                     style={{
                       border: "none",
                       borderBottom: "solid",
@@ -605,9 +620,9 @@ export const ValuationApplication = () => {
                 <Col md={5}>
                   <input
                     type="number"
-                    min={0}
                     id="price"
-                    {...result("price", { 
+
+                    {...result("price", {
                       required: "Price is required",
                     })}
                     style={{

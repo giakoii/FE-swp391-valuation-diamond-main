@@ -133,6 +133,7 @@ const ServicePolicy = () => {
               help Experts detect other factors of Sample that was previously
               not detected by DIAMOND VALUATION.
             </div>
+           
             <div>
               <span style={{ fontWeight: "bold", marginRight: "10px" }}>
                 1.12
@@ -141,7 +142,7 @@ const ServicePolicy = () => {
               damages, including Customer's damages, arise from errors on the
               Inspection Paper and in the circulation of the Paper Inspection.
             </div>
-            <div style={{ marginBottom: "50px" }}>
+            <div>
               <span style={{ fontWeight: "bold", marginRight: "10px" }}>
                 1.13
               </span>
@@ -164,6 +165,12 @@ const ServicePolicy = () => {
               representatives and guests row. This old seal must be opened by
               the Customer himself. All risks, DIAMOND VALUATION will absolutely
               not accept future complaints in this case responsibility.
+            </div>
+            <div style={{ marginBottom: "50px" }}>
+              <span style={{ fontWeight: "bold", marginRight: "10px" }}>
+                1.14
+              </span>
+              When the order has been sealed and the customer wants to pick it up, the customer needs to pay a fine of 120,000 VND.
             </div>
             <h2 className="text-center" style={{ fontStyle: "italic" }}>
               2. CUSTOMER COMMITMENT

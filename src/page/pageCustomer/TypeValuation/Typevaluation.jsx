@@ -81,9 +81,9 @@ const Typevaluation = () => {
             <Table striped bordered hover style={{}}>
               <thead>
                 <tr>
-                  <th style={{ textAlign: "center" }}>No.</th>
-                  <th style={{ textAlign: "center" }}>SERVICE TYPE</th>
-                  <th style={{ textAlign: "center" }}>DESCRIPTION</th>
+                  <th style={{ textAlign: "center",backgroundColor:"#00F5FF" }}>No.</th>
+                  <th style={{ textAlign: "center", backgroundColor:"#00F5FF" }}>SERVICE TYPE</th>
+                  <th style={{ textAlign: "center",backgroundColor:"#00F5FF" }}>DESCRIPTION</th>
                 </tr>
               </thead>
               <tbody>
@@ -103,14 +103,14 @@ const Typevaluation = () => {
               {/* Apply custom class */}
             </div>
             <Table striped bordered hover style={{ marginTop: "20px" }}>
-              <thead>
+              <thead >
                 <tr style={{ textAlign: "center" }}>
-                  <th>Service Type</th>
-                  <th>Size From</th>
-                  <th>Size To</th>
-                  <th>Initial Price</th>
-                  <th>Price Unit</th>
-                  <th>Price List</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Service Type</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Size From</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Size To</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Initial Price</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Price Unit</th>
+                  <th style={{backgroundColor:"#00F5FF"}}>Price List</th>
                 </tr>
               </thead>
               <tbody>

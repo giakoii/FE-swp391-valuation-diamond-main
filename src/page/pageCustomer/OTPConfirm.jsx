@@ -62,7 +62,6 @@ export const OTPConfirm = ({ userId }) => {
     const handleBackToLogin = () => {
         navigate('/login');
     };
-
     return (
         <Container className="my-5">
             <Row className="justify-content-center">
@@ -100,7 +99,6 @@ export const OTPConfirm = ({ userId }) => {
                                     />
                                     <Form.Control.Feedback type='invalid'>{errorNewPassword}</Form.Control.Feedback>
                                 </Form.Group>
-
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 <Button type="submit" className="w-100" style={{ backgroundColor: '#CCFBF0' }}>
                                     Send

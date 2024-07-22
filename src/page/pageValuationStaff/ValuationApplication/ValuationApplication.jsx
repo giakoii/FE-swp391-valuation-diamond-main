@@ -621,7 +621,7 @@ export const ValuationApplication = () => {
                   <input
                     type="number"
                     id="price"
-
+                    min={1}
                     {...result("price", {
                       required: "Price is required",
                     })}

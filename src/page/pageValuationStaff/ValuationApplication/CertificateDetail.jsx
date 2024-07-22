@@ -90,17 +90,17 @@ export const CertificateDetail = () => {
     if (!resultDefault.measurements) {
       errors.measurements = "Measurements are required";
     }
-    if (resultDefault.measurements.length < 4) {
+    if ( resultDefault.measurements && resultDefault.measurements.length < 4) {
       errors.measurements = "Measurements length must be at least 4 characters"
     }
-    if (resultDefault.measurements.length > 20) {
+    if ( resultDefault.measurements && resultDefault.measurements.length > 20) {
       errors.measurements = "Measurements length must not exceed 20 characters"
     }
 
     if (!resultDefault.description) {
       errors.description = "Description is required";
     }
-    if (resultDefault.description.length > 100 || resultDefault.description.length < 4) {
+    if (resultDefault.description && (resultDefault.description.length > 100 || resultDefault.description.length < 4)) {
       errors.description = "Description must include 4 and 100 character";
     }
     if (!resultDefault.caratWeight) {
@@ -670,7 +670,7 @@ export const CertificateDetail = () => {
                   type="number"
                   id="price"
                   name="price"
-                  min={0}
+                  min={1}
                   value={resultDefault.price || ""}
                   style={{
                     border: "none",

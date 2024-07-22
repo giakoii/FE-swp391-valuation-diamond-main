@@ -109,8 +109,8 @@ export const CertificateDetail = () => {
       if (!/^\d+(\.\d{1,2})?$/.test(resultDefault.caratWeight)) {
         errors.caratWeight = "Carat weight must include only number and 2 decimal places";
       }
-      else if (Number.parseFloat(resultDefault.caratWeight) < 2 || Number.parseFloat(resultDefault.caratWeight) > 50) {
-        errors.caratWeight = "Carat Weight must be between 2 and 50 carat";
+      else if (Number.parseFloat(resultDefault.caratWeight) < 0 || Number.parseFloat(resultDefault.caratWeight) > 100) {
+        errors.caratWeight = "Carat Weight must be between 0 and 100 carat";
       }
     }
     if (!resultDefault.proportions) {

@@ -87,8 +87,8 @@ export const ValuationApplication = () => {
       errors.caratWeight = "Carat weight is required to calculate";
     } else if (!/^\d+(\.\d{1,2})?$/.test(marketPrice.caratWeight)) {
       errors.caratWeight = "Carat weight must include only number and 2 decimal places";
-    } else if (Number.parseFloat(marketPrice.caratWeight) < 2 || Number.parseFloat(marketPrice.caratWeight) > 50) {
-      errors.caratWeight = "Carat Weight must be between 2 and 50 carats";
+    } else if (Number.parseFloat(marketPrice.caratWeight) < 0 || Number.parseFloat(marketPrice.caratWeight) > 100) {
+      errors.caratWeight = "Carat Weight must be between 0 and 100 carats";
     }
     if (!marketPrice.shape) {
       errors.shape = "Shape cut is required to calculate";

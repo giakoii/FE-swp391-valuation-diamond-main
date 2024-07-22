@@ -25,5 +25,4 @@ function useFetchDataDetail(dataApi, id) {
 
     return { dataDetail, loading, error };
 }
-
 export default useFetchDataDetail;

@@ -12,7 +12,6 @@ const AuthContext = createContext({
     ...initialState,
     dispatch: ()=>null,
 })
-
 // Create Provider
 const AuthProvider = ({children})=>{
     const [state, dispatch] = useReducer(reducer,initialState);

@@ -7,7 +7,6 @@ export const AuthGuard = ({children}) => {
     if(!isAuthenticated){
         return <Navigate to='/login' />
     }
-    //Loading
     if(!isInitialized){
         return;
     }

@@ -90,8 +90,8 @@ export const CertificateDetail = () => {
     if (!resultDefault.measurements) {
       errors.measurements = "Measurements are required";
     }
-    if (resultDefault.measurements.length < 2) {
-      errors.measurements = "Measurements length must be at least 2 characters"
+    if (resultDefault.measurements.length < 4) {
+      errors.measurements = "Measurements length must be at least 4 characters"
     }
     if (resultDefault.measurements.length > 20) {
       errors.measurements = "Measurements length must not exceed 20 characters"
@@ -100,8 +100,8 @@ export const CertificateDetail = () => {
     if (!resultDefault.description) {
       errors.description = "Description is required";
     }
-    if (resultDefault.description.length > 100 || resultDefault.description.length < 5) {
-      errors.description = "Description must include 5 and 100 character";
+    if (resultDefault.description.length > 100 || resultDefault.description.length < 4) {
+      errors.description = "Description must include 4 and 100 character";
     }
     if (!resultDefault.caratWeight) {
       errors.caratWeight = "Carat weight is required";
@@ -109,8 +109,8 @@ export const CertificateDetail = () => {
       if (!/^\d+(\.\d{1,2})?$/.test(resultDefault.caratWeight)) {
         errors.caratWeight = "Carat weight must include only number and 2 decimal places";
       }
-      else if (Number.parseFloat(resultDefault.caratWeight) < 0 || Number.parseFloat(resultDefault.caratWeight) > 100) {
-        errors.caratWeight = "Carat Weight must be between 0 and 100 carat";
+      else if (Number.parseFloat(resultDefault.caratWeight) < 0.1 || Number.parseFloat(resultDefault.caratWeight) > 100) {
+        errors.caratWeight = "Carat Weight must be between 0.1 and 100 carat";
       }
     }
     if (!resultDefault.proportions) {

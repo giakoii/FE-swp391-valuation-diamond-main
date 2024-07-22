@@ -144,8 +144,8 @@
     const handleEditOnSubmit = async (e) => {
       e.preventDefault();
       if (!formEditCust) return;
-      const passwordHavedTrim = formEditCust.password.trim();
-      if (!validateEditForm(passwordHavedTrim, formEditCust.firstName, formEditCust.lastName, formEditCust.phoneNumber, formEditCust.address)) {
+    
+      if (!validateEditForm( formEditCust.firstName, formEditCust.lastName, formEditCust.phoneNumber, formEditCust.address)) {
         return;
       }
     
